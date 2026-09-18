@@ -20,20 +20,27 @@ data/site.json      Header, announcements, footer contacts, double-cast tracks
 data/calendar.json  Calendar sections and dates
 data/cast.json      Cast page intro, characters and the cast list
 data/links.json     Links & folders section on the Home page
+data/sheet-cache/   Published copy of the Sheet's tabs, written by the snapshot workflow
 data/boosters.json  Boosters page
 assets/css/site.css Styling (light and dark)
 assets/js/site.js   Reads the JSON files and draws the pages
 assets/img/         Show logo, placeholder club logo, page scenery (SVG)
-.github/workflows/  validate.yml checks the JSON files for typos
+apps-script/        Copy of the Sheet's Publish button script
+.github/workflows/  validate.yml checks the JSON; sheet-snapshot.yml publishes the Sheet
 .nojekyll           Tells GitHub Pages to serve the files as-is
 ```
 
 ## Differences from the Mesa site
 
-- **Content lives in the JSON files.** The Mesa site edits its calendar, announcements and
-  cast in a Google Sheet with a Publish button. That code is still in `site.js` but switched
-  off: list the published Sheet tab links under `"sheet"` in `data/site.json` (and copy the
-  Mesa site's `apps-script/` and `sheet-snapshot.yml` workflow) to turn it on.
+- **The Sheet is optional, tab by tab.** Like the Mesa site, the calendar, announcements and
+  cast can come from a Google Sheet with a Publish button: the **Publish the Google Sheet to
+  the website** workflow copies the published tabs into `data/sheet-cache/`, and the pages read
+  that copy. A tab with no rows yet leaves the matching JSON file in charge. The Sheet's tab
+  links sit in `"sheet"` in `data/site.json`; the Publish button's source is in
+  `apps-script/website-publish-button.gs` (editing that copy does not change the Sheet).
+- **The publish check runs hourly** while the repository is private, to stay inside GitHub's
+  free Actions minutes. Once it is public, switch the cron in `sheet-snapshot.yml` to every five
+  minutes and set `PUBLISH_DELAY` in the Sheet's script to match.
 - **The calendar is a flat list.** Each date is written once; the site works out the weekday
   and files it under its month.
 - **Double casting is optional.** Put two track names in `"tracks"` in `data/site.json` to get

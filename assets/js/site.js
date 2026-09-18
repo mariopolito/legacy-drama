@@ -226,7 +226,10 @@ async function contentFor(name, base, required, transform) {
   const text = await published;
   try {
     if (text instanceof Error) throw text;
-    return transform(sheetRows(text, required), saved);
+    const rows = sheetRows(text, required);
+    // A tab nobody has filled in yet leaves the site files in charge, quietly.
+    if (!rows.length) return saved;
+    return transform(rows, saved);
   } catch (err) {
     usedBackup = true;
     console.warn('Could not read the published ' + name + ' (' + err.message + '). Showing the site files.');

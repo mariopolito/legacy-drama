@@ -1,6 +1,28 @@
 # How to update the Legacy Drama Club website
 
-No coding needed. Every change is an edit to one of the files in the `data/` folder. On GitHub,
+No coding needed.
+
+## The Google Sheet: calendar, announcements and cast
+
+The dates, the Home page notices and the cast list can be edited in the
+**[Legacy Drama Club Website Content](https://docs.google.com/spreadsheets/d/1zJpFNF36j2_luFDQtrRyPWVqVspotSIDM69DICx7g4A/edit)**
+Sheet, one tab each. Row 2 of each tab has a short hint under each heading.
+
+- **Do not rename, move or delete the headings in row 1**, and leave row 2 alone.
+- **Blank rows are fine.** The website ignores them.
+- **A tab with nothing in it yet** leaves that part of the site showing the matching
+  `data/` file instead (see below). Once a tab has rows and is published, the Sheet wins.
+
+Nothing goes live until you publish. When your changes are ready, choose
+**Website → Publish changes to the website** in the Sheet and click **OK**. While the
+repository is private the site checks for a publish once an hour; to publish straight away,
+open the repository's **Actions** tab, pick **Publish the Google Sheet to the website** and
+click **Run workflow**. **Website → Check publishing status** works once the site is live on
+GitHub Pages.
+
+## The data files: everything else
+
+Every other change is an edit to one of the files in the `data/` folder. On GitHub,
 open the file, click the pencil icon, edit, and choose **Commit changes**. The site updates in a
 minute or two.
 

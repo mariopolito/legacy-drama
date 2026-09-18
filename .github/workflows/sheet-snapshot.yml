@@ -1,0 +1,51 @@
+name: Publish the Google Sheet to the website
+
+# The website shows data/sheet-cache/, not the Sheet itself. An editor clicks
+# Publish in the Sheet, which stamps the date and time into its Publish tab;
+# this job notices the new stamp and copies the tabs across. Run it by hand from
+# the Actions tab to publish straight away.
+#
+# Checks once an hour while the repository is private, to stay inside GitHub's
+# free Actions minutes. Once the repository is public (minutes are free), change
+# the cron line to "*/5 * * * *" to publish within about five minutes, and set
+# PUBLISH_DELAY in the Sheet's Apps Script to match.
+on:
+  schedule:
+    - cron: "7 * * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Publish now, even if nobody clicked Publish in the Sheet"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sheet-snapshot
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Copy the published tabs
+        env:
+          FORCE_PUBLISH: ${{ inputs.force }}
+        run: python3 .github/scripts/snapshot_sheet.py
+
+      - name: Commit any changes
+        run: |
+          if [ -n "$(git status --porcelain data/sheet-cache)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add data/sheet-cache
+            git commit -m "Publish the Google Sheet to the website"
+            git pull --rebase --autostash
+            git push
+          else
+            echo "Nothing to publish."
+          fi
