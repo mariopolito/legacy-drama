@@ -10,4 +10,5 @@ Everything the skeleton site is waiting on from Legacy. Tick an item off by dele
 - [ ] Links & Folders - every `#` link in `data/links.json`.
 - [ ] Boosters - organization name, membership form link, donation link, committee list.
 - [ ] Remove the "This website is a draft" announcement in `data/site.json` once the above is done.
-- [ ] Where the site will be hosted (GitHub account and repository name).
+- [ ] Where the site will be hosted for good. For now it is the private repository <https://github.com/mariopolito/legacy-drama>; GitHub Pages is not switched on yet.
+- [ ] Google Sheet - the [Legacy Drama Club Website Content](https://docs.google.com/spreadsheets/d/1zJpFNF36j2_luFDQtrRyPWVqVspotSIDM69DICx7g4A/edit) Sheet has empty Calendar, Announcements and Cast tabs with the column headings the site expects. It is not connected to the site yet: that needs the Publish button script, the snapshot workflow and the tab links in `sheet` in `data/site.json`, as on the Mesa site.
