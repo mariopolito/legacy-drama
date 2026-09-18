@@ -1,0 +1,109 @@
+{
+  "_comment": "Calendar. Each section has a heading, an intro and a list of events in any order; the site sorts them and files them under their months. An event needs a date (2026-10-07 or 10/7/2026) and a title. Optional: endDate for a run of days, performance: true for a show, track (a name from 'tracks' in site.json), blocks (time and what), notes (one line each; a line that is just a time like 2:00-3:30pm becomes a small heading), cast (All, None, blank for not posted yet, or names and roles separated by commas), titleUrl and titleUrlLabel for a link, and studyHall (time, volunteer, students, note). ALL DATES BELOW ARE PLACEHOLDERS.",
+  "calendars": [
+    {
+      "id": "club",
+      "heading": "Drama Club Calendar",
+      "intro": "Placeholder dates - to be confirmed by the club.",
+      "events": [
+        {
+          "date": "2026-10-07",
+          "title": "Parent meeting & audition workshop",
+          "blocks": [
+            { "time": "3:30-4:30pm", "what": "Audition workshop for students" },
+            { "time": "4:30-5:00pm", "what": "Parent meeting" }
+          ],
+          "notes": ["Location TBD"],
+          "cast": "All"
+        },
+        {
+          "date": "2026-10-14",
+          "title": "Auditions",
+          "titleUrl": "",
+          "titleUrlLabel": "Audition materials",
+          "blocks": [
+            { "time": "3:30-6:00pm", "what": "Auditions" }
+          ],
+          "notes": ["Bring a completed audition form", "Prepare the audition song cut"]
+        },
+        {
+          "date": "2026-10-15",
+          "title": "Callbacks",
+          "blocks": [
+            { "time": "3:30-6:00pm", "what": "Callbacks (by invitation)" }
+          ]
+        },
+        {
+          "date": "2026-10-21",
+          "title": "Cast list posted & first read-through",
+          "blocks": [
+            { "time": "3:30-5:30pm", "what": "Read-through" }
+          ],
+          "cast": "All"
+        },
+        {
+          "date": "2026-10-28",
+          "title": "Rehearsal: \"Under the Sea\"",
+          "blocks": [
+            { "time": "3:30-5:30pm", "what": "Music and choreography" }
+          ],
+          "cast": "Sebastian, Ariel, Sea Chorus, Merfolk"
+        },
+        {
+          "date": "2026-11-04",
+          "title": "Rehearsal: \"Poor Unfortunate Souls\"",
+          "blocks": [
+            { "time": "3:30-5:30pm", "what": "Music and blocking" }
+          ],
+          "cast": "Ursula, Ariel, Flotsam, Jetsam, Tentacles"
+        }
+      ]
+    },
+    {
+      "id": "shows",
+      "heading": "Tech week & performances",
+      "intro": "Placeholder dates - to be confirmed by the club.",
+      "events": [
+        {
+          "date": "2027-04-12",
+          "endDate": "2027-04-14",
+          "title": "Tech week",
+          "blocks": [
+            { "time": "3:30-7:00pm", "what": "Full run with lights and sound" }
+          ],
+          "cast": "All"
+        },
+        {
+          "date": "2027-04-15",
+          "performance": true,
+          "title": "The Little Mermaid JR.",
+          "blocks": [
+            { "time": "5:30pm", "what": "Cast call" },
+            { "time": "7:00pm", "what": "Curtain" }
+          ],
+          "cast": "All"
+        },
+        {
+          "date": "2027-04-16",
+          "performance": true,
+          "title": "The Little Mermaid JR.",
+          "blocks": [
+            { "time": "5:30pm", "what": "Cast call" },
+            { "time": "7:00pm", "what": "Curtain" }
+          ],
+          "cast": "All"
+        },
+        {
+          "date": "2027-04-17",
+          "performance": true,
+          "title": "The Little Mermaid JR. - matinee",
+          "blocks": [
+            { "time": "12:30pm", "what": "Cast call" },
+            { "time": "2:00pm", "what": "Curtain" }
+          ],
+          "cast": "All"
+        }
+      ]
+    }
+  ]
+}

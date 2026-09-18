@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- PLACEHOLDER club badge. Replace with Legacy's real Drama Club logo (a PNG with a transparent background works best). -->
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1b8a98"/>
+      <stop offset="1" stop-color="#0a2e3d"/>
+    </linearGradient>
+    <path id="arc" d="M30 100a70 70 0 0 1 140 0"/>
+  </defs>
+  <circle cx="100" cy="100" r="96" fill="url(#g)" stroke="#f4b82e" stroke-width="6"/>
+  <text font-family="Georgia, serif" font-size="21" font-weight="700" fill="#fff" letter-spacing="3">
+    <textPath href="#arc" startOffset="50%" text-anchor="middle">LEGACY DRAMA</textPath>
+  </text>
+  <!-- comedy mask -->
+  <path d="M58 92c0-8 16-12 30-10s24 10 22 20c-3 20-15 34-29 32s-23-20-23-42z" fill="#f4b82e"/>
+  <circle cx="72" cy="100" r="4" fill="#0a2e3d"/><circle cx="92" cy="103" r="4" fill="#0a2e3d"/>
+  <path d="M70 114q10 10 20 2" stroke="#0a2e3d" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <!-- tragedy mask -->
+  <path d="M142 92c0-8-16-12-30-10-3 .4-6 1.2-8 2 4 5 6 11 5 18-2 14-8 26-17 32 4 2 8 3 12 2 14-2 26-16 29-32 1-4 1-9 9-12z" fill="#fff"/>
+  <circle cx="115" cy="103" r="4" fill="#0a2e3d"/><circle cx="133" cy="100" r="4" fill="#0a2e3d"/>
+  <path d="M112 122q9-8 19-2" stroke="#0a2e3d" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <!-- starfish -->
+  <path d="M100 146l4 9 10 1-7 7 2 10-9-5-9 5 2-10-7-7 10-1z" fill="#f4b82e"/>
+</svg>

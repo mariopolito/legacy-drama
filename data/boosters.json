@@ -1,0 +1,36 @@
+{
+  "_comment": "The Join the Boosters page. Everything here is placeholder text. Leave a \"url\" empty and its button turns into a grey placeholder instead of a link.",
+  "heading": "Join Drama Boosters!",
+  "orgName": "Legacy Drama Boosters",
+  "lead": "Please join and/or donate to the Legacy Drama Boosters in support of the Legacy Drama Club. No meeting requirements for general membership!",
+  "buttons": [
+    {
+      "icon": "🤝",
+      "label": "Join the Boosters",
+      "note": "Membership form (coming soon)",
+      "url": ""
+    },
+    {
+      "icon": "💲",
+      "label": "Donate",
+      "note": "Donation link (coming soon)",
+      "url": ""
+    }
+  ],
+  "mission": "The Boosters support the Legacy Drama Club with the funds, organization and volunteers that turn student ambition into great stage performances.",
+  "committees": {
+    "heading": "Committees",
+    "intro": "Joining a committee is optional, but very much appreciated.",
+    "items": [
+      { "name": "Costumes & Makeup", "what": "Plans costumes and makeup - tails, tentacles, sailor suits and all." },
+      { "name": "Front of House", "what": "Tickets, concessions, ushering and programs on show nights." },
+      { "name": "Fundraising", "what": "Organizes fundraising efforts." },
+      { "name": "Marketing", "what": "Posters, social media and getting the word out." },
+      { "name": "Production", "what": "Sets and props - from King Triton's throne to Eric's ship." },
+      { "name": "Rehearsal Help", "what": "Helps the director at rehearsals as available." },
+      { "name": "Stage Crew", "what": "Moves sets and props backstage during performances." },
+      { "name": "Tech", "what": "Lights, sound and the rest of the technical side." }
+    ]
+  },
+  "closing": "Contact club-email@example.org with questions."
+}

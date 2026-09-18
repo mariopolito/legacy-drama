@@ -1,0 +1,61 @@
+{
+  "_comment": "Basic information shown on every page. Edit the text between the quotes only.",
+  "school": "Legacy Drama Club",
+  "clubName": "Drama Club",
+  "season": "2026-27 spring musical",
+  "showTitle": "The Little Mermaid JR.",
+  "tracks": [],
+  "_tracksComment": "Double casting? List the two track names here, for example [\"Coral\", \"Pearl\"], and use them in cast.json and calendar.json. Leave the list empty for a single cast.",
+  "studyHallSignupUrl": "",
+  "sheet": {},
+  "_sheetComment": "Optional. To edit the calendar, announcements and cast in a Google Sheet instead of these files, copy the publishing setup from the Mesa Academy site and list the published tab links here (calendar, announcements, cast, publish). Empty means the JSON files are the content.",
+  "contacts": [
+    {
+      "icon": "🏫",
+      "label": "School sponsor",
+      "name": "Sponsor name (TBD)",
+      "detail": "sponsor@example.org",
+      "url": "mailto:sponsor@example.org"
+    },
+    {
+      "icon": "🙏",
+      "label": "Want to help?",
+      "name": "Join the Boosters!",
+      "detail": "Membership, committees and donations",
+      "url": "boosters.html"
+    },
+    {
+      "icon": "❓",
+      "label": "Questions?",
+      "name": "club-email@example.org",
+      "detail": "Legacy Drama Boosters",
+      "url": "mailto:club-email@example.org"
+    }
+  ],
+  "announcements": {
+    "heading": "Announcements",
+    "upcomingHeading": "Coming up",
+    "upcomingCount": 3,
+    "upcomingEmpty": "Nothing else on the calendar right now.",
+    "items": [
+      {
+        "icon": "🧜‍♀️",
+        "title": "We're doing The Little Mermaid JR.!",
+        "detail": "Meet the characters before auditions.",
+        "url": "cast.html"
+      },
+      {
+        "icon": "🎤",
+        "title": "Auditions are coming",
+        "detail": "See the Calendar for audition and callback dates.",
+        "url": "calendar.html"
+      },
+      {
+        "icon": "🚧",
+        "title": "This website is a draft",
+        "detail": "Dates, names and links are placeholders until the club confirms them."
+      }
+    ]
+  },
+  "footerNote": "“Life is the bubbles, under the sea.”"
+}

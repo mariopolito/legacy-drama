@@ -1,0 +1,853 @@
+/* ==========================================================================
+   Legacy Drama Club - site styles (under the sea)
+   You normally do not need to edit this file. Content lives in /data/*.json
+   ========================================================================== */
+
+:root {
+  --sea-900: #0a2e3d;      /* the deep: nav, footer, table heads */
+  --sea-700: #0d5c6b;
+  --sea-500: #178e98;      /* the teal of the show logo */
+  --sea-300: #7fd3d0;
+  --gold: #f4b82e;         /* the starfish */
+  --gold-soft: #fff3d3;
+  --coral: #dd4f5f;        /* performances */
+  --coral-soft: #fde8ea;
+  --violet: #6c3f9e;       /* Ursula */
+  --violet-soft: #efe6f8;
+
+  --bg: #f2f8f8;
+  --bg-raised: #ffffff;
+  --bg-sunken: #e4eff0;
+  --ink: #0f2a33;
+  --ink-soft: #4b6570;
+  --line: #cde0e2;
+
+  --radius: 14px;
+  --shadow: 0 1px 2px rgba(10, 46, 61, .06), 0 8px 24px rgba(10, 46, 61, .07);
+  --wrap: 1020px;
+  --navh: 50px;   /* height of the sticky nav bar; sticky headers park below it */
+  --art-inset: 28px;        /* how far the scenery is held in from the content column */
+  --art-inset-wide: 60px;
+  --show-accent: #9fe6e1;  /* the show title in the slim header */
+  --font: "Lexend", ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #06171e;
+    --bg-raised: #0d2530;
+    --bg-sunken: #0a1d26;
+    --ink: #e6f4f5;
+    --ink-soft: #9bbac1;
+    --line: #1d3b47;
+    --coral-soft: #3b1a20;
+    --gold-soft: #3a2f12;
+    --violet-soft: #2a1f3b;
+    --sea-300: #86dcd8;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #06171e;
+  --bg-raised: #0d2530;
+  --bg-sunken: #0a1d26;
+  --ink: #e6f4f5;
+  --ink-soft: #9bbac1;
+  --line: #1d3b47;
+  --coral-soft: #3b1a20;
+  --gold-soft: #3a2f12;
+  --violet-soft: #2a1f3b;
+  --sea-300: #86dcd8;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--sea-700); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) a { color: var(--sea-300); }
+}
+:root[data-theme="dark"] a { color: var(--sea-300); }
+
+.wrap { width: 100%; max-width: var(--wrap); margin: 0 auto; padding: 0 20px; }
+
+/* ---------- Banner ---------- */
+.banner {
+  background: var(--gold);
+  color: #2a1d00;
+  text-align: center;
+  font-weight: 600;
+  font-size: .95rem;
+  padding: 10px 20px;
+}
+
+/* ---------- Header ---------- */
+.masthead {
+  background: linear-gradient(180deg, #1b8a98 0%, var(--sea-700) 45%, var(--sea-900) 100%);
+  color: #fff;
+  text-align: center;
+  padding: 24px 20px 16px;
+}
+.masthead a { color: #fff; }
+/* The home page's big header is the sunlit surface of the lagoon: the show logo
+   is drawn in teal for a light background and vanishes against the deep. */
+.masthead:not(.is-compact) {
+  background:
+    radial-gradient(ellipse 60% 55% at 50% 58%, rgba(255, 255, 255, .85), transparent 75%),
+    linear-gradient(180deg, #e8f9f8 0%, #bfeae7 60%, #8fd5d1 100%);
+  color: var(--sea-900);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .masthead:not(.is-compact) {
+    background:
+      radial-gradient(ellipse 60% 55% at 50% 58%, rgba(255, 255, 255, .7), transparent 75%),
+      linear-gradient(180deg, #cdeeed 0%, #a6dcd9 60%, #6fbfbd 100%);
+  }
+}
+:root[data-theme="dark"] .masthead:not(.is-compact) {
+  background:
+    radial-gradient(ellipse 60% 55% at 50% 58%, rgba(255, 255, 255, .7), transparent 75%),
+    linear-gradient(180deg, #cdeeed 0%, #a6dcd9 60%, #6fbfbd 100%);
+}
+.masthead .school {
+  font-size: clamp(1rem, 2.6vw, 1.3rem);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  margin: 14px 0 2px;
+  font-weight: 600;
+}
+.masthead .presents {
+  font-size: .85rem; letter-spacing: .2em; text-transform: uppercase;
+  opacity: .8; margin: 0 0 14px;
+}
+.masthead .season {
+  font-size: .85rem; letter-spacing: .18em; text-transform: uppercase;
+  opacity: .85; margin: 8px 0 0;
+}
+.masthead h1 {
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  margin: 0;
+  line-height: 1.15;
+}
+.logo-club { width: 120px; height: auto; }
+.logo-show { width: min(420px, 80%); height: auto; margin: 6px auto 0; display: block; }
+
+/* Every page but the home page wears a slim version of the header. */
+.masthead.is-compact { padding: 10px 20px; }
+.masthead.is-compact .brand {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  text-decoration: none; color: #fff;
+}
+.masthead.is-compact .logo-club { width: 44px; }
+.masthead.is-compact .brand-text { display: flex; flex-direction: column; line-height: 1.25; }
+.masthead.is-compact .school {
+  font-size: .74rem; letter-spacing: .14em; text-transform: uppercase;
+  opacity: .85; margin: 0; font-weight: 600;
+}
+.masthead.is-compact .show {
+  font-family: "Cinzel", Georgia, serif; font-weight: 700;
+  font-size: 1.1rem; letter-spacing: .02em;
+  color: var(--show-accent);
+}
+@media (max-width: 480px) {
+  .masthead.is-compact .school { font-size: .62rem; letter-spacing: .1em; }
+  .masthead.is-compact .show { font-size: 1.02rem; }
+}
+
+/* ---------- Nav ---------- */
+.nav {
+  background: var(--sea-900);
+  border-bottom: 3px solid var(--gold);
+  position: sticky; top: 0; z-index: 30;
+}
+.nav .wrap {
+  display: flex; gap: 2px; flex-wrap: nowrap; justify-content: center;
+  padding: 0 8px; overflow-x: auto; scrollbar-width: none;
+}
+.nav .wrap::-webkit-scrollbar { display: none; }
+.nav a {
+  color: #e9f2e5; text-decoration: none; white-space: nowrap;
+  padding: 12px 13px; font-size: .92rem; font-weight: 600;
+  border-bottom: 3px solid transparent; margin-bottom: -3px;
+}
+@media (max-width: 480px) {
+  .nav a { padding: 12px 9px; font-size: .84rem; }
+}
+@media (max-width: 760px) {
+  :root { --art-inset: 14px; --art-inset-wide: 24px; }
+}
+.nav a:hover { color: #fff; border-bottom-color: var(--sea-300); }
+.nav a[aria-current="page"] { color: #fff; border-bottom-color: var(--gold); }
+
+/* ---------- Contact strip ---------- */
+/* Contacts sit quietly in the footer on every page. */
+.contact-strip {
+  display: grid; gap: 10px 28px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin: 0 0 20px; padding-bottom: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, .14);
+  text-align: left;
+}
+.contact-card .label {
+  font-size: .68rem; letter-spacing: .14em; text-transform: uppercase;
+  opacity: .7; margin-bottom: 1px;
+}
+.contact-card .value { font-weight: 600; word-break: break-word; }
+.contact-card .detail { opacity: .7; font-size: .82rem; word-break: break-word; }
+
+/* ---------- Sections ---------- */
+section { margin: 40px 0; scroll-margin-top: 70px; }
+main > section:first-of-type, main > div:first-of-type > section:first-of-type { margin-top: 22px; }
+main > div:first-of-type > .jump-bar { margin-top: 18px; }
+h2 {
+  font-size: clamp(1.3rem, 3.4vw, 1.75rem);
+  margin: 0 0 6px;
+  padding-bottom: 8px;
+  border-bottom: 3px solid var(--gold);
+}
+h3 {
+  font-size: .78rem; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--ink-soft); margin: 26px 0 10px;
+}
+.section-intro { color: var(--ink-soft); margin: 10px 0 0; }
+p.lead { font-size: 1.05rem; }
+
+/* ---------- Announcements ---------- */
+.announce-grid {
+  display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  margin-top: 18px;
+}
+.announce {
+  background: var(--bg-raised); border: 1px solid var(--line);
+  border-left: 5px solid var(--sea-500);
+  border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow);
+}
+.announce .when {
+  font-size: .72rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--coral); font-weight: 700;
+}
+.announce .title { font-weight: 700; font-size: 1.05rem; margin-top: 2px; }
+.announce .detail { color: var(--ink-soft); font-size: .95rem; }
+.announce .detail strong { color: var(--ink); font-variant-numeric: tabular-nums; }
+.announce .more { display: inline-block; margin-top: 8px; font-size: .88rem; font-weight: 600; }
+.announce.is-show { border-left-color: var(--coral); }
+.announce.is-next { border-left-color: var(--gold); background: var(--gold-soft); }
+
+/* ---------- Links ---------- */
+.link-grid {
+  display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+.link-card {
+  display: block; text-decoration: none; color: inherit;
+  background: var(--bg-raised); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow);
+  transition: transform .12s ease, border-color .12s ease;
+}
+.link-card:hover { transform: translateY(-2px); border-color: var(--sea-500); }
+.link-card .title { font-weight: 700; }
+.link-card .title .arrow { color: var(--sea-500); }
+.link-card .note { color: var(--ink-soft); font-size: .9rem; margin-top: 2px; }
+
+/* ---------- Calendar ---------- */
+.jump-bar { margin: 20px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.cast-picker { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.cast-picker-label { font-weight: 600; font-size: .9rem; }
+.cast-picker select {
+  font: inherit; font-size: .92rem; color: var(--ink);
+  background: var(--bg-raised); border: 1px solid var(--line); border-radius: 999px;
+  padding: 8px 14px; min-width: 210px; max-width: 100%;
+}
+.cast-picker select:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+.jump {
+  font: inherit; font-size: .9rem; font-weight: 700; cursor: pointer;
+  background: var(--gold); color: #2a1d00;
+  border: 1px solid var(--gold); border-radius: 999px; padding: 9px 18px;
+}
+.jump:hover { filter: brightness(1.06); }
+.jump:focus-visible { outline: 3px solid var(--sea-500); outline-offset: 2px; }
+details.month { margin: 26px 0 0; }
+.month-label {
+  position: sticky; top: var(--navh); z-index: 5;
+  background: var(--bg); cursor: pointer; list-style: none;
+  display: flex; align-items: baseline; gap: 10px;
+  font-size: .8rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--ink-soft); font-weight: 700;
+  padding: 8px 0 6px; border-bottom: 2px solid var(--line);
+}
+.month-label::-webkit-details-marker { display: none; }
+.month-label::before {
+  content: "\25be"; font-size: 1rem; line-height: 1;
+  transition: transform .15s ease; color: var(--sea-500);
+}
+details.month:not([open]) > .month-label::before { transform: rotate(-90deg); }
+.month-label:hover { color: var(--ink); }
+.month-label:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+.month-count {
+  margin-left: auto; letter-spacing: .08em; font-weight: 600; text-transform: none;
+  font-size: .78rem; opacity: .8;
+}
+details.month.is-done > .month-label { opacity: .65; }
+.events { display: grid; gap: 10px; padding-top: 10px; }
+/* An explicit display on a details child would otherwise defeat the collapse. */
+details.month:not([open]) > .events { display: none; }
+
+.event {
+  /* Clears the sticky nav and the sticky month heading when jumped to. */
+  scroll-margin-top: calc(var(--navh) + 46px);
+  display: grid; grid-template-columns: 92px 1fr;
+  background: var(--bg-raised); border: 1px solid var(--line);
+  border-radius: var(--radius); overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.event .date {
+  background: var(--bg-sunken); padding: 12px 8px; text-align: center;
+  border-right: 1px solid var(--line);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.event .date .mon {
+  font-size: .7rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-soft); font-weight: 700;
+}
+.event .date .num { font-size: 1.6rem; font-weight: 700; line-height: 1.1; }
+.event .date .wd {
+  font-size: .7rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft);
+}
+.event .body { padding: 12px 16px; min-width: 0; }
+.event .head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; }
+.event .head .title { font-weight: 700; font-size: 1.05rem; }
+.event .event-link { font-size: .9rem; margin-top: 2px; }
+/* Extra lines from the Title cell: quieter than the title, and plainer than the
+   times and the bulleted notes below them. */
+.event .subtitle {
+  margin-top: 3px; font-size: .92rem; line-height: 1.35;
+  color: var(--ink-soft); font-style: italic;
+}
+.event .subtitle + .subtitle { margin-top: 1px; }
+
+.blocks {
+  display: grid; grid-template-columns: max-content 1fr; gap: 2px 14px;
+  margin-top: 8px;
+}
+.blocks .btime {
+  font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap;
+  color: var(--ink);
+}
+.blocks .bwhat { color: var(--ink-soft); }
+
+.notes { margin-top: 6px; font-size: .93rem; color: var(--ink-soft); }
+.notes ul { margin: 2px 0 0; padding-left: 20px; }
+.notes li + li { margin-top: 2px; }
+.notes-time {
+  margin-top: 8px; font-weight: 600; color: var(--ink);
+  font-size: .85rem; font-variant-numeric: tabular-nums;
+}
+.cast-needed { margin-top: 8px; font-size: .9rem; color: var(--ink-soft); }
+.cast-needed-label { margin-right: 8px; }
+/* Loading placeholders: grey bars in the shape of the cards, with a soft
+   shimmer, shown until the Google Sheet content arrives. */
+.sk-bar {
+  display: block; height: .8rem; max-width: 100%; margin: 8px 0 0; border-radius: 6px;
+  background: linear-gradient(90deg, var(--bg-sunken) 0%, var(--line) 50%, var(--bg-sunken) 100%);
+  background-size: 200% 100%; animation: sk-shimmer 1.4s ease-in-out infinite;
+}
+.sk-bar:first-child { margin-top: 0; }
+.sk-bar.sk-small { height: .6rem; }
+.sk-bar.sk-big { height: 1.5rem; margin: 6px auto; }
+.sk-bar.sk-title { height: 1.05rem; margin-top: 6px; }
+.sk-bar.sk-h2 { height: 1.6rem; margin: 26px 0 0; }
+.sk-bar.sk-h3 { height: 1.1rem; margin: 26px 0 0; }
+.sk-bar.sk-pill { height: 2.3rem; border-radius: 999px; margin: 0; }
+.sk-bar.sk-grow { flex: 1 1 240px; }
+.skeleton .event .date .sk-bar { margin-left: auto; margin-right: auto; }
+.skeleton .events .event { min-height: 96px; }
+.sk-rows { display: grid; gap: 8px; margin-top: 12px; }
+.sk-row {
+  display: flex; align-items: center; gap: 18px; padding: 14px 18px;
+  background: var(--bg-raised); border: 1px solid var(--line); border-radius: var(--radius);
+}
+.sk-row .sk-bar { margin: 0; }
+@keyframes sk-shimmer { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+@media (prefers-reduced-motion: reduce) { .sk-bar { animation: none; } }
+@media (max-width: 560px) {
+  .skeleton .event .date .sk-bar { margin: 0; }
+  .skeleton .event .date .sk-big { height: 1.1rem; }
+}
+
+.backup-note {
+  margin: 18px 0 0; padding: 10px 14px; border-radius: 10px;
+  background: var(--gold-soft); border: 1px solid var(--gold); color: var(--ink); font-size: .9rem;
+}
+.cast-names { display: inline; }
+/* Each name shows its role on hover, or on tap, since a tap focuses it. */
+.cast-name {
+  position: relative; display: inline-block; margin: 2px 4px 0 0;
+  padding: 1px 8px; border-radius: 999px; cursor: help;
+  background: var(--bg-sunken); border: 1px solid var(--line); color: var(--ink);
+  font-size: .84rem; line-height: 1.5;
+}
+.cast-name:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
+.cast-name[data-role]:hover::after,
+.cast-name[data-role]:focus::after {
+  content: attr(data-role);
+  position: absolute; left: 50%; bottom: calc(100% + 6px); transform: translateX(-50%);
+  z-index: 20; white-space: nowrap; pointer-events: none;
+  background: var(--sea-900); color: #fff; border-radius: 6px;
+  padding: 4px 9px; font-size: .78rem; font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .25);
+}
+/* The student picked in "Show rehearsals for": a brighter ring so they can spot themselves. */
+.cast-name.is-picked {
+  border-color: var(--sea-500); font-weight: 700;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--sea-500) 45%, transparent);
+}
+.cast-name.is-unmatched { cursor: default; border-style: dashed; color: var(--ink-soft); font-style: italic; }
+@media (max-width: 560px) {
+  /* Centred labels would run off the edge of a narrow screen; start them at the name instead. */
+  .cast-name[data-role]:hover::after,
+  .cast-name[data-role]:focus::after {
+    left: 0; transform: none; white-space: normal; width: max-content; max-width: 70vw;
+  }
+}
+/* Cards clip their contents for the rounded corners; let a name's role label
+   rise above the card edge instead of being cut off. */
+.event:has(.cast-name:hover), .event:has(.cast-name:focus) { overflow: visible; z-index: 3; }
+.cast-needed-label { font-weight: 600; color: var(--ink); }
+
+/* Picking a name on the calendar: say whether they are called, and fade the
+   rehearsals they can skip. */
+.call-note {
+  display: inline-block; margin-top: 6px;
+  font-size: .8rem; font-weight: 700; border-radius: 999px; padding: 3px 12px;
+}
+/* The display above would otherwise beat the browser's rule for hidden elements,
+   leaving the badge on screen after switching back to Everyone. */
+.call-note[hidden] { display: none; }
+.call-note.is-yes { background: var(--sea-500); color: #fff; }
+.call-note.is-no { background: var(--bg-sunken); color: var(--ink); border: 1px solid var(--line); }
+.call-note.is-study { background: var(--gold-soft); color: var(--ink); border: 1px solid var(--gold); }
+.call-note.is-unposted { background: transparent; color: var(--ink-soft); border: 1px dashed var(--line); }
+.event.is-not-called { opacity: .45; }
+.event.is-not-called .call-note { opacity: 1; }
+.event.is-called { border-color: var(--sea-500); }
+
+.study {
+  margin-top: 10px; padding-top: 8px;
+  border-top: 1px dashed var(--line);
+  font-size: .88rem; color: var(--ink-soft);
+  display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+}
+.study-label { font-weight: 600; }
+.study-name { color: var(--ink); }
+/* A date still waiting for a parent: say so in pink, with a sign-up button beside it. */
+.study-open { color: var(--coral); font-weight: 700; }
+.study-link {
+  text-decoration: none; font-weight: 700; font-size: .82rem;
+  background: var(--sea-500); color: #fff !important;
+  border-radius: 999px; padding: 3px 12px;
+}
+.study-link:hover { background: var(--sea-700); }
+.study-note { flex-basis: 100%; }
+
+.badge {
+  display: inline-block; background: var(--coral); color: #fff;
+  font-size: .66rem; letter-spacing: .12em; text-transform: uppercase;
+  border-radius: 999px; padding: 3px 10px; font-weight: 700;
+}
+.badge.next { background: var(--gold); color: #2a1d00; }
+
+.event.is-show { border-color: var(--coral); }
+.event.is-show .date { background: var(--coral-soft); border-right-color: var(--coral); }
+.event.is-past { opacity: .5; }
+.event.is-next { border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-soft), var(--shadow); }
+
+@media (max-width: 560px) {
+  .event { grid-template-columns: 1fr; }
+  .event .date {
+    flex-direction: row; gap: 8px; align-items: baseline; justify-content: flex-start;
+    text-align: left; padding: 8px 16px;
+    border-right: none; border-bottom: 1px solid var(--line);
+  }
+  .event .date .num { font-size: 1.15rem; }
+  .blocks { grid-template-columns: 1fr; gap: 0; }
+  .blocks .bwhat { margin-bottom: 6px; }
+
+}
+
+/* ---------- Checklist ---------- */
+.checklist { list-style: none; padding: 0; margin: 16px 0 0; }
+.checklist li {
+  background: var(--bg-raised); border: 1px solid var(--line);
+  border-left: 5px solid var(--gold);
+  border-radius: 10px; padding: 10px 14px; margin-bottom: 8px;
+  color: var(--ink-soft); font-size: .95rem;
+}
+
+/* ---------- Cast page ---------- */
+
+/* Wide screens: King Triton's trident stands to the right of the intro.
+   Phones: it goes behind the text as a watermark instead, since a tall
+   trident would push the reading column into a sliver. */
+.cast-head {
+  display: grid; grid-template-columns: 1fr auto; gap: 8px 28px;
+  align-items: start; margin-bottom: 8px;
+}
+.cast-intro { position: relative; min-width: 0; }
+.cast-intro p { position: relative; z-index: 1; }
+.cast-intro p:first-of-type { margin-top: 0; }
+
+.cast-banner {
+  width: 64px; align-self: center; color: var(--gold);
+  filter: drop-shadow(0 4px 10px rgba(10, 46, 61, .25));
+}
+.cast-banner svg { width: 100%; height: auto; display: block; }
+
+.cast-watermark { display: none; }
+.cast-watermark svg {
+  width: 100%; height: 100%; display: block;
+}
+
+@media (max-width: 760px) {
+  .cast-head { display: block; }
+  .cast-banner { display: none; }
+  .cast-watermark {
+    display: block; position: absolute; z-index: 0;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    height: 92%; width: auto; aspect-ratio: 120 / 300;
+    color: var(--ink); opacity: .12; pointer-events: none;
+  }
+}
+/* Meet the characters: one card per role. */
+.character-grid {
+  display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+.character {
+  background: var(--bg-raised); border: 1px solid var(--line);
+  border-top: 4px solid var(--sea-500);
+  border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow);
+}
+.character-head { display: flex; align-items: center; gap: 10px; }
+.character-icon {
+  flex: none; width: 38px; height: 38px; border-radius: 50%;
+  display: grid; place-items: center; font-size: 1.25rem;
+  background: var(--bg-sunken);
+}
+.character-name {
+  font-family: "Cinzel", Georgia, serif; font-weight: 700; font-size: 1.08rem;
+  line-height: 1.2; color: var(--sea-700);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .character-name { color: var(--sea-300); }
+}
+:root[data-theme="dark"] .character-name { color: var(--sea-300); }
+.character-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.tag {
+  font-size: .7rem; font-weight: 700; letter-spacing: .06em;
+  border-radius: 999px; padding: 2px 9px;
+  background: var(--gold-soft); color: var(--ink); border: 1px solid var(--gold);
+}
+.character-desc { margin: 8px 0 0; color: var(--ink-soft); font-size: .93rem; }
+.characters h3:first-of-type { margin-top: 18px; }
+.cast-intro h2 { margin-bottom: 14px; }
+section.cast-list .note-box { margin-top: 14px; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 10px 18px; margin: 18px 0 4px; }
+.legend-item { display: flex; align-items: center; gap: 8px; font-size: .85rem; color: var(--ink-soft); }
+
+.track {
+  display: inline-block; border-radius: 999px; padding: 2px 10px;
+  font-size: .72rem; font-weight: 700; letter-spacing: .06em; white-space: nowrap;
+  border: 1px solid transparent;
+}
+.track-t1 { background: var(--coral-soft); color: var(--coral); border-color: var(--coral); }
+.track-t2 { background: var(--violet-soft); color: var(--violet); border-color: var(--violet); }
+.track-both { background: var(--bg-sunken); color: var(--ink-soft); border-color: var(--line); }
+.track-tbd { background: var(--gold-soft); color: #8a6110; border-color: var(--gold); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .track-t1 { color: #f6a5ad; }
+  :root:not([data-theme="light"]) .track-t2 { color: #d4b6ef; }
+  :root:not([data-theme="light"]) .track-tbd { color: #e8c67e; }
+}
+
+.search-row { margin: 14px 0 10px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.search-row input {
+  flex: 1 1 240px; padding: 11px 14px; font: inherit;
+  border: 1px solid var(--line); border-radius: 999px;
+  background: var(--bg-raised); color: var(--ink);
+}
+.search-row .count { color: var(--ink-soft); font-size: .9rem; }
+.filter-note { color: var(--ink-soft); font-size: .9rem; margin: 0 0 12px; }
+.filters { display: flex; gap: 6px; flex-wrap: wrap; }
+.filter {
+  font: inherit; font-size: .85rem; font-weight: 600; cursor: pointer;
+  background: var(--bg-raised); color: var(--ink);
+  border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px;
+}
+.filter:hover { border-color: var(--sea-500); box-shadow: 0 0 0 3px var(--bg-sunken); }
+.filter.is-on { background: var(--sea-700); border-color: var(--sea-700); color: #fff; }
+
+/* Each track button wears its own colour: a ring on hover, filled once chosen. */
+.filter-t1:hover { border-color: var(--coral); box-shadow: 0 0 0 3px var(--coral-soft); }
+.filter-t1.is-on { background: var(--coral); border-color: var(--coral); color: #fff; }
+.filter-t2:hover { border-color: var(--violet); box-shadow: 0 0 0 3px var(--violet-soft); }
+.filter-t2.is-on { background: var(--violet); border-color: var(--violet); color: #fff; }
+
+/* No overflow here: a scroll container would trap the sticky header inside the
+   table instead of parking it under the navigation bar. */
+.table-scroll { border: 1px solid var(--line); border-radius: var(--radius); }
+/* Round off the table's own corners inside that border. overflow: clip trims the
+   square cell backgrounds without creating a scroll container. */
+@media (min-width: 761px) {
+  .table-scroll { overflow: clip; }
+}
+/* Fixed column widths, so searching or filtering does not re-measure the columns
+   and squeeze a role like "Storyteller 3" onto two lines. */
+table.cast {
+  width: 100%; border-collapse: separate; border-spacing: 0;
+  background: var(--bg-raised); table-layout: fixed;
+}
+table.cast th:nth-child(1) { width: 13rem; }
+table.cast th:nth-child(2) { width: 13rem; }
+table.cast th:nth-child(3) { width: 7.5rem; }
+table.cast.no-tracks th:nth-child(3) { width: auto; }
+table.cast th {
+  position: sticky; top: var(--navh); z-index: 10;
+  text-align: left; background: var(--sea-700); color: #fff;
+  font-size: .76rem; letter-spacing: .12em; text-transform: uppercase;
+  padding: 11px 14px; white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, .25);
+}
+table.cast th:first-child { border-top-left-radius: var(--radius); }
+table.cast th:last-child { border-top-right-radius: var(--radius); }
+table.cast td { padding: 10px 14px; vertical-align: top; }
+table.cast tbody.member > tr.first > td { border-top: 2px solid var(--line); }
+table.cast tbody.member > tr.more > td { border-top: 1px dashed var(--line); }
+table.cast td.actor {
+  font-weight: 700; white-space: nowrap;
+  border-right: 1px solid var(--line);
+}
+table.cast td.actor .actor-name { display: block; }
+table.cast td.actor .actor-count {
+  display: block; font-weight: 600; font-size: .72rem;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft);
+}
+table.cast td.role { font-weight: 700; color: var(--sea-700); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) table.cast td.role { color: var(--sea-300); }
+}
+:root[data-theme="dark"] table.cast td.role { color: var(--sea-300); }
+table.cast td.track-col { white-space: nowrap; }
+table.cast td.desc { color: var(--ink-soft); font-size: .93rem; }
+table.cast tbody.member:nth-of-type(even) > tr > td {
+  background: color-mix(in srgb, var(--bg-sunken) 55%, transparent);
+}
+/* Filtered-out people. The phone layout sets display on the group, which would
+   otherwise beat the browser's own rule for hidden elements. */
+table.cast tbody.member[hidden] { display: none; }
+
+/* On a phone the table becomes one card per person: name across the top, then a
+   line per role with its track pill, and the description underneath. Every cell
+   border from the desktop table has to be cancelled here, or its stub shows up
+   under an inline-block cell. */
+@media (max-width: 760px) {
+  .table-scroll { border: none; border-radius: 0; }
+  table.cast { background: transparent; }
+  table.cast, table.cast tbody, table.cast tr, table.cast td { display: block; width: 100%; }
+  table.cast thead { display: none; }
+
+  table.cast tbody.member {
+    background: var(--bg-raised);
+    border: 1px solid var(--line); border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 14px 16px 16px; margin-bottom: 12px;
+  }
+  table.cast tbody.member:nth-of-type(even) > tr > td,
+  table.cast tbody.member > tr > td { background: transparent; }
+
+  /* No borders on any cell; the dividers below live on the rows instead. */
+  table.cast tbody.member > tr > td,
+  table.cast tbody.member > tr.first > td,
+  table.cast tbody.member > tr.more > td {
+    border: 0; padding: 0;
+  }
+
+  table.cast tbody.member > tr.more {
+    margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line);
+  }
+
+  table.cast td.actor {
+    white-space: normal; font-size: 1.2rem; font-weight: 700; line-height: 1.3;
+    padding-bottom: 10px; margin-bottom: 12px;
+    border-bottom: 2px solid var(--line);
+  }
+  table.cast td.actor .actor-count { display: none; }
+
+  table.cast td.role {
+    display: inline; width: auto; font-size: .95rem; font-weight: 700;
+    letter-spacing: .02em;
+  }
+  /* A small marker so the role never reads as a continuation of the name. */
+  table.cast td.role::before {
+    content: ""; display: inline-block; vertical-align: middle;
+    width: 5px; height: 5px; border-radius: 50%;
+    background: currentColor; margin-right: 8px; opacity: .75;
+  }
+  table.cast td.track-col { display: inline; width: auto; margin-left: 8px; }
+  table.cast td.desc { margin-top: 6px; line-height: 1.5; }
+}
+
+.name-pills { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 12px 0 0; }
+.name-pills li {
+  background: var(--bg-raised); border: 1px solid var(--line);
+  border-radius: 999px; padding: 6px 14px; font-size: .92rem;
+}
+
+.note-box {
+  background: var(--bg-raised); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 16px 18px; margin-top: 16px;
+  color: var(--ink-soft);
+}
+.note-box p { margin: 0 0 8px; }
+.note-box p:last-child { margin-bottom: 0; }
+
+/* ---------- Boosters page ---------- */
+.cta-row { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin: 20px 0; }
+.cta {
+  display: block; text-decoration: none; text-align: center;
+  background: var(--sea-700); color: #fff !important;
+  border: 1px solid var(--sea-700); border-radius: var(--radius);
+  padding: 18px; box-shadow: var(--shadow);
+  transition: transform .12s ease;
+}
+.cta:hover { transform: translateY(-2px); background: var(--sea-500); }
+.cta-icon { display: block; font-size: 1.6rem; }
+.cta-label { display: block; font-weight: 700; font-size: 1.1rem; }
+.cta-note { display: block; font-size: .85rem; opacity: .85; }
+.cta.is-disabled {
+  background: var(--bg-sunken); color: var(--ink-soft) !important;
+  border: 1px dashed var(--line); box-shadow: none;
+}
+
+.committee-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); margin-top: 16px; }
+.committee {
+  background: var(--bg-raised); border: 1px solid var(--line);
+  border-left: 5px solid var(--sea-500);
+  border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow);
+}
+.committee .title { font-weight: 700; }
+.committee .note { color: var(--ink-soft); font-size: .92rem; margin-top: 2px; }
+.committee-link { font-size: .88rem; font-weight: 600; margin-top: 6px; }
+.closing-line { margin-top: 24px; font-weight: 600; }
+
+/* ---------- Page artwork ---------- */
+/* Each page carries a piece of scenery along its foot, sitting on the footer's
+   deep-sea edge. Cards above it are slightly see-through so it reads behind them.
+   Everything is held the same distance in from the window edge. */
+main.has-art { position: relative; }
+main.has-art > section, main.has-art > div { position: relative; z-index: 1; }
+main.has-art + footer.site { margin-top: 0; padding-top: 46px; }
+
+.page-art {
+  position: absolute; z-index: 0; bottom: 0; right: var(--art-inset);
+  height: auto; pointer-events: none; user-select: none;
+}
+
+/* Held back until the page has drawn, so the scenery does not flash near the
+   top of a still-empty page and then drop into place. */
+.page-art, .seafloor { opacity: 0; transition: opacity .35s ease; }
+body.art-ready .page-art, body.art-ready .seafloor { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .page-art, .seafloor { transition: none; }
+}
+
+/* Home: a coral reef across the foot of the page. */
+main.has-reef { padding-bottom: 150px; }
+.reef { right: auto; left: 50%; transform: translate(-50%, 4%); width: 100%; max-width: 960px; }
+
+/* Calendar and Shows: a clump of kelp, and a treasure chest. */
+main.has-kelp { padding-bottom: 40px; }
+.kelp { right: var(--art-inset-wide); width: 120px; max-width: 26%; }
+main.has-chest { padding-bottom: 40px; }
+.chest { right: var(--art-inset-wide); width: 170px; max-width: 34%; transform: translateY(3%); }
+
+@media (max-width: 760px) {
+  main.has-reef { padding-bottom: 90px; }
+  .kelp { width: 80px; }
+  .chest { width: 120px; }
+}
+
+/* Cast: the sea floor runs the width of the column, the same way the Mesa
+   site's castle wall does. A sibling of <main>, lifted back over its foot. */
+main.has-seafloor { padding-bottom: 120px; }
+.seafloor {
+  position: relative; z-index: -1;
+  width: 100%; max-width: var(--wrap); height: 120px;
+  margin: -120px auto 0;
+  pointer-events: none; user-select: none;
+  background: url("../img/seafloor.svg") repeat-x bottom left / auto 100%;
+}
+.seafloor + footer.site { margin-top: 0; padding-top: 20px; }
+@media (max-width: 760px) {
+  main.has-seafloor { padding-bottom: 80px; }
+  .seafloor { height: 80px; margin-top: -80px; }
+}
+
+/* Card surfaces are slightly see-through so the page artwork reads behind them. */
+.link-card, .event, .announce, .committee, .note-box, .name-pills li, .character {
+  background: color-mix(in srgb, var(--bg-raised) 72%, transparent);
+  backdrop-filter: blur(1.5px);
+}
+.link-card:hover { background: color-mix(in srgb, var(--bg-raised) 92%, transparent); }
+.event.is-next { background: color-mix(in srgb, var(--bg-raised) 88%, transparent); }
+
+/* ---------- Footer ---------- */
+footer.site {
+  margin-top: 56px; padding: 26px 0 36px;
+  background: var(--sea-900); color: #c9e3e6; text-align: center; font-size: .9rem;
+}
+footer.site .wrap { text-align: center; }
+#footer-note { font-style: italic; font-size: 1rem; opacity: .92; margin: 4px 0 0; }
+.footer-feedback { margin: 0 0 16px; }
+footer.site .footer-feedback a {
+  display: inline-block; text-decoration: none; font-weight: 600; font-size: .92rem;
+  color: #2a1d00; background: var(--gold); border-radius: 999px; padding: 8px 18px;
+}
+footer.site .footer-feedback a:hover { filter: brightness(1.07); }
+footer.site .footer-feedback a:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+footer.site a, footer.site .contact-card .value a { color: #fff; }
+footer.site a { color: #fff; }
+
+/* ---------- Utility ---------- */
+.loading, .error {
+  padding: 18px; border-radius: var(--radius); border: 1px dashed var(--line);
+  color: var(--ink-soft); text-align: center;
+}
+.error { border-color: var(--coral); color: var(--coral); }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+.skip { position: absolute; left: -9999px; }
+.skip:focus {
+  left: 8px; top: 8px; position: fixed; z-index: 99;
+  background: #fff; color: #000; padding: 10px 14px; border-radius: 8px;
+}
+
+@media print {
+  .seafloor, .page-art, .nav, .banner, .search-row, .legend, footer.site { display: none; }
+  body { background: #fff; }
+  .event, .link-card, .announce, table.cast, .committee { box-shadow: none; }
+  table.cast th { position: static; }
+  .month-label { position: static; }
+}

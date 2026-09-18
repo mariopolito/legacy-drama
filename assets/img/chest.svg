@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 150">
+  <!-- Shows page scenery: Ariel's treasure chest of human things. -->
+  <path d="M0 140c40-8 130-8 170 0v10H0z" fill="#e9d3a3"/>
+  <path d="M22 70h126v66H22z" fill="#8a5a2b"/>
+  <path d="M22 70c0-34 22-50 63-50s63 16 63 50z" fill="#a46a33"/>
+  <path d="M42 70c0-24 16-38 43-38" stroke="#f4b82e" stroke-width="6" fill="none"/>
+  <!-- treasure spilling over the rim -->
+  <circle cx="60" cy="68" r="8" fill="#f4b82e"/><circle cx="76" cy="64" r="8" fill="#ffd45e"/>
+  <circle cx="95" cy="66" r="8" fill="#f4b82e"/><circle cx="112" cy="69" r="7" fill="#ffd45e"/>
+  <!-- the dinglehopper -->
+  <path d="M124 70l20-42" stroke="#d9e2e6" stroke-width="4" stroke-linecap="round"/>
+  <path d="M140 30l4-14m2 16l7-12m-4 16l9-8" stroke="#d9e2e6" stroke-width="3" stroke-linecap="round"/>
+  <path d="M22 76h126v10H22zM22 118h126v10H22z" fill="#6d4520"/>
+  <path d="M34 70v66M136 70v66" stroke="#f4b82e" stroke-width="7"/>
+  <path d="M76 88h18v22H76z" fill="#f4b82e"/><circle cx="85" cy="97" r="3" fill="#6d4520"/>
+</svg>

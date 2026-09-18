@@ -1,0 +1,52 @@
+{
+  "_comment": "The 'Links & Folders' section on the Home page. Each group has a title and a list of links. The # links are placeholders: replace each with the real address.",
+  "heading": "Links & Folders",
+  "groups": [
+    {
+      "title": "Open to everyone",
+      "links": [
+        {
+          "icon": "📑",
+          "title": "Audition Materials",
+          "note": "Songs, sides and the audition form.",
+          "url": "#"
+        },
+        {
+          "icon": "🎭",
+          "title": "Cast & Crew Folder",
+          "note": "Student and guardian materials.",
+          "url": "#"
+        },
+        {
+          "icon": "🙏",
+          "title": "Join the Boosters",
+          "note": "Membership, committees and donations.",
+          "url": "boosters.html"
+        },
+        {
+          "icon": "💙",
+          "title": "Donate to the Drama Club",
+          "note": "Every dollar goes to the club.",
+          "url": "#"
+        }
+      ]
+    },
+    {
+      "title": "Boosters members only",
+      "links": [
+        {
+          "icon": "📁",
+          "title": "Production Folders",
+          "note": "",
+          "url": "#"
+        },
+        {
+          "icon": "📁",
+          "title": "Boosters Folders",
+          "note": "",
+          "url": "#"
+        }
+      ]
+    }
+  ]
+}

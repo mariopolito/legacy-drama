@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 200">
+  <!-- Home page scenery: a reef along the sea floor. -->
+  <g opacity=".55" fill="none" stroke="#7fd3d0" stroke-width="2">
+    <circle cx="160" cy="40" r="7"/><circle cx="172" cy="18" r="4"/><circle cx="150" cy="8" r="3"/>
+    <circle cx="700" cy="60" r="8"/><circle cx="712" cy="34" r="5"/><circle cx="696" cy="14" r="3"/>
+    <circle cx="470" cy="70" r="5"/><circle cx="480" cy="50" r="3"/>
+  </g>
+  <!-- kelp -->
+  <g fill="#2f9e7a">
+    <path d="M60 200c-10-40 18-60 4-100s14-60 6-90c14 30-6 56 8 96s-8 64 2 94z"/>
+    <path d="M90 200c-6-30 14-44 2-80s10-44 6-66c10 22-4 40 6 70s-8 50 0 76z" fill="#248a69"/>
+    <path d="M880 200c-10-36 16-54 4-92s12-52 6-80c12 26-4 50 8 86s-8 58 0 86z"/>
+    <path d="M910 200c-6-26 12-40 2-70s8-40 4-58c10 20-2 36 6 62s-6 44 0 66z" fill="#248a69"/>
+  </g>
+  <!-- coral fans -->
+  <g stroke="#dd4f5f" stroke-width="7" stroke-linecap="round" fill="none">
+    <path d="M200 200v-50m0 18l-24-30m24 12l22-34m-22 4v-30m-24 18l-10-22m56 4l14-18"/>
+  </g>
+  <g stroke="#f08a5d" stroke-width="6" stroke-linecap="round" fill="none">
+    <path d="M760 200v-40m0 14l-20-26m20 10l18-28m-18 2v-24m-20 16l-8-18m46 6l10-14"/>
+  </g>
+  <g stroke="#c255a8" stroke-width="5" stroke-linecap="round" fill="none">
+    <path d="M620 200v-30m0 10l-14-18m14 6l14-20"/>
+    <path d="M330 200v-26m0 8l-12-16m12 6l12-16"/>
+  </g>
+  <!-- sand -->
+  <path d="M0 176c80-14 160-12 240-2s150 10 240 0 170-14 250-4 150 10 230 2v28H0z" fill="#e9d3a3"/>
+  <path d="M0 188c90-8 200-6 300 0s220 6 320-2 220-8 340 0v14H0z" fill="#dcc28a"/>
+  <!-- shells and starfish -->
+  <path d="M420 184a18 14 0 0 1 36 0z" fill="#f7c6c9"/>
+  <path d="M438 184v-13m-8 13l3-11m13 11l-3-11" stroke="#dd8f96" stroke-width="2"/>
+  <path d="M560 168l5 11 12 1-9 8 3 12-11-6-11 6 3-12-9-8 12-1z" fill="#f4b82e"/>
+  <path d="M270 190a10 7 0 1 1 20 0z" fill="#fff" opacity=".85"/>
+  <path d="M820 186l4 8 9 1-7 6 2 9-8-5-8 5 2-9-7-6 9-1z" fill="#f4b82e"/>
+</svg>

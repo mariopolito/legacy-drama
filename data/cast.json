@@ -1,0 +1,165 @@
+{
+  "_comment": "The Cast page. 'characters' is the Meet the Characters list shown before and after casting. 'members' is the cast list: add one entry per student once it is posted, each with a list of 'parts'. While 'members' is empty the page shows 'notPosted' instead. A part's 'track' only matters if the show is double cast: use one of the names in 'tracks' in site.json, or Both, or TBD.",
+  "heading": "Cast",
+  "intro": [
+    "Under the sea and up on land, The Little Mermaid JR. is full of great roles for every kind of performer. Read about each character below before auditions.",
+    "Every student who auditions will be part of the show."
+  ],
+  "listHeading": "Cast list",
+  "notPosted": "The cast list will be posted here after callbacks. Check the Calendar for audition dates.",
+  "tracks": {
+    "Coral": "Coral Track - leads on the first weekend",
+    "Pearl": "Pearl Track - leads on the second weekend",
+    "Both": "Played on both weekends",
+    "TBD": "Track not settled yet"
+  },
+  "trackNotes": {
+    "All": "Everyone performs both weekends. Pick a track to hide the roles that belong to the other one.",
+    "Coral": "Showing the Coral Track. Roles played on both weekends are still listed.",
+    "Pearl": "Showing the Pearl Track. Roles played on both weekends are still listed."
+  },
+  "characters": {
+    "heading": "Meet the characters",
+    "intro": "Who's who in the sea, the sky and Prince Eric's palace.",
+    "groups": [
+      {
+        "title": "Leading roles",
+        "items": [
+          {
+            "icon": "🧜‍♀️",
+            "name": "Ariel",
+            "tags": ["Strong singer", "Solos"],
+            "description": "The heroine of our story, a little mermaid who longs to be human. A strong singer and dynamic performer. Ariel has some beautiful solos but must be able to convey meaning through gesture once she loses her voice."
+          },
+          {
+            "icon": "🤴",
+            "name": "Prince Eric",
+            "tags": ["Strong actor", "Small solos"],
+            "description": "The adventurous prince who captures Ariel's heart. A charming performer with a sensitive nature. Prince Eric has a few small solos, but strong acting matters most in this role."
+          },
+          {
+            "icon": "🦀",
+            "name": "Sebastian",
+            "tags": ["Singer", "Any gender"],
+            "description": "The meticulous and anxious crab who tries to keep Ariel safe while getting to lead some of the most memorable songs in the show! Sebastian can be played by a boy or girl."
+          },
+          {
+            "icon": "🐠",
+            "name": "Flounder",
+            "tags": ["Solo", "Any gender"],
+            "description": "Ariel's sincere and sensitive best friend, loyal to the end. This spunky fish has a show-stopping solo in \"She's in Love.\" Flounder can be cast with a girl or a boy with an unchanged voice."
+          },
+          {
+            "icon": "🔱",
+            "name": "King Triton",
+            "tags": ["Non-singing"],
+            "description": "Rules the sea and is a force to be reckoned with. This non-singer needs to command the stage as a strong leader but also show the tenderness of a parent. A mature performer who feels comfortable playing father to Ariel and the Mersisters."
+          },
+          {
+            "icon": "🐙",
+            "name": "Ursula",
+            "tags": ["Villain"],
+            "description": "The manipulative sea witch who tries to overthrow King Triton. She is cunning and devious and will stop at nothing to get what she wants."
+          },
+          {
+            "icon": "🐦",
+            "name": "Scuttle",
+            "tags": ["Comedy"],
+            "description": "The know-it-all seagull who serves as Ariel's expert on humans. Funny and off-beat. Look for good comedic timing and a willingness to have fun with Scuttle's eccentricities."
+          }
+        ]
+      },
+      {
+        "title": "Featured roles",
+        "items": [
+          {
+            "icon": "🐚",
+            "name": "The Mersisters",
+            "tags": ["Singers", "Dancers", "Six roles"],
+            "description": "Aquata, Andrina, Arista, Atina, Adella and Allana are Ariel's siblings, full of personality and sass. Great roles for talented singers and dancers who can create six distinctive characters."
+          },
+          {
+            "icon": "⚡",
+            "name": "Flotsam & Jetsam",
+            "tags": ["Two roles", "Any gender"],
+            "description": "Ursula's slippery spies. These electric eels are sinister and sneaky, underhanded and devious while still being heard on stage. Flotsam and Jetsam can be played by boys or girls."
+          },
+          {
+            "icon": "🎩",
+            "name": "Grimsby",
+            "description": "Prince Eric's prim and proper valet. Rigid in personality and constantly trying to guide Prince Eric towards the throne."
+          },
+          {
+            "icon": "👨‍🍳",
+            "name": "Chef Louis",
+            "tags": ["Comedy"],
+            "description": "The over-the-top head chef in the palace, always wild and frenetic. An excellent featured role for a comedic performer."
+          },
+          {
+            "icon": "🗝️",
+            "name": "Carlotta",
+            "tags": ["Non-singing"],
+            "description": "The headmistress in Prince Eric's palace and Ariel's greatest human ally. This non-singing role needs to be warm and maternal to make Ariel feel welcome."
+          },
+          {
+            "icon": "⚓",
+            "name": "The Pilot",
+            "description": "The head sailor on Prince Eric's ship."
+          },
+          {
+            "icon": "📯",
+            "name": "The Seahorse",
+            "description": "The court herald for King Triton."
+          }
+        ]
+      },
+      {
+        "title": "Ensembles",
+        "items": [
+          {
+            "icon": "🦑",
+            "name": "Tentacles",
+            "description": "Extensions of Ursula, perhaps the poor unfortunate souls who are now trapped in her lair."
+          },
+          {
+            "icon": "🪶",
+            "name": "Gulls",
+            "description": "Scuttle's flock of zany \"back-up singers\" who help explain human stuff to Ariel."
+          },
+          {
+            "icon": "🍳",
+            "name": "The Chefs",
+            "description": "Chef Louis's assistants."
+          },
+          {
+            "icon": "👑",
+            "name": "The Six Princesses",
+            "description": "They try everything they can to win the heart of Prince Eric. The six Princesses can double as the six Mersisters."
+          },
+          {
+            "icon": "⛵",
+            "name": "The Sailors",
+            "description": "The crew of Prince Eric's ship."
+          },
+          {
+            "icon": "🌊",
+            "name": "Sea Chorus",
+            "description": "Creates each world within the show. The Sea Chorus can double as Merfolk, Sea Creatures and Lagoon Animals."
+          },
+          {
+            "icon": "🐟",
+            "name": "Merfolk",
+            "description": "King Triton's Court. They can double as Sea Creatures."
+          },
+          {
+            "icon": "🐸",
+            "name": "Lagoon Animals",
+            "description": "They try to convince Prince Eric to kiss Ariel. This ensemble can double as the Sea Creatures."
+          }
+        ]
+      }
+    ]
+  },
+  "members": [],
+  "closing": []
+}

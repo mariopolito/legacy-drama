@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 300">
+  <!-- Calendar page scenery: a clump of kelp with a few bubbles. -->
+  <g fill="none" stroke="#7fd3d0" stroke-width="2" opacity=".6">
+    <circle cx="96" cy="40" r="6"/><circle cx="104" cy="16" r="4"/><circle cx="88" cy="4" r="2.5"/>
+  </g>
+  <path d="M36 300c-14-50 22-80 4-130s18-80 8-130c18 40-6 76 12 124s-10 84 0 136z" fill="#2f9e7a"/>
+  <path d="M66 300c-10-40 18-62 4-104s14-60 6-96c14 30-4 60 8 96s-10 66-2 104z" fill="#248a69"/>
+  <path d="M90 300c-8-30 12-48 2-80s10-44 4-70c12 22-2 44 6 70s-8 50 0 80z" fill="#39b08a"/>
+  <path d="M10 300c-4-24 10-38 0-60s6-34 2-50c10 18 0 32 6 52s-6 38 0 58z" fill="#248a69"/>
+  <path d="M0 290c40-8 80-8 120 0v10H0z" fill="#e9d3a3"/>
+</svg>
