@@ -7,8 +7,13 @@
   "tracks": [],
   "_tracksComment": "Double casting? List the two track names here, for example [\"Coral\", \"Pearl\"], and use them in cast.json and calendar.json. Leave the list empty for a single cast.",
   "studyHallSignupUrl": "",
-  "sheet": {},
-  "_sheetComment": "Optional. To edit the calendar, announcements and cast in a Google Sheet instead of these files, copy the publishing setup from the Mesa Academy site and list the published tab links here (calendar, announcements, cast, publish). Empty means the JSON files are the content.",
+  "sheet": {
+    "_comment": "Published tabs of the Legacy Drama Club Website Content Sheet (CSV links). The site reads the copies in data/sheet-cache/, which the publish workflow refreshes when the Publish tab's stamp changes. A tab with no rows yet leaves the matching data file in charge.",
+    "calendar": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRBxhJE96e0_Pg_knIGCZqx20plHLeFCXCwogoacSaKEbyv7_ZGJQu7-2KALouOzPD-ez3voX3EGm_G/pub?gid=1793370492&single=true&output=csv",
+    "announcements": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRBxhJE96e0_Pg_knIGCZqx20plHLeFCXCwogoacSaKEbyv7_ZGJQu7-2KALouOzPD-ez3voX3EGm_G/pub?gid=2013935151&single=true&output=csv",
+    "cast": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRBxhJE96e0_Pg_knIGCZqx20plHLeFCXCwogoacSaKEbyv7_ZGJQu7-2KALouOzPD-ez3voX3EGm_G/pub?gid=534323745&single=true&output=csv",
+    "publish": ""
+  },
   "contacts": [
     {
       "icon": "🏫",
