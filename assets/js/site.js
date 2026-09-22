@@ -1011,7 +1011,7 @@ function sceneList(apps, opts) {
     li.appendChild(head);
     if ((scene.songs || []).length) {
       const songs = el('ul', 'songs');
-      scene.songs.forEach(s => songs.appendChild(songLine(s)));
+      scene.songs.forEach(s => songs.appendChild(songLine(s, { embed: true })));
       li.appendChild(songs);
     }
     list.appendChild(li);
@@ -1117,6 +1117,9 @@ function renderCastTable(host, data, byRole) {
       sum.appendChild(el('span', 'scene-nums', apps.map(a => a.scene.n > 20 ? 'Bows' : a.scene.n).join(', ')));
       box.appendChild(sum);
       box.appendChild(sceneList(apps, { link: true }));
+      box.addEventListener('toggle', () => {
+        if (!box.open && openPlayer && box.contains(openPlayer.box)) closePlayer();
+      });
       cell.appendChild(box);
     } else {
       cell.textContent = 'No scenes listed yet';
@@ -1144,6 +1147,7 @@ function renderCastTable(host, data, byRole) {
     rows.forEach(r => {
       const hit = !q || (/^\d+$/.test(num) ? r.num === num : r.words.some(w => w.includes(q)));
       r.body.hidden = !hit;
+      if (!hit && openPlayer && r.body.contains(openPlayer.box)) closePlayer();
       if (hit) shown++;
     });
     // Hide a group heading when nobody under it matches.
