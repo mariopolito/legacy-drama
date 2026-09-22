@@ -998,7 +998,7 @@ function renderCastTable(host, data, byRole) {
   const controls = el('div', 'search-row');
   const input = el('input');
   input.type = 'search';
-  input.placeholder = 'Search by name, role or number…';
+  input.placeholder = 'Search by student, role or number…';
   input.setAttribute('aria-label', 'Search the cast list');
   controls.appendChild(input);
   const toggle = el('button', 'filter', 'Open every scene list');
@@ -1067,9 +1067,7 @@ function renderCastTable(host, data, byRole) {
     body.appendChild(tr);
     table.appendChild(body);
 
-    const search = [m.role, '#' + m.role, student, m.name, (m.also || []).join(' '),
-      apps.map(a => a.scene.name + ' ' + a.as.join(' ')).join(' ')].join(' ').toLowerCase();
-    return { body, search, group: body.previousElementSibling };
+    return { body, num: String(m.role), words: [student, m.name].map(w => w.toLowerCase()) };
   });
 
   const boxes = () => [...table.querySelectorAll('details.my-scenes-box')];
@@ -1079,11 +1077,14 @@ function renderCastTable(host, data, byRole) {
     toggle.textContent = open ? 'Close every scene list' : 'Open every scene list';
   });
 
+  // Matches the student's name or their role only, not the scenes and songs,
+  // which would pull in half the cast. A number, with or without #, is a role number.
   function apply() {
     const q = input.value.trim().toLowerCase();
+    const num = q.replace(/^#\s*/, '');
     let shown = 0;
     rows.forEach(r => {
-      const hit = !q || r.search.includes(q);
+      const hit = !q || (/^\d+$/.test(num) ? r.num === num : r.words.some(w => w.includes(q)));
       r.body.hidden = !hit;
       if (hit) shown++;
     });

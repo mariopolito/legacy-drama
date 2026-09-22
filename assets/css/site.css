@@ -951,8 +951,6 @@ table.scene-grid td.cell.on { background: var(--cos-bg); box-shadow: inset 0 0 0
 
 /* The scene page is a wide table, so it gets the window rather than the reading
    column the other pages use. */
-.wrap-wide { max-width: min(1760px, 100%); }
-.wrap-wide .scene-head p, .wrap-wide .track-sub { max-width: 80ch; }
 
 /* Phones get the scene list; a 33-column table only works on a big screen. */
 .scene-cards { display: none; }
@@ -1068,8 +1066,8 @@ ol.my-scenes > li { border-top: 1px dashed var(--line); padding-top: 8px; }
   table.cast tbody.roster-group th { display: block; padding: 14px 2px 6px; }
 }
 
-/* One student at a time here, so their card gets a comfortable reading width. */
-.student-out { grid-template-columns: minmax(0, 820px) !important; }
+/* One student at a time here, so their card takes the column. */
+.student-out { grid-template-columns: minmax(0, 1fr) !important; }
 .track-card h3 { text-transform: none; letter-spacing: 0; font-size: 1.3rem; }
 
 /* Six menu items: tighten them on a phone so they still fit. */
