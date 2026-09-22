@@ -927,13 +927,71 @@ function scenesByRole(sceneData) {
 
 const sceneLabel = sc => (sc.n > 20 ? '' : 'Scene ' + sc.n + ' · ') + sc.name;
 
-// A song with its two practice tracks, or a note that none is posted yet.
-function songLine(song) {
+// The video id in a YouTube address (youtu.be/ID, youtube.com/watch?v=ID,
+// /embed/ID or /shorts/ID), or null for anything else.
+function youtubeId(url) {
+  const m = String(url || '').match(
+    /(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/))([\w-]{11})/);
+  return m ? m[1] : null;
+}
+
+// Only one practice track plays at a time, anywhere on the page.
+let openPlayer = null;
+function closePlayer() {
+  if (!openPlayer) return;
+  openPlayer.box.remove();
+  openPlayer.button.classList.remove('is-playing');
+  openPlayer.button.setAttribute('aria-expanded', 'false');
+  openPlayer = null;
+}
+
+// Opens a YouTube practice track in a player under its song, or closes it if it
+// is already open. Ctrl- or Cmd-click still opens YouTube in a new tab.
+function playInline(a, li, url, label) {
+  const id = youtubeId(url);
+  if (!id) return;
+  a.setAttribute('aria-expanded', 'false');
+  a.addEventListener('click', e => {
+    if (e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return;
+    e.preventDefault();
+    const same = openPlayer && openPlayer.button === a;
+    closePlayer();
+    if (same) return;
+    const box = el('div', 'song-player');
+    const frame = el('iframe');
+    frame.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
+    frame.title = label;
+    frame.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    frame.allowFullscreen = true;
+    frame.referrerPolicy = 'strict-origin-when-cross-origin';
+    box.appendChild(frame);
+    const foot = el('div', 'song-player-foot');
+    foot.appendChild(link(url, 'Open on YouTube ↗', 'song-player-out'));
+    const close = el('button', 'song-player-close', 'Close ✕');
+    close.type = 'button';
+    close.addEventListener('click', () => { closePlayer(); a.focus(); });
+    foot.appendChild(close);
+    box.appendChild(foot);
+    li.appendChild(box);
+    a.classList.add('is-playing');
+    a.setAttribute('aria-expanded', 'true');
+    openPlayer = { box, button: a };
+  });
+}
+
+// A song with its two practice tracks, or a note that none is posted yet. With
+// embed, the tracks play on the page instead of sending the student to YouTube.
+function songLine(song, opts) {
   const li = el('li', 'song');
   li.appendChild(el('span', 'song-title', '🎵 ' + song.title));
   const links = el('span', 'song-links');
-  if (song.vocals) links.appendChild(link(song.vocals, 'With vocals', 'song-link'));
-  if (song.track) links.appendChild(link(song.track, 'Accompaniment', 'song-link is-track'));
+  [[song.vocals, 'With vocals', 'song-link'], [song.track, 'Accompaniment', 'song-link is-track']]
+    .forEach(([url, label, cls]) => {
+      if (!url) return;
+      const a = link(url, label, cls);
+      if (opts && opts.embed) playInline(a, li, url, song.title + ' - ' + label.toLowerCase());
+      links.appendChild(a);
+    });
   if (!song.vocals && !song.track) links.appendChild(el('span', 'song-none', 'Practice track coming'));
   li.appendChild(links);
   return li;
@@ -1140,6 +1198,7 @@ function renderScenes(sceneData, castData) {
     host.appendChild(panels[k]);
   });
   function show(key) {
+    closePlayer();
     buttons.forEach(x => x.classList.toggle('is-on', x.dataset.view === key));
     Object.entries(panels).forEach(([k, p]) => { p.hidden = k !== key; });
     try { localStorage.setItem('legacy-scenes-view', key); } catch (err) { /* private window */ }
@@ -1161,6 +1220,7 @@ function renderScenes(sceneData, castData) {
   panels.student.appendChild(out);
 
   function drawStudent(key) {
+    closePlayer();
     out.innerHTML = '';
     const m = members.find(x => String(x.role) === key);
     if (!m) {
@@ -1224,7 +1284,7 @@ function renderScenes(sceneData, castData) {
       d.appendChild(left);
       if ((s.songs || []).length) {
         const ul = el('ul', 'songs');
-        s.songs.forEach(x => ul.appendChild(songLine(x)));
+        s.songs.forEach(x => ul.appendChild(songLine(x, { embed: true })));
         d.appendChild(ul);
       }
       li.appendChild(d);
@@ -1334,7 +1394,7 @@ function renderScenes(sceneData, castData) {
     box.id = 'songs-' + s.n;
     box.appendChild(el('h4', null, sceneLabel(s)));
     const ul = el('ul', 'songs');
-    s.songs.forEach(x => ul.appendChild(songLine(x)));
+    s.songs.forEach(x => ul.appendChild(songLine(x, { embed: true })));
     box.appendChild(ul);
     songList.appendChild(box);
   });

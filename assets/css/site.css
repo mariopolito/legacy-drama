@@ -1028,6 +1028,24 @@ li.song { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; fo
 :root[data-theme="dark"] .track-card h3 { color: var(--sea-300); }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .track-card h3 { color: var(--sea-300); } }
 
+/* A practice track playing on the page, under its song. */
+.song-link.is-playing { box-shadow: 0 0 0 3px var(--gold); }
+.song-player {
+  flex-basis: 100%; width: 100%; max-width: 640px; margin: 6px 0 4px;
+  border-radius: 12px; overflow: hidden; background: #000; box-shadow: var(--shadow);
+}
+.song-player iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; }
+.song-player-foot {
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  padding: 6px 10px; background: var(--sea-900); font-size: .8rem;
+}
+.song-player-foot a { color: #fff !important; }
+.song-player-close {
+  font: inherit; font-weight: 700; color: #fff; background: none;
+  border: 1px solid rgba(255, 255, 255, .4); border-radius: 999px; padding: 2px 10px; cursor: pointer;
+}
+.song-player-close:hover { background: rgba(255, 255, 255, .12); }
+
 /* ---------- Legacy: the cast roster ---------- */
 table.cast.roster th:nth-child(1) { width: 3.6rem; }
 table.cast.roster th:nth-child(2) { width: 12rem; }
