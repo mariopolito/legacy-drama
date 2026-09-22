@@ -23,7 +23,7 @@ CACHE = ROOT / "data" / "sheet-cache"
 REQUIRED = {
     "calendar": ["Date", "Title"],
     "announcements": ["Title"],
-    "cast": ["Actor", "Role"],
+    "cast": ["Role #", "Student"],
 }
 STAMP_LABEL = "publish stamp"
 

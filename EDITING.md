@@ -2,16 +2,23 @@
 
 No coding needed.
 
-## The Google Sheet: calendar, announcements and cast
+## The Google Sheet: calendar, announcements and cast names
 
-The dates, the Home page notices and the cast list can be edited in the
+The dates, the Home page notices and the students' names can be edited in the
 **[Legacy Drama Club Website Content](https://docs.google.com/spreadsheets/d/1zJpFNF36j2_luFDQtrRyPWVqVspotSIDM69DICx7g4A/edit)**
 Sheet, one tab each. Row 2 of each tab has a short hint under each heading.
 
 - **Do not rename, move or delete the headings in row 1**, and leave row 2 alone.
 - **Blank rows are fine.** The website ignores them.
 - **A tab with nothing in it yet** leaves that part of the site showing the matching
-  `data/` file instead (see below). Once a tab has rows and is published, the Sheet wins.
+  `data/` file instead (see below). Once a tab has rows and is published, the Sheet wins, so a
+  tab needs *every* date or notice, not just new ones.
+
+| Tab | What it holds |
+| --- | --- |
+| Calendar | One row per date. **Cast needed** takes role numbers, the way the call schedule is written: `Role #s 1, 4, 11–16 (Ariel, Ursula, Mersisters)`, `ALL CAST`, or `NO CAST CALLED`. The words in brackets are for people to read; the numbers before them are what the site uses. **Study hall volunteer** is the rehearsal helper: a parent's name, or `Needed` for a Sign up button |
+| Announcements | One row per box at the top of the Home page |
+| Cast | Two columns: **Role #** and **Student**. One row per role number (1–35) with the student cast in it |
 
 Nothing goes live until you publish. When your changes are ready, choose
 **Website → Publish changes to the website** in the Sheet and click **OK**. While the
@@ -32,72 +39,56 @@ check on GitHub catches these too.
 
 | I want to change... | File |
 | --- | --- |
-| School name, season, show title, footer contacts, the motto | `data/site.json` |
+| School name, season, footer contacts, the motto, the rehearsal-helper sign-up link | `data/site.json` |
 | The notices at the top of the Home page | `announcements` in `data/site.json` |
 | Rehearsal and show dates | `data/calendar.json` |
-| The cast list, or the character descriptions | `data/cast.json` |
+| Role numbers, their roles, students' names, character descriptions | `data/cast.json` |
+| Scenes, who is in each one, songs and practice-track links | `data/scenes.json` |
 | The Links & Folders buttons on the Home page | `data/links.json` |
-| The Boosters page | `data/boosters.json` |
+| The Parent Volunteers page | `data/volunteers.json` |
 
-## Add a date to the calendar
+## Calendar dates
 
-Copy an existing event in `data/calendar.json`, including its curly brackets, paste it after
-another event (with a comma between them) and change it. Order does not matter.
+Each date in `data/calendar.json` looks like this. Order does not matter.
 
 ```json
 {
-  "date": "2026-11-11",
-  "title": "Rehearsal: \"Kiss the Girl\"",
-  "blocks": [
-    { "time": "3:30-5:30pm", "what": "Music and blocking" }
-  ],
-  "notes": ["Bring your script"],
-  "cast": "Eric, Ariel, Sebastian, Lagoon Animals"
+  "date": "2026-10-29",
+  "title": "Music #2",
+  "notes": ["Fathoms Below, Daughters of Triton, Human Stuff, She’s in Love"],
+  "cast": "Role #s 1–30 (All Leads, Mersisters, Louis, Carlotta, Pilot, Seahorse, Sailors, Creatures/Gulls)",
+  "helpers": { "volunteer": "Needed" }
 }
 ```
 
-- `date` - `2026-11-11` or `11/11/2026`.
-- `endDate` - optional, for something that runs several days, such as tech week.
-- `performance` - `true` makes it a show: it gets the coral Performance badge and appears on the
-  Shows page.
-- `cast` - `All`, `None`, blank for "not posted yet", or names and roles separated by commas.
-  Once the cast list is posted, families can pick their student's name at the top of the
-  calendar to see which rehearsals they are needed at.
-- `titleUrl` and `titleUrlLabel` - optional link under the title.
+- `blocks` - optional times, such as `[{ "time": "3:30-5:30pm", "what": "Rehearsal" }]`.
+- `performance` - `true` makes it a show on the Shows page.
+- `helpers` - `Needed` shows a Sign up button (to `helpSignupUrl` in `data/site.json`) until a
+  parent's name replaces it. Leave it out for no helper line.
 
-## Post the cast list
+Families pick a name or role number at the top of the calendar to see which rehearsals that
+student is called to.
 
-In `data/cast.json`, fill in `members`, one entry per student:
+## The cast list
+
+`members` in `data/cast.json` has one entry per role number, from the director's Role IDs list:
 
 ```json
-"members": [
-  {
-    "actor": "Jane Doe",
-    "parts": [
-      { "role": "Ariel", "description": "Our heroine" },
-      { "role": "Mersister Aquata", "description": "" }
-    ]
-  },
-  {
-    "actor": "Sam Lee",
-    "parts": [ { "role": "Sebastian", "description": "" } ]
-  }
-]
+{ "role": 5, "student": "", "name": "Sebastian", "group": "Leads", "also": [] }
 ```
 
-Use `"actor": "TBD"` for a role not cast yet. Change `notPosted` if you want different wording
-before the list goes up, and update the announcement on the Home page.
+Type the student's name into `student` once the cast list is final (or fill in the Sheet's Cast
+tab instead). `also` lists their ensemble tracks, such as `"Sailors (Scenes 1 & 7)"`.
 
-### Double casting
+## Scenes and songs
 
-If leads are double cast, put the two track names in `data/site.json`, for example
-`"tracks": ["Coral", "Pearl"]`, and give each part a `"track"`: `Coral`, `Pearl`, `Both` or
-`TBD`. The cast page then shows coloured track pills and filter buttons. The wording of the
-legend and filter notes is in `tracks` and `trackNotes` in `data/cast.json`. Calendar events can
-carry a `"track"` too.
+`data/scenes.json` lists every scene in running order. Each has its `characters`, with the role
+numbers who play them, and its `songs`, each with a `vocals` link (the practice track with
+singing) and a `track` link (accompaniment only). The Cast page and the Scenes page both work
+out who is in which scene from this file, so a change here shows up on both.
 
-## Change a character card
+To add a practice track that is missing, fill in `vocals` and `track` for that song. A song with
+neither shows "Practice track coming".
 
-Each card under `characters` in `data/cast.json` has an `icon` (any emoji), a `name`, optional
-`tags` (the small gold labels) and a `description`. Cards can be moved between the three groups
-or new groups added.
+If the director updates her Master Rehearsal & Call Schedule workbook, `tools/import_workbook.py`
+reads it again; see the note at the top of that file.

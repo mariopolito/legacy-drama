@@ -844,6 +844,241 @@ footer.site a { color: #fff; }
   background: #fff; color: #000; padding: 10px 14px; border-radius: 8px;
 }
 
+/* ---------- scenes page (from the Mesa site) ---------- */
+
+.scene-head h2 { margin: 0 0 4px; }
+.scene-tabs { margin: 14px 0 10px; }
+.scene-tracks { margin: 0 0 12px; }
+.scene-panel[hidden] { display: none; }
+
+/* grid: the scene names run up the columns so 30-odd of them fit across */
+.grid-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--bg-raised); }
+table.scene-grid { border-collapse: separate; border-spacing: 0; font-size: .85rem; width: 100%; }
+table.scene-grid th, table.scene-grid td { padding: 0; }
+table.scene-grid thead th { position: sticky; top: 0; z-index: 2; background: var(--bg-raised); border-bottom: 1px solid var(--line); vertical-align: bottom; }
+table.scene-grid th.corner {
+  left: 0; z-index: 3; text-align: left; padding: 10px 12px; white-space: nowrap;
+  font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft);
+}
+table.scene-grid th.scene-col { width: auto; min-width: 30px; font-weight: 500; }
+table.scene-grid th.scene-col span {
+  writing-mode: vertical-rl; transform: rotate(180deg); white-space: nowrap;
+  padding: 10px 7px; max-height: 160px; overflow: hidden; text-overflow: ellipsis;
+}
+table.scene-grid th.corner, table.scene-grid tbody th.who { width: 190px; }
+table.scene-grid tbody th.who {
+  position: sticky; left: 0; z-index: 1; background: var(--bg-raised); text-align: left;
+  border-right: 1px solid var(--line); padding: 3px 12px; white-space: nowrap; font-weight: 600;
+}
+table.scene-grid tbody th.who small { display: block; font-weight: 400; color: var(--ink-soft); font-size: .72rem; }
+.who-link { font: inherit; font-weight: 600; color: var(--sea-700); background: none; border: 0; padding: 0; cursor: pointer; text-align: left; }
+.who-link:hover { text-decoration: underline; }
+:root[data-theme="dark"] .who-link { color: var(--sea-300); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .who-link { color: var(--sea-300); } }
+table.scene-grid tr.group-row th {
+  position: sticky; left: 0; background: var(--bg-raised); text-align: left; font-family: inherit;
+  font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft);
+  padding: 14px 12px 4px;
+}
+table.scene-grid td.cell { border-bottom: 1px solid var(--bg-sunken); height: 26px; min-width: 30px; text-align: center; }
+.cell-num { font-size: .72rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+table.scene-grid td.cell.on { background: var(--cos-bg); box-shadow: inset 0 0 0 1px var(--cos-line); border-radius: 5px; }
+
+/* one colour per costume, in the order a student first wears it */
+.cos-1 { --cos-bg: var(--bg-sunken); --cos-line: var(--ink-soft); }
+.cos-2 { --cos-bg: #ffe2b8; --cos-line: #d98800; }
+.cos-3 { --cos-bg: #ffd0cc; --cos-line: #d63a30; }
+.cos-4 { --cos-bg: #d4f3c4; --cos-line: #3f9c22; }
+.cos-5 { --cos-bg: #d6e4ff; --cos-line: #3d6fd6; }
+.cos-6 { --cos-bg: #ecdcf7; --cos-line: #8a4fc0; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .cos-2 { --cos-bg: #4a3212; --cos-line: #ffae40; }
+  :root:not([data-theme="light"]) .cos-3 { --cos-bg: #4d1a17; --cos-line: #ff6b61; }
+  :root:not([data-theme="light"]) .cos-4 { --cos-bg: #1f4214; --cos-line: #6fe04a; }
+  :root:not([data-theme="light"]) .cos-5 { --cos-bg: #1b2c4d; --cos-line: #7fa6ff; }
+  :root:not([data-theme="light"]) .cos-6 { --cos-bg: #33204a; --cos-line: #c39af0; }
+}
+:root[data-theme="dark"] .cos-2 { --cos-bg: #4a3212; --cos-line: #ffae40; }
+:root[data-theme="dark"] .cos-3 { --cos-bg: #4d1a17; --cos-line: #ff6b61; }
+:root[data-theme="dark"] .cos-4 { --cos-bg: #1f4214; --cos-line: #6fe04a; }
+:root[data-theme="dark"] .cos-5 { --cos-bg: #1b2c4d; --cos-line: #7fa6ff; }
+:root[data-theme="dark"] .cos-6 { --cos-bg: #33204a; --cos-line: #c39af0; }
+
+.cos {
+  display: inline-block; background: var(--cos-bg); border: 1px solid var(--cos-line);
+  border-radius: 7px; padding: 1px 8px; font-size: .8rem; font-weight: 600; white-space: nowrap;
+}
+
+/* student view */
+.scene-picker {
+  flex: 1 1 240px; padding: 11px 14px; font: inherit; color: var(--ink);
+  border: 1px solid var(--line); border-radius: 999px; background: var(--bg-raised);
+}
+.student-out { display: grid; gap: 16px; }
+/* Both tracks side by side once there is room; stacked on a narrow screen. */
+@media (min-width: 900px) {
+  .student-out { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+}
+.track-card { background: var(--bg-raised); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow); }
+.track-card h3 { margin: 0; font-size: 1.25rem; }
+.track-sub { color: var(--ink-soft); font-size: .9rem; margin: 2px 0 12px; }
+.scene-run { list-style: none; margin: 0; padding: 0; display: grid; gap: 5px; }
+.scene-run > li { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 8px; align-items: start; }
+.scene-run > li > :only-child { grid-column: 1 / -1; }
+.run-num { color: var(--ink-soft); font-size: .85rem; text-align: right; padding-top: 7px; font-variant-numeric: tabular-nums; }
+.run-on {
+  border: 1px solid var(--cos-line, var(--line)); border-radius: 10px; padding: 7px 12px; display: flex;
+  flex-wrap: wrap; gap: 4px 12px; align-items: center; justify-content: space-between;
+  background: color-mix(in srgb, var(--cos-bg, transparent) 30%, var(--bg-raised));
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--cos-line, var(--line)) 22%, transparent);
+}
+.run-on strong { font-size: 1.02rem; }
+.run-on small { display: block; color: var(--ink-soft); }
+.run-change { background: var(--gold-soft); border-radius: 10px; padding: 6px 12px; font-size: .9rem; }
+.run-change.is-quick { background: var(--coral-soft); }
+.run-change.is-quick strong { color: var(--coral); }
+.run-off { border: 1px dashed var(--line); border-radius: 10px; }
+.run-off summary { cursor: pointer; padding: 6px 12px 6px 30px; position: relative; display: grid; gap: 1px; list-style: none; }
+.run-off summary::-webkit-details-marker { display: none; }
+.run-off summary::before { content: "▸"; position: absolute; left: 12px; top: 6px; color: var(--ink-soft); }
+.run-off[open] summary::before { content: "▾"; }
+.off-count { color: var(--ink-soft); font-size: .85rem; }
+.off-cue { font-size: .9rem; }
+.off-list { list-style: none; margin: 0; padding: 0 12px 8px 30px; display: grid; gap: 2px; font-size: .85rem; color: var(--ink-soft); }
+.off-list li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 6px; }
+.off-list li.is-cue { color: var(--ink); font-weight: 600; }
+.off-list .run-num { padding-top: 0; }
+
+/* The scene page is a wide table, so it gets the window rather than the reading
+   column the other pages use. */
+.wrap-wide { max-width: min(1760px, 100%); }
+.wrap-wide .scene-head p, .wrap-wide .track-sub { max-width: 80ch; }
+
+/* Phones get the scene list; a 33-column table only works on a big screen. */
+.scene-cards { display: none; }
+@media (max-width: 760px) {
+  .grid-scroll { display: none; }
+  .scene-cards { display: grid; gap: 8px; }
+  .student-out .track-card { padding: 14px; }
+}
+.scene-card { background: var(--bg-raised); border: 1px solid var(--line); border-radius: var(--radius); }
+.scene-card summary {
+  cursor: pointer; padding: 10px 14px; display: flex; gap: 10px; align-items: baseline; list-style: none;
+}
+.scene-card summary::-webkit-details-marker { display: none; }
+.scene-card .scene-no {
+  flex: none; min-width: 26px; text-align: center; font-variant-numeric: tabular-nums;
+  font-size: .8rem; font-weight: 700; color: var(--ink-soft);
+}
+.scene-card .scene-title small { display: block; color: var(--ink-soft); font-size: .82rem; font-weight: 400; }
+.scene-card[open] summary { border-bottom: 1px solid var(--line); }
+.scene-card-group {
+  margin: 10px 14px 0; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft);
+}
+.scene-card-list { list-style: none; margin: 6px 0 0; padding: 0 14px 4px; display: grid; gap: 6px; }
+.scene-card-list:last-child { padding-bottom: 12px; }
+.scene-card-list li { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: baseline; }
+.scene-card-list small { color: var(--ink-soft); }
+.scene-card .filter-note { padding: 0 14px 12px; margin: 6px 0 0; }
+
+/* A scene split over two columns keeps them together under one number. */
+table.scene-grid th.scene-col.part-more span { color: var(--ink-soft); }
+table.scene-grid th.scene-col:not(.part-more), table.scene-grid td.cell.part-start { border-left: 1px solid var(--line); }
+.run-cos { display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; }
+.run-part { display: inline-flex; gap: 5px; align-items: center; }
+.run-part small { color: var(--ink-soft); }
+
+
+/* ---------- Legacy: the grid, scene list and songs ---------- */
+
+/* Twenty-one scenes fit across, so the grid cells are simple dots. */
+.cell-dot { font-size: .7rem; color: var(--sea-700); }
+:root[data-theme="dark"] .cell-dot { color: var(--sea-300); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .cell-dot { color: var(--sea-300); } }
+table.scene-grid td.cell.on { background: color-mix(in srgb, var(--sea-500) 16%, var(--bg-raised)); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--sea-500) 45%, transparent); }
+table.scene-grid th.act-start, table.scene-grid td.act-start { border-left: 2px solid var(--gold); }
+.grid-note { margin-top: 10px; }
+
+/* The scene list sits under the grid on a big screen, and replaces it on a phone. */
+.scene-cards { display: grid; gap: 8px; margin-top: 18px; }
+.scene-card { scroll-margin-top: calc(var(--navh) + 12px); }
+.scene-card-list li { display: block; }
+.scene-card-list li strong { margin-right: 6px; }
+
+/* Songs, each with its two practice tracks. */
+ul.songs { list-style: none; margin: 6px 0 0; padding: 0; display: grid; gap: 4px; }
+li.song { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font-size: .9rem; }
+.song-title { font-weight: 600; }
+.song-links { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.song-link {
+  text-decoration: none; font-size: .78rem; font-weight: 700;
+  border-radius: 999px; padding: 2px 10px;
+  background: var(--sea-700); color: #fff !important;
+}
+.song-link:hover { background: var(--sea-500); }
+.song-link.is-track { background: var(--bg-sunken); color: var(--ink) !important; border: 1px solid var(--line); }
+.song-link.is-track:hover { border-color: var(--sea-500); }
+.song-none { font-size: .78rem; color: var(--ink-soft); font-style: italic; }
+.run-on ul.songs { flex-basis: 100%; }
+.song-scenes { display: grid; gap: 12px; margin-top: 12px; }
+.song-scene {
+  background: var(--bg-raised); border: 1px solid var(--line); border-left: 4px solid var(--sea-500);
+  border-radius: var(--radius); padding: 12px 16px; box-shadow: var(--shadow);
+}
+.song-scene h4 { margin: 0; font-size: .95rem; }
+.track-card h3 { color: var(--sea-700); }
+:root[data-theme="dark"] .track-card h3 { color: var(--sea-300); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .track-card h3 { color: var(--sea-300); } }
+
+/* ---------- Legacy: the cast roster ---------- */
+table.cast.roster th:nth-child(1) { width: 3.6rem; }
+table.cast.roster th:nth-child(2) { width: 12rem; }
+table.cast.roster th:nth-child(3) { width: 15rem; }
+table.cast.roster th:nth-child(4) { width: auto; }
+table.cast.roster td.num { font-weight: 700; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+table.cast.roster td.actor { white-space: normal; }
+table.cast td.actor a.actor-name {
+  color: inherit; text-decoration: underline dotted;
+  text-decoration-color: var(--ink-soft); text-underline-offset: 3px;
+}
+table.cast td.actor a.actor-name:hover { color: var(--sea-700); text-decoration: underline; }
+table.cast td.actor a.actor-name.is-tbc { color: var(--ink-soft); font-weight: 600; font-style: italic; }
+table.cast .role-name { display: block; }
+table.cast .role-also { display: block; font-weight: 400; font-size: .8rem; color: var(--ink-soft); margin-top: 2px; }
+table.cast tbody.roster-group th {
+  text-align: left; padding: 16px 14px 6px; font-size: .74rem; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--ink-soft); background: var(--bg);
+}
+table.cast tbody.roster-group[hidden] { display: none; }
+.my-scenes-box summary { cursor: pointer; color: var(--ink); }
+.my-scenes-box summary .scene-nums { display: block; font-size: .8rem; color: var(--ink-soft); }
+ol.my-scenes { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 10px; }
+ol.my-scenes > li { border-top: 1px dashed var(--line); padding-top: 8px; }
+.my-scene-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; }
+.my-scene-name { font-weight: 700; color: var(--ink); }
+.my-scene-head small { color: var(--ink-soft); }
+
+@media (max-width: 760px) {
+  table.cast.roster td.num { display: inline; width: auto; margin-right: 8px; }
+  table.cast.roster td.actor { display: inline; width: auto; font-size: 1.15rem; border-bottom: 0; margin: 0; padding: 0; }
+  table.cast.roster td.role { display: block; margin: 10px 0 0; padding-top: 10px; border-top: 2px solid var(--line); }
+  table.cast.roster td.role::before { display: none; }
+  table.cast.roster td.scenes-cell { margin-top: 10px; }
+  table.cast tbody.roster-group { display: block; }
+  table.cast tbody.roster-group th { display: block; padding: 14px 2px 6px; }
+}
+
+/* One student at a time here, so their card gets a comfortable reading width. */
+.student-out { grid-template-columns: minmax(0, 820px) !important; }
+.track-card h3 { text-transform: none; letter-spacing: 0; font-size: 1.3rem; }
+
+/* Six menu items: tighten them on a phone so they still fit. */
+.nav .wrap { justify-content: safe center; }
+@media (max-width: 480px) {
+  .nav .wrap { gap: 0; padding: 0 4px; }
+  .nav a { padding: 12px 6px; font-size: .8rem; }
+}
+
 @media print {
   .seafloor, .page-art, .nav, .banner, .search-row, .legend, footer.site { display: none; }
   body { background: #fff; }

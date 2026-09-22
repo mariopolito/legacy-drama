@@ -12,20 +12,23 @@ and they draw their content from the JSON files in `data/` when they load.
 
 ```
 index.html          Home: announcements, coming up, links & folders
-calendar.html       Calendar, with the "Show rehearsals for" name picker once a cast is posted
+calendar.html       Rehearsal & call schedule, with a picker for which rehearsals a student is called to
 performances.html   Shows: built from the calendar's performance dates
-cast.html           Cast list (after casting) and Meet the Characters
-boosters.html       Join the Boosters: membership, donation, committees
-data/site.json      Header, announcements, footer contacts, double-cast tracks
+cast.html           All 35 roles, who plays them, and their scenes with practice-track links
+scenes.html         Scene by scene: Student view, Grid view and every song
+volunteers.html     Parent Volunteers: ways to help, sign-up and the musical fund
+data/site.json      Header, announcements, footer contacts, rehearsal-helper sign-up
 data/calendar.json  Calendar sections and dates
-data/cast.json      Cast page intro, characters and the cast list
+data/cast.json      Role numbers, their roles and students, and Meet the Characters
+data/scenes.json    Every scene: characters by role number, songs and practice tracks
 data/links.json     Links & folders section on the Home page
+data/volunteers.json Parent Volunteers page
 data/sheet-cache/   Published copy of the Sheet's tabs, written by the snapshot workflow
-data/boosters.json  Boosters page
 assets/css/site.css Styling (light and dark)
 assets/js/site.js   Reads the JSON files and draws the pages
 assets/img/         Show logo, placeholder club logo, page scenery (SVG)
 apps-script/        Copy of the Sheet's Publish button script
+tools/              import_workbook.py reads the director's Master Rehearsal & Call Schedule
 .github/workflows/  validate.yml checks the JSON; sheet-snapshot.yml publishes the Sheet
 .nojekyll           Tells GitHub Pages to serve the files as-is
 ```
@@ -43,11 +46,17 @@ apps-script/        Copy of the Sheet's Publish button script
   minutes and set `PUBLISH_DELAY` in the Sheet's script to match.
 - **The calendar is a flat list.** Each date is written once; the site works out the weekday
   and files it under its month.
-- **Double casting is optional.** Put two track names in `"tracks"` in `data/site.json` to get
-  the coloured track pills and filters. With an empty list the cast table has no Track column.
-- **Meet the Characters.** The cast page shows a card for every role in `data/cast.json`, so
-  families can read up before auditions. The cast table appears above it once `members` is
-  filled in.
+- **Everyone is a role number.** The director numbers the 35 roles (Role IDs), and the call
+  schedule, the cast list and the scenes all use those numbers, so the site works before casting
+  and just gains names after it. The Sheet's Cast tab only holds Role # and Student.
+- **Scenes come from one file.** `data/scenes.json` lists the characters in each scene by role
+  number, and the Cast and Scenes pages both work out each student's scenes from it. The Scenes
+  page follows the Mesa one (Student view and Grid view) without costumes for now, plus a Songs
+  view with every practice track.
+- **Parent Volunteers** replaces the Mesa site's Boosters page.
+- The calendar, cast and scenes came from the director's *Master Rehearsal & Call Schedule*
+  workbook via `tools/import_workbook.py`. Where its Role IDs and Scenes tabs disagree, the site
+  counts both; see STILL-TO-BE-CONFIRMED.md.
 
 ## Hosting
 

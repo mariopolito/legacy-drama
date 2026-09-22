@@ -1,107 +1,413 @@
 {
-  "_comment": "Calendar. Each section has a heading, an intro and a list of events in any order; the site sorts them and files them under their months. An event needs a date (2026-10-07 or 10/7/2026) and a title. Optional: endDate for a run of days, performance: true for a show, track (a name from 'tracks' in site.json), blocks (time and what), notes (one line each; a line that is just a time like 2:00-3:30pm becomes a small heading), cast (All, None, blank for not posted yet, or names and roles separated by commas), titleUrl and titleUrlLabel for a link, and studyHall (time, volunteer, students, note). ALL DATES BELOW ARE PLACEHOLDERS.",
+  "_comment": "Calendar, from the director's Master Rehearsal & Call Schedule. Each section has a heading, an intro and a list of events in any order; the site sorts them and files them under their months. An event needs a date and a title. Optional: endDate, performance: true for a show, blocks (time and what), notes (one line each), cast (who is called: role numbers like 'Role #s 1, 4, 11-16', or ALL CAST, or None; blank for not posted yet), helpers (volunteer: a parent's name, or Needed for the sign-up link), titleUrl and titleUrlLabel.",
   "calendars": [
     {
-      "id": "club",
-      "heading": "Drama Club Calendar",
-      "intro": "Placeholder dates - to be confirmed by the club.",
+      "id": "rehearsals",
+      "heading": "Rehearsal & Call Schedule",
+      "intro": "Pick a name or role number above to see which rehearsals each student is called to. Rehearsal times to be confirmed.",
       "events": [
         {
-          "date": "2026-10-07",
-          "title": "Parent meeting & audition workshop",
-          "blocks": [
-            { "time": "3:30-4:30pm", "what": "Audition workshop for students" },
-            { "time": "4:30-5:00pm", "what": "Parent meeting" }
+          "date": "2026-10-22",
+          "title": "First Rehearsal",
+          "notes": [
+            "Contract, Read-Through"
           ],
-          "notes": ["Location TBD"],
-          "cast": "All"
+          "cast": "ALL CAST (Role #s 1–35)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
         },
         {
-          "date": "2026-10-14",
-          "title": "Auditions",
-          "titleUrl": "",
-          "titleUrlLabel": "Audition materials",
-          "blocks": [
-            { "time": "3:30-6:00pm", "what": "Auditions" }
+          "date": "2026-10-27",
+          "title": "Music #1",
+          "notes": [
+            "Under the Sea, Kiss the Girl, Finale, Bows"
           ],
-          "notes": ["Bring a completed audition form", "Prepare the audition song cut"]
+          "cast": "ALL CAST (Role #s 1–35)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
         },
         {
-          "date": "2026-10-15",
-          "title": "Callbacks",
-          "blocks": [
-            { "time": "3:30-6:00pm", "what": "Callbacks (by invitation)" }
-          ]
+          "date": "2026-10-29",
+          "title": "Music #2",
+          "notes": [
+            "Fathoms Below, Daughters of Triton, Human Stuff, She’s in Love"
+          ],
+          "cast": "Role #s 1–30 (All Leads, Mersisters, Louis, Carlotta, Pilot (19), Seahorse, Sailors, Creatures/Gulls)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
         },
         {
-          "date": "2026-10-21",
-          "title": "Cast list posted & first read-through",
-          "blocks": [
-            { "time": "3:30-5:30pm", "what": "Read-through" }
+          "date": "2026-11-03",
+          "title": "Music #3",
+          "notes": [
+            "Poor Unfortunate Souls (& Reprise), Beluga Sevruga, Les Poissons, The Contest"
           ],
-          "cast": "All"
+          "cast": "Role #s 1, 4, 9, 10, 11–16, 17, 19, 21–25, 31–35 (Ariel, Ursula, Flotsam/Jetsam, Mersisters/Princesses, Louis, Pilot, Sailors/Chefs, Chorus/Tentacles)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
         },
         {
-          "date": "2026-10-28",
-          "title": "Rehearsal: \"Under the Sea\"",
-          "blocks": [
-            { "time": "3:30-5:30pm", "what": "Music and choreography" }
+          "date": "2026-11-05",
+          "title": "Music #4",
+          "notes": [
+            "Part of Your World & Reprise, One Step Closer, Vocal Review"
           ],
-          "cast": "Sebastian, Ariel, Sea Chorus, Merfolk"
+          "cast": "Role #s 1, 2, 6, 7, 8 (Ariel, Eric, Flounder, Scuttle, Grimsby) + ALL CAST (1–35) for second-half review",
+          "helpers": {
+            "volunteer": "Needed"
+          }
         },
         {
-          "date": "2026-11-04",
-          "title": "Rehearsal: \"Poor Unfortunate Souls\"",
-          "blocks": [
-            { "time": "3:30-5:30pm", "what": "Music and blocking" }
+          "date": "2026-11-10",
+          "title": "Music #5",
+          "notes": [
+            "Brush Up & Polish All Vocal Music"
           ],
-          "cast": "Ursula, Ariel, Flotsam, Jetsam, Tentacles"
+          "cast": "ALL CAST (Role #s 1–35)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2026-11-12",
+          "title": "Choreography #1",
+          "notes": [
+            "Under the Sea, Kiss the Girl, Finale"
+          ],
+          "cast": "ALL CAST (Role #s 1–35)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2026-11-17",
+          "title": "Choreography #2",
+          "notes": [
+            "Fathoms Below, Daughters of Triton, Human Stuff"
+          ],
+          "cast": "Role #s 1–30 (All Leads, Mersisters, Louis, Pilot, Seahorse, Sailors, Creatures/Gulls)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2026-11-19",
+          "title": "Choreography #3",
+          "notes": [
+            "She’s in Love, Les Poissons, Poor Unfortunate Souls"
+          ],
+          "cast": "Role #s 1, 4, 5, 6, 9, 10, 11–16, 17, 19, 21–25, 31–35 (Ariel, Ursula, Sebastian, Flounder, Flotsam/Jetsam, Mersisters, Louis, Pilot, Sailors/Chefs, Chorus/Tentacles)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2026-12-01",
+          "title": "Choreography #4",
+          "notes": [
+            "Poor Unfortunate Souls Reprise, Polish She's in Love & Les Poissons"
+          ],
+          "cast": "Role #s 1, 4, 5, 6, 9, 10, 11–16, 17, 19, 21–25, 31–35 (Ariel, Ursula, Sebastian, Flounder, Flotsam/Jetsam, Mersisters, Louis, Pilot, Sailors/Chefs, Chorus/Tentacles)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2026-12-03",
+          "title": "Choreography #5",
+          "notes": [
+            "Beluga Sevruga, The Contest, Part of Your World & Reprise, One Step Closer"
+          ],
+          "cast": "Role #s 1, 2, 4, 6, 7, 8, 9, 10, 11–16 (Ariel, Eric, Ursula, Flounder, Scuttle, Grimsby, Flotsam/Jetsam, Mersisters/Princesses)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2026-12-08",
+          "title": "Choreography #6",
+          "notes": [
+            "Choreography Brush-Up & Trouble Sections"
+          ],
+          "cast": "ALL CAST (Role #s 1–35)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2026-12-10",
+          "title": "Blocking #1",
+          "notes": [
+            "Pgs. 1–25 (Scenes 1–3: Ocean Surface, Triton's Court, Beach)"
+          ],
+          "cast": "Role #s 1–30 (All Leads, Mersisters, Louis, Carlotta, Pilot, Seahorse, Sailors, Creatures/Gulls, Sea Chorus)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2026-12-15",
+          "title": "Blocking #2",
+          "notes": [
+            "Pgs. 26–40 (Scenes 4–5: Ursula's Lair, Triton's Court)"
+          ],
+          "cast": "Role #s 1, 3, 4, 5, 6, 8, 9, 10, 11–16, 20, 26–35 (Ariel, Triton, Ursula, Sebastian, Flounder, Grimsby, Flotsam/Jetsam, Mersisters, Seahorse, Creatures, Chorus/Tentacles)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2026-12-17",
+          "title": "Blocking #3",
+          "notes": [
+            "Pgs. 40–58 (Scenes 6–8: Ariel's Grotto, Ocean Storm, Beach)"
+          ],
+          "cast": "Role #s 1–10, 17, 18, 19, 20, 21–25, 26–35 (All Leads, Louis, Carlotta, Pilot, Seahorse, Sailors, Creatures/Gulls, Chorus/Tentacles)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2027-01-05",
+          "title": "Blocking #4",
+          "notes": [
+            "Pgs. 59–70 (Scenes 9–11: Triton's Court, Grotto, Ursula's Lair)"
+          ],
+          "cast": "Role #s 1, 3, 4, 5, 6, 9, 10, 11–16, 31–35 (Ariel, Triton, Ursula, Sebastian, Flounder, Flotsam/Jetsam, Mersisters, Chorus/Tentacles)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2027-01-07",
+          "title": "Blocking Review",
+          "notes": [
+            "Run & Clean Pgs. 1–70 (Act I / Scenes 1–11)"
+          ],
+          "cast": "ALL CAST (Role #s 1–35)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2027-01-12",
+          "title": "Blocking #5",
+          "notes": [
+            "Pgs. 71–80 (Scenes 12–13: Beach, Palace Kitchen)"
+          ],
+          "cast": "Role #s 1, 2, 7, 8, 17, 18, 19, 21–25 (Ariel, Eric, Scuttle, Grimsby, Louis, Carlotta, Pilot, Sailors/Chefs)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2027-01-14",
+          "title": "Blocking #6",
+          "notes": [
+            "Pgs. 81–93 (Scenes 14–15: Palace Hall, The Lagoon)"
+          ],
+          "cast": "Role #s 1, 2, 5, 6, 7, 8, 18, 20, 26–35 (Ariel, Eric, Sebastian, Flounder, Scuttle, Grimsby, Carlotta, Seahorse, Creatures/Gulls, Chorus/Animals)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2027-01-19",
+          "title": "Blocking #7",
+          "notes": [
+            "Pgs. 94–101 (Scene 16: Palace Hall / The Contest)"
+          ],
+          "cast": "Role #s 1, 2, 8, 11–16, 18 (Ariel, Eric, Grimsby, Mersisters/Princesses, Carlotta)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2027-01-21",
+          "title": "Blocking #8",
+          "notes": [
+            "Pgs. 102–106 (Scenes 17–20: Grotto, Ursula's Lair, Ocean, Finale)"
+          ],
+          "cast": "ALL CAST (Role #s 1–35)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2027-01-26",
+          "title": "Blocking Review",
+          "notes": [
+            "Run & Clean Pgs. 71–106 (Act II / Scenes 12–20)"
+          ],
+          "cast": "ALL CAST (Role #s 1–35)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2027-01-28",
+          "title": "Full Run #1",
+          "notes": [
+            "Run Entire Show (Stumble-Through)"
+          ],
+          "cast": "ALL CAST (Role #s 1–35)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2027-02-02",
+          "title": "Polish #1",
+          "notes": [
+            "Clean Act I Transitions & Integration"
+          ],
+          "cast": "ALL CAST (Role #s 1–35)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2027-02-04",
+          "title": "Polish #2",
+          "notes": [
+            "Clean Act II Transitions & Integration"
+          ],
+          "cast": "ALL CAST (Role #s 1–35)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2027-02-09",
+          "title": "Full Run #2",
+          "notes": [
+            "Full Run-Through with Rehearsal Props & Sound Effects"
+          ],
+          "cast": "ALL CAST (Role #s 1–35)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2027-02-11",
+          "title": "Tech Rehearsal #1",
+          "notes": [
+            "Dry Tech / Cueing"
+          ],
+          "cast": "ALL CAST (Role #s 1–35)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2027-02-16",
+          "title": "Tech Rehearsal #2",
+          "notes": [
+            "Full Tech Run"
+          ],
+          "cast": "ALL CAST (Role #s 1–35)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2027-02-18",
+          "title": "Dress Rehearsal #1",
+          "notes": [
+            "First Full Costumed Dress Rehearsal"
+          ],
+          "cast": "ALL CAST (Role #s 1–35)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2027-02-20",
+          "title": "Double Dress Rehearsal",
+          "notes": [
+            "Full Dress Run #1 (AM) & Full Dress Run #2 (PM)"
+          ],
+          "cast": "ALL CAST (Role #s 1–35)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2027-02-23",
+          "title": "Final Dress Rehearsal",
+          "notes": [
+            "Final Preview / Final Polish Run"
+          ],
+          "cast": "ALL CAST (Role #s 1–35)",
+          "helpers": {
+            "volunteer": "Needed"
+          }
+        },
+        {
+          "date": "2027-02-24",
+          "title": "Rest Day",
+          "notes": [
+            "No Rehearsal"
+          ],
+          "cast": "None"
         }
       ]
     },
     {
       "id": "shows",
-      "heading": "Tech week & performances",
-      "intro": "Placeholder dates - to be confirmed by the club.",
+      "heading": "Performances",
+      "intro": "",
       "events": [
         {
-          "date": "2027-04-12",
-          "endDate": "2027-04-14",
-          "title": "Tech week",
+          "date": "2027-02-25",
+          "cast": "ALL CAST (Role #s 1–35)",
+          "title": "School Performance\n(Students only - no parents)",
+          "performance": true,
           "blocks": [
-            { "time": "3:30-7:00pm", "what": "Full run with lights and sound" }
-          ],
-          "cast": "All"
+            {
+              "time": "8:30am",
+              "what": "Curtain"
+            }
+          ]
         },
         {
-          "date": "2027-04-15",
+          "date": "2027-02-26",
+          "cast": "ALL CAST (Role #s 1–35)",
+          "title": "Opening Night",
           "performance": true,
-          "title": "The Little Mermaid JR.",
           "blocks": [
-            { "time": "5:30pm", "what": "Cast call" },
-            { "time": "7:00pm", "what": "Curtain" }
-          ],
-          "cast": "All"
+            {
+              "time": "4:30pm",
+              "what": "Cast call"
+            },
+            {
+              "time": "6:00pm",
+              "what": "Curtain"
+            }
+          ]
         },
         {
-          "date": "2027-04-16",
+          "date": "2027-02-27",
+          "cast": "ALL CAST (Role #s 1–35)",
+          "title": "Closing Matinee",
           "performance": true,
-          "title": "The Little Mermaid JR.",
           "blocks": [
-            { "time": "5:30pm", "what": "Cast call" },
-            { "time": "7:00pm", "what": "Curtain" }
+            {
+              "time": "12:30pm",
+              "what": "Cast call"
+            },
+            {
+              "time": "2:00pm",
+              "what": "Curtain"
+            }
           ],
-          "cast": "All"
-        },
-        {
-          "date": "2027-04-17",
-          "performance": true,
-          "title": "The Little Mermaid JR. - matinee",
-          "blocks": [
-            { "time": "12:30pm", "what": "Cast call" },
-            { "time": "2:00pm", "what": "Curtain" }
-          ],
-          "cast": "All"
+          "notes": [
+            "Post-show set strike"
+          ]
         }
       ]
     }

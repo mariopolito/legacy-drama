@@ -1,23 +1,10 @@
 {
-  "_comment": "The Cast page. 'characters' is the Meet the Characters list shown before and after casting. 'members' is the cast list: add one entry per student once it is posted, each with a list of 'parts'. While 'members' is empty the page shows 'notPosted' instead. A part's 'track' only matters if the show is double cast: use one of the names in 'tracks' in site.json, or Both, or TBD.",
+  "_comment": "The Cast page. 'members' is one entry per role number from the director's Role IDs tab: 'student' is filled in once the cast list is final (or from the Cast tab in the Google Sheet, which only needs Role # and Student). 'name' is their main role, 'also' lists their ensemble tracks. Which scenes each role is in comes from data/scenes.json. 'characters' is the Meet the Characters list lower on the page.",
   "heading": "Cast",
   "intro": [
-    "Under the sea and up on land, The Little Mermaid JR. is full of great roles for every kind of performer. Read about each character below before auditions.",
-    "Every student who auditions will be part of the show."
+    "Our cast of 35, the role each student plays, and every scene they are in. Scenes with songs link straight to the practice tracks: one with vocals to learn from, and one with just the accompaniment to sing along to.",
+    "Until the cast list is final, students are listed by role number."
   ],
-  "listHeading": "Cast list",
-  "notPosted": "The cast list will be posted here after callbacks. Check the Calendar for audition dates.",
-  "tracks": {
-    "Coral": "Coral Track - leads on the first weekend",
-    "Pearl": "Pearl Track - leads on the second weekend",
-    "Both": "Played on both weekends",
-    "TBD": "Track not settled yet"
-  },
-  "trackNotes": {
-    "All": "Everyone performs both weekends. Pick a track to hide the roles that belong to the other one.",
-    "Coral": "Showing the Coral Track. Roles played on both weekends are still listed.",
-    "Pearl": "Showing the Pearl Track. Roles played on both weekends are still listed."
-  },
   "characters": {
     "heading": "Meet the characters",
     "intro": "Who's who in the sea, the sky and Prince Eric's palace.",
@@ -28,43 +15,61 @@
           {
             "icon": "🧜‍♀️",
             "name": "Ariel",
-            "tags": ["Strong singer", "Solos"],
+            "tags": [
+              "Strong singer",
+              "Solos"
+            ],
             "description": "The heroine of our story, a little mermaid who longs to be human. A strong singer and dynamic performer. Ariel has some beautiful solos but must be able to convey meaning through gesture once she loses her voice."
           },
           {
             "icon": "🤴",
             "name": "Prince Eric",
-            "tags": ["Strong actor", "Small solos"],
+            "tags": [
+              "Strong actor",
+              "Small solos"
+            ],
             "description": "The adventurous prince who captures Ariel's heart. A charming performer with a sensitive nature. Prince Eric has a few small solos, but strong acting matters most in this role."
           },
           {
             "icon": "🦀",
             "name": "Sebastian",
-            "tags": ["Singer", "Any gender"],
+            "tags": [
+              "Singer",
+              "Any gender"
+            ],
             "description": "The meticulous and anxious crab who tries to keep Ariel safe while getting to lead some of the most memorable songs in the show! Sebastian can be played by a boy or girl."
           },
           {
             "icon": "🐠",
             "name": "Flounder",
-            "tags": ["Solo", "Any gender"],
+            "tags": [
+              "Solo",
+              "Any gender"
+            ],
             "description": "Ariel's sincere and sensitive best friend, loyal to the end. This spunky fish has a show-stopping solo in \"She's in Love.\" Flounder can be cast with a girl or a boy with an unchanged voice."
           },
           {
             "icon": "🔱",
             "name": "King Triton",
-            "tags": ["Non-singing"],
+            "tags": [
+              "Non-singing"
+            ],
             "description": "Rules the sea and is a force to be reckoned with. This non-singer needs to command the stage as a strong leader but also show the tenderness of a parent. A mature performer who feels comfortable playing father to Ariel and the Mersisters."
           },
           {
             "icon": "🐙",
             "name": "Ursula",
-            "tags": ["Villain"],
+            "tags": [
+              "Villain"
+            ],
             "description": "The manipulative sea witch who tries to overthrow King Triton. She is cunning and devious and will stop at nothing to get what she wants."
           },
           {
             "icon": "🐦",
             "name": "Scuttle",
-            "tags": ["Comedy"],
+            "tags": [
+              "Comedy"
+            ],
             "description": "The know-it-all seagull who serves as Ariel's expert on humans. Funny and off-beat. Look for good comedic timing and a willingness to have fun with Scuttle's eccentricities."
           }
         ]
@@ -75,13 +80,20 @@
           {
             "icon": "🐚",
             "name": "The Mersisters",
-            "tags": ["Singers", "Dancers", "Six roles"],
+            "tags": [
+              "Singers",
+              "Dancers",
+              "Six roles"
+            ],
             "description": "Aquata, Andrina, Arista, Atina, Adella and Allana are Ariel's siblings, full of personality and sass. Great roles for talented singers and dancers who can create six distinctive characters."
           },
           {
             "icon": "⚡",
             "name": "Flotsam & Jetsam",
-            "tags": ["Two roles", "Any gender"],
+            "tags": [
+              "Two roles",
+              "Any gender"
+            ],
             "description": "Ursula's slippery spies. These electric eels are sinister and sneaky, underhanded and devious while still being heard on stage. Flotsam and Jetsam can be played by boys or girls."
           },
           {
@@ -92,13 +104,17 @@
           {
             "icon": "👨‍🍳",
             "name": "Chef Louis",
-            "tags": ["Comedy"],
+            "tags": [
+              "Comedy"
+            ],
             "description": "The over-the-top head chef in the palace, always wild and frenetic. An excellent featured role for a comedic performer."
           },
           {
             "icon": "🗝️",
             "name": "Carlotta",
-            "tags": ["Non-singing"],
+            "tags": [
+              "Non-singing"
+            ],
             "description": "The headmistress in Prince Eric's palace and Ariel's greatest human ally. This non-singing role needs to be warm and maternal to make Ariel feel welcome."
           },
           {
@@ -160,6 +176,347 @@
       }
     ]
   },
-  "members": [],
-  "closing": []
+  "members": [
+    {
+      "role": 1,
+      "student": "",
+      "name": "Ariel",
+      "group": "Leads",
+      "also": []
+    },
+    {
+      "role": 2,
+      "student": "",
+      "name": "Eric",
+      "group": "Leads",
+      "also": []
+    },
+    {
+      "role": 3,
+      "student": "",
+      "name": "Triton",
+      "group": "Leads",
+      "also": []
+    },
+    {
+      "role": 4,
+      "student": "",
+      "name": "Ursula",
+      "group": "Leads",
+      "also": []
+    },
+    {
+      "role": 5,
+      "student": "",
+      "name": "Sebastian",
+      "group": "Leads",
+      "also": []
+    },
+    {
+      "role": 6,
+      "student": "",
+      "name": "Flounder",
+      "group": "Leads",
+      "also": []
+    },
+    {
+      "role": 7,
+      "student": "",
+      "name": "Scuttle",
+      "group": "Leads",
+      "also": []
+    },
+    {
+      "role": 8,
+      "student": "",
+      "name": "Grimsby",
+      "group": "Leads",
+      "also": []
+    },
+    {
+      "role": 9,
+      "student": "",
+      "name": "Flotsam",
+      "group": "Leads",
+      "also": []
+    },
+    {
+      "role": 10,
+      "student": "",
+      "name": "Jetsam",
+      "group": "Leads",
+      "also": []
+    },
+    {
+      "role": 11,
+      "student": "",
+      "name": "Aquata",
+      "group": "Mersisters & Princesses",
+      "also": [
+        "Mersisters (Scene 2 & 9)",
+        "Princesses (Scene 16)"
+      ]
+    },
+    {
+      "role": 12,
+      "student": "",
+      "name": "Andrina",
+      "group": "Mersisters & Princesses",
+      "also": [
+        "Mersisters (Scene 2 & 9)",
+        "Princesses (Scene 16)"
+      ]
+    },
+    {
+      "role": 13,
+      "student": "",
+      "name": "Arista",
+      "group": "Mersisters & Princesses",
+      "also": [
+        "Mersisters (Scene 2 & 9)",
+        "Princesses (Scene 16)"
+      ]
+    },
+    {
+      "role": 14,
+      "student": "",
+      "name": "Atina",
+      "group": "Mersisters & Princesses",
+      "also": [
+        "Mersisters (Scene 2 & 9)",
+        "Princesses (Scene 16)"
+      ]
+    },
+    {
+      "role": 15,
+      "student": "",
+      "name": "Adella",
+      "group": "Mersisters & Princesses",
+      "also": [
+        "Mersisters (Scene 2 & 9)",
+        "Princesses (Scene 16)"
+      ]
+    },
+    {
+      "role": 16,
+      "student": "",
+      "name": "Allana",
+      "group": "Mersisters & Princesses",
+      "also": [
+        "Mersisters (Scene 2 & 9)",
+        "Princesses (Scene 16)"
+      ]
+    },
+    {
+      "role": 17,
+      "student": "",
+      "name": "Chef Louis",
+      "group": "Featured roles",
+      "track": "Chef Louis Track",
+      "also": [
+        "Sailors (Scenes 1 & 7)",
+        "Chef (Scene 13)"
+      ]
+    },
+    {
+      "role": 18,
+      "student": "",
+      "name": "Carlotta",
+      "group": "Featured roles",
+      "track": "Carlotta Track",
+      "also": [
+        "Merpeople (Scene 2)",
+        "Lagoon Animals (Scene 15)"
+      ]
+    },
+    {
+      "role": 19,
+      "student": "",
+      "name": "The Pilot",
+      "group": "Featured roles",
+      "track": "Pilot Track",
+      "also": [
+        "Sailors (Scenes 1 & 7)",
+        "Chefs (Scene 13)"
+      ]
+    },
+    {
+      "role": 20,
+      "student": "",
+      "name": "The Seahorse",
+      "group": "Featured roles",
+      "track": "Seahorse Track",
+      "also": [
+        "Sea Creatures (Scene 6)",
+        "Lagoon Animals (Scene 15)"
+      ]
+    },
+    {
+      "role": 21,
+      "student": "",
+      "name": "Sailor/Chef",
+      "group": "Sailor / Chef track",
+      "track": "Sailor/Chef Track",
+      "also": [
+        "Sailors (Scenes 1 & 7)",
+        "Chefs (Scene 13)"
+      ]
+    },
+    {
+      "role": 22,
+      "student": "",
+      "name": "Sailor/Chef",
+      "group": "Sailor / Chef track",
+      "track": "Sailor/Chef Track",
+      "also": [
+        "Sailors (Scenes 1 & 7)",
+        "Chefs (Scene 13)"
+      ]
+    },
+    {
+      "role": 23,
+      "student": "",
+      "name": "Sailor/Chef",
+      "group": "Sailor / Chef track",
+      "track": "Sailor/Chef Track",
+      "also": [
+        "Sailors (Scenes 1 & 7)",
+        "Chefs (Scene 13)"
+      ]
+    },
+    {
+      "role": 24,
+      "student": "",
+      "name": "Sailor/Chef",
+      "group": "Sailor / Chef track",
+      "track": "Sailor/Chef Track",
+      "also": [
+        "Sailors (Scenes 1 & 7)",
+        "Chefs (Scene 13)"
+      ]
+    },
+    {
+      "role": 25,
+      "student": "",
+      "name": "Sailor/Chef",
+      "group": "Sailor / Chef track",
+      "track": "Sailor/Chef Track",
+      "also": [
+        "Sailors (Scenes 1 & 7)",
+        "Chefs (Scene 13)"
+      ]
+    },
+    {
+      "role": 26,
+      "student": "",
+      "name": "Creature/Gull",
+      "group": "Creature / Gull track",
+      "track": "Creature/Gull Track",
+      "also": [
+        "Gulls (Scenes 3 & 8)",
+        "Lagoon Animals (Scene 15)"
+      ]
+    },
+    {
+      "role": 27,
+      "student": "",
+      "name": "Creature/Gull",
+      "group": "Creature / Gull track",
+      "track": "Creature/Gull Track",
+      "also": [
+        "Gulls (Scenes 3 & 8)",
+        "Lagoon Animals (Scene 15)"
+      ]
+    },
+    {
+      "role": 28,
+      "student": "",
+      "name": "Creature/Gull",
+      "group": "Creature / Gull track",
+      "track": "Creature/Gull Track",
+      "also": [
+        "Gulls (Scenes 3 & 8)",
+        "Lagoon Animals (Scene 15)"
+      ]
+    },
+    {
+      "role": 29,
+      "student": "",
+      "name": "Creature/Gull",
+      "group": "Creature / Gull track",
+      "track": "Creature/Gull Track",
+      "also": [
+        "Gulls (Scenes 3 & 8)",
+        "Lagoon Animals (Scene 15)"
+      ]
+    },
+    {
+      "role": 30,
+      "student": "",
+      "name": "Creature/Gull",
+      "group": "Creature / Gull track",
+      "track": "Creature/Gull Track",
+      "also": [
+        "Gulls (Scenes 3 & 8)",
+        "Lagoon Animals (Scene 15)"
+      ]
+    },
+    {
+      "role": 31,
+      "student": "",
+      "name": "Chorus/Tentacle",
+      "group": "Chorus / Tentacle track",
+      "track": "Chorus/Tentacle Track",
+      "also": [
+        "Sea Chorus (All ocean scenes)",
+        "On land: Scene 15 and the Full Company Finale"
+      ]
+    },
+    {
+      "role": 32,
+      "student": "",
+      "name": "Chorus/Tentacle",
+      "group": "Chorus / Tentacle track",
+      "track": "Chorus/Tentacle Track",
+      "also": [
+        "Sea Chorus (All ocean scenes)",
+        "On land: Scene 15 and the Full Company Finale"
+      ]
+    },
+    {
+      "role": 33,
+      "student": "",
+      "name": "Chorus/Tentacle",
+      "group": "Chorus / Tentacle track",
+      "track": "Chorus/Tentacle Track",
+      "also": [
+        "Sea Chorus (All ocean scenes)",
+        "On land: Scene 15 and the Full Company Finale"
+      ]
+    },
+    {
+      "role": 34,
+      "student": "",
+      "name": "Chorus/Tentacle",
+      "group": "Chorus / Tentacle track",
+      "track": "Chorus/Tentacle Track",
+      "also": [
+        "Sea Chorus (All ocean scenes)",
+        "On land: Scene 15 and the Full Company Finale"
+      ]
+    },
+    {
+      "role": 35,
+      "student": "",
+      "name": "Chorus/Tentacle",
+      "group": "Chorus / Tentacle track",
+      "track": "Chorus/Tentacle Track",
+      "also": [
+        "Sea Chorus (All ocean scenes)",
+        "On land: Scene 15 and the Full Company Finale"
+      ]
+    }
+  ],
+  "closing": [],
+  "listHeading": "Cast & scenes"
 }

@@ -365,26 +365,15 @@ function announcementsFromSheet(rows) {
 }
 
 function castFromSheet(rows, saved) {
-  // One row per role. Rows sharing an actor's name become one person, in the
-  // order they first appear. TBD rows are different unknown people, so each
-  // stays on its own.
-  const members = [];
-  const byName = new Map();
+  // The Cast tab only names who plays each role number. Roles, ensemble tracks
+  // and scenes come from data/cast.json and data/scenes.json.
+  const names = new Map();
   rows.forEach(r => {
-    if (!r['Actor'] && !r['Role']) return;
-    const part = {
-      role: r['Role'] || '',
-      track: pickTrack(r['Track'], TRACKS.concat(['Both', 'TBD']), 'Both'),
-      description: r['Description'] || ''
-    };
-    const name = r['Actor'] || 'TBD';
-    const alone = /^tbd$/i.test(name);
-    if (!alone && byName.has(name)) { byName.get(name).parts.push(part); return; }
-    const person = { actor: name, parts: [part] };
-    members.push(person);
-    if (!alone) byName.set(name, person);
+    const n = parseInt(r['Role #'], 10);
+    if (n) names.set(n, (r['Student'] || '').trim());
   });
-  if (!members.length) throw new Error('the Cast tab has no rows');
+  const members = (saved.members || []).map(m =>
+    names.has(+m.role) ? Object.assign({}, m, { student: names.get(+m.role) }) : m);
   return Object.assign({}, saved, { members });
 }
 
@@ -531,10 +520,10 @@ function renderStudyHall(sh, site, isPast) {
   if (wanted && isPast) return null;
 
   const row = el('div', 'study');
-  row.appendChild(el('span', 'study-label', 'Study hall' + (sh.time ? ' ' + sh.time : '')));
+  row.appendChild(el('span', 'study-label', (site && site.helpLabel || 'Study hall') + (sh.time ? ' ' + sh.time : '')));
   if (wanted) {
     row.appendChild(el('span', 'study-open', 'Needs a volunteer'));
-    const url = site && site.studyHallSignupUrl;
+    const url = site && (site.helpSignupUrl || site.studyHallSignupUrl);
     if (url) row.appendChild(link(url, 'Sign up »', 'study-link'));
   } else {
     row.appendChild(el('span', 'study-name', name));
@@ -545,161 +534,69 @@ function renderStudyHall(sh, site, isPast) {
 
 /* ---------- who is called to each rehearsal ---------- */
 
-// "David, (Gull 3), Clara D" -> ["David", "Gull 3", "Clara D"]
-function castTokens(list) {
-  return (list || '').split(/[,;\n]/)
-    .map(t => t.replace(/[()]/g, '').replace(/\bTBD\b/gi, '').replace(/\s+/g, ' ').trim())
-    .filter(Boolean);
+// The call schedule names students by role number, the way the director's
+// schedule does: "Role #s 1, 4, 11–16 (Ariel, Ursula, Mersisters)", "ALL CAST"
+// or "NO CAST CALLED". The words in brackets are for people; the numbers before
+// them are what counts. Returns 'all', 'none', 'unposted' or a Set of numbers.
+function calledRoles(list) {
+  const raw = (list || '').trim();
+  if (!raw) return 'unposted';
+  if (/\ball\s+cast\b|^all$/i.test(raw)) return 'all';
+  if (/\bno\s+cast\b|^none$/i.test(raw)) return 'none';
+  const nums = new Set();
+  raw.split('(')[0].replace(/role\s*#s?/ig, '')
+    .replace(/(\d+)\s*[–—-]\s*(\d+)/g, (m, a, b) => {
+      for (let n = +a; n <= +b; n++) nums.add(n);
+      return ' ';
+    })
+    .replace(/\d+/g, n => { nums.add(+n); return ' '; });
+  return nums;
 }
 
-const normName = s => (s || '').toLowerCase().replace(/[.]/g, '').replace(/\s+/g, ' ').trim();
-
-// "Gulls" -> "gull", "Mice" -> "mouse", "Princesses" -> "princess".
-function singular(word) {
-  const w = normName(word);
-  if (/\bmice$/.test(w)) return w.replace(/mice$/, 'mouse');
-  if (/ies$/.test(w)) return w.replace(/ies$/, 'y');
-  if (/sses$/.test(w)) return w.replace(/es$/, '');
-  if (/[^s]s$/.test(w)) return w.slice(0, -1);
-  return w;
-}
-
-// A role as written on the cast list, and the family it belongs to with any
-// number dropped: "Gull 3" -> "gull", "Sea Chorus 2" -> "sea chorus".
-function roleForms(role) {
-  const exact = normName(role);
-  return { exact, family: exact.replace(/\s+\d+$/, '') };
-}
-
-// Does a word on a cast list name this role? When some role is named exactly
-// that ("Ariel", or "Ariels" meaning Ariel), only exact matches count, so a
-// "Young Ariel" is not pulled in. Otherwise a word without a number matches the
-// whole family and any role it begins or ends: "Gulls" covers Gull 1 to 3 and
-// "Chefs" covers Chef 1 and Chef 2. Loose matches
-// include more people, never fewer, so nobody is told to stay home by mistake.
-function tokenMatchesRole(token, role, exactOnly) {
-  const { exact, family } = roleForms(role);
-  const words = [normName(token), singular(token)];
-  if (words.includes(exact)) return true;
-  if (exactOnly || /\d/.test(words[0])) return false;
-  return words.some(w => w === family || family.startsWith(w + ' ') || family.endsWith(' ' + w));
-}
-
-// Everyone on the cast list, with the ways they can be named: full name, first
-// name, first name plus last initial ("Clara D"), and each role they play. A
-// first name shared by two people matches both; a last initial tells them apart.
+// Everyone on the cast list, by role number. Before casting a student is known by
+// their number and role ("#5 Sebastian"); once named, by their name.
 function castPeople(castData) {
   return (castData && castData.members ? castData.members : [])
-    .filter(m => m.actor && !/^tbd$/i.test(m.actor))
+    .filter(m => m.role)
     .map(m => {
-      const words = m.actor.trim().split(/\s+/);
-      const first = words[0];
-      const initial = words.length > 1 ? words[1][0] : '';
-      const names = new Set([normName(m.actor), normName(first)]);
-      if (initial) names.add(normName(first + ' ' + initial));
-      const roles = [];
-      (m.parts || []).forEach(p =>
-        (p.role || '').split(/\s+or\s+/i).forEach(r => r && roles.push({ role: r.trim(), track: p.track })));
-      return { actor: m.actor, first, names, roles };
+      const tag = '#' + m.role + ' ' + m.name;
+      const student = (m.student || '').trim();
+      return {
+        key: String(m.role), num: +m.role, named: !!student,
+        label: student ? student + ' (' + tag + ')' : tag,
+        first: student ? student.split(/\s+/)[0] : tag
+      };
     });
 }
 
-// Roles still waiting on casting, so a list can say who is coming once they are named.
-function unassignedRoles(castData) {
-  return (castData && castData.members ? castData.members : [])
-    .filter(m => /^tbd$/i.test(m.actor || ''))
-    .flatMap(m => (m.parts || []).map(p => p.role));
+// Where a person stands for one event: 'yes', 'no', 'none' (nobody is called)
+// or 'unposted'.
+function callStatus(ev, person) {
+  const called = calledRoles(ev.cast);
+  if (called === 'all') return 'yes';
+  if (called === 'none' || called === 'unposted') return called;
+  return called.has(person.num) ? 'yes' : 'no';
 }
 
-// Turns a cast-needed list into people. Returns each person matched with the
-// roles that matched them, in list order, plus any words that matched nobody.
-function resolveCast(list, people, unassigned) {
-  const found = new Map();
-  const leftovers = [];
-  const allRoles = people.flatMap(p => p.roles.map(r => r.role)).concat(unassigned);
-  castTokens(list).forEach(token => {
-    const exactOnly = allRoles.some(r => tokenMatchesRole(token, r, true));
-    let hit = false;
-    people.forEach(person => {
-      const byName = person.names.has(normName(token));
-      const roles = byName ? person.roles : person.roles.filter(r => tokenMatchesRole(token, r.role, exactOnly));
-      if (!roles.length) return;
-      hit = true;
-      if (!found.has(person.actor)) found.set(person.actor, { person, roles: [] });
-      const entry = found.get(person.actor);
-      roles.forEach(r => {
-        if (!entry.roles.some(x => x.role === r.role && x.track === r.track)) entry.roles.push(r);
-      });
-    });
-    const pending = unassigned.filter(r => tokenMatchesRole(token, r, exactOnly));
-    if (pending.length) leftovers.push({ token, pending });
-    else if (!hit) leftovers.push({ token, pending: [] });
-  });
-  return { matched: [...found.values()], leftovers };
-}
-
-// Where a person stands for one event: 'all', 'yes', 'no', 'none' (nobody is
-// called), 'unposted', or 'study' (listed for study hall but not the rehearsal).
-function callStatus(ev, person, people, unassigned) {
-  const raw = (ev.cast || '').trim();
-  const inList = list => resolveCast(list, people, unassigned).matched.some(m => m.person.actor === person.actor);
-  if (/^all$/i.test(raw)) return 'all';
-  if (/^none$/i.test(raw)) return 'none';
-  if (!raw) return 'unposted';
-  if (inList(raw)) return 'yes';
-  if (ev.studyHall && inList(ev.studyHall.students)) return 'study';
-  return 'no';
-}
-
-// "Cast needed" as a row of names, each showing the role or roles that put
-// them there on hover or tap.
-function renderCastNeeded(list, people, unassigned) {
+// "Cast needed" as the director wrote it.
+function renderCastNeeded(list) {
   const raw = (list || '').trim();
-  if (!raw || /^none$/i.test(raw)) return null;
+  if (!raw || calledRoles(raw) === 'none') return null;
   const row = el('div', 'cast-needed');
   row.appendChild(el('span', 'cast-needed-label', 'Cast needed'));
-  if (/^all$/i.test(raw)) {
-    row.appendChild(document.createTextNode(' All'));
-    return row;
-  }
-  if (!people.length) {
-    row.appendChild(document.createTextNode(' ' + raw));
-    return row;
-  }
-  const { matched, leftovers } = resolveCast(raw, people, unassigned);
-  const names = el('span', 'cast-names');
-  matched.forEach(({ person, roles }) => {
-    const label = roles.map(r => r.role + (r.track && r.track !== 'Both' ? ' (' + r.track + ')' : '')).join(', ');
-    const chip = el('span', 'cast-name', person.actor);
-    chip.tabIndex = 0;
-    chip.title = label;
-    chip.dataset.role = label;
-    chip.dataset.actor = person.actor;
-    chip.setAttribute('aria-label', person.actor + ', ' + label);
-    names.appendChild(chip);
-  });
-  leftovers.forEach(({ token, pending }) => {
-    const text = pending.length ? pending.join(', ') + ' (not cast yet)' : token;
-    const chip = el('span', 'cast-name is-unmatched', text);
-    if (!pending.length) chip.title = 'Nobody on the cast list has this role or name';
-    names.appendChild(chip);
-  });
-  row.appendChild(names);
+  row.appendChild(document.createTextNode(' ' + raw));
   return row;
 }
 
-function applyCastFilter(cards, person, people, unassigned) {
+function applyCastFilter(cards, person) {
   cards.forEach(({ card, ev, note }) => {
     card.classList.remove('is-called', 'is-not-called');
-    // Ring the picked student's own name among the cast on each date.
-    card.querySelectorAll('.cast-name[data-actor]').forEach(chip =>
-      chip.classList.toggle('is-picked', !!person && chip.dataset.actor === person.actor));
     note.hidden = true;
     note.className = 'call-note';
     if (!person) return;
-    const status = callStatus(ev, person, people, unassigned);
+    const status = callStatus(ev, person);
     const say = (cls, text) => { note.textContent = text; note.classList.add(cls); note.hidden = false; };
-    if (status === 'yes' || status === 'all') {
+    if (status === 'yes') {
       card.classList.add('is-called');
       say('is-yes', '✓ ' + person.first + ' is needed');
     } else if (status === 'no') {
@@ -708,10 +605,8 @@ function applyCastFilter(cards, person, people, unassigned) {
     } else if (status === 'none') {
       card.classList.add('is-not-called');
       say('is-no', 'No rehearsal for anyone');
-    } else if (status === 'study') {
-      say('is-study', person.first + ' is listed for study hall');
     } else if (!card.classList.contains('is-past')) {
-      say('is-unposted', 'Cast list not posted yet');
+      say('is-unposted', 'Call list not posted yet');
     }
   });
 }
@@ -724,7 +619,6 @@ function renderCalendars(data, site, castData) {
   let nextMarked = false;
   let nextCard = null;
   const people = castPeople(castData);
-  const unassigned = unassignedRoles(castData);
   const cards = [];
 
   const jumpBar = el('div', 'jump-bar');
@@ -735,10 +629,11 @@ function renderCalendars(data, site, castData) {
     label.appendChild(el('span', 'cast-picker-label', 'Show rehearsals for'));
     picker = el('select');
     picker.appendChild(new Option('Everyone', ''));
+    // Students by name once they are cast, then any roles still waiting, by number.
     people
       .slice()
-      .sort((a, b) => a.actor.localeCompare(b.actor))
-      .forEach(p => picker.appendChild(new Option(p.actor, p.actor)));
+      .sort((a, b) => (b.named - a.named) || (a.named ? a.label.localeCompare(b.label) : a.num - b.num))
+      .forEach(p => picker.appendChild(new Option(p.label, p.key)));
     label.appendChild(picker);
     jumpBar.appendChild(label);
   }
@@ -835,10 +730,10 @@ function renderCalendars(data, site, castData) {
           body.appendChild(notes);
         }
 
-        const castRow = renderCastNeeded(ev.cast, people, unassigned);
+        const castRow = renderCastNeeded(ev.cast);
         if (castRow) body.appendChild(castRow);
 
-        const sh = renderStudyHall(ev.studyHall, site, isPast);
+        const sh = renderStudyHall(ev.studyHall || ev.helpers, site, isPast);
         if (sh) body.appendChild(sh);
 
         card.appendChild(body);
@@ -870,8 +765,8 @@ function renderCalendars(data, site, castData) {
   if (picker) {
     const KEY = 'legacy-calendar-cast';
     const choose = name => {
-      const person = people.find(p => p.actor === name) || null;
-      applyCastFilter(cards, person, people, unassigned);
+      const person = people.find(p => p.key === name) || null;
+      applyCastFilter(cards, person);
       host.classList.toggle('is-filtered', !!person);
     };
     picker.addEventListener('change', () => {
@@ -880,7 +775,7 @@ function renderCalendars(data, site, castData) {
     });
     let saved = '';
     try { saved = localStorage.getItem(KEY) || ''; } catch (e) { /* storage unavailable */ }
-    if (saved && people.some(p => p.actor === saved)) {
+    if (saved && people.some(p => p.key === saved)) {
       picker.value = saved;
       choose(saved);
     }
@@ -1011,7 +906,62 @@ function renderCharacters(chars) {
   return section;
 }
 
-function renderCast(data) {
+/* ---------- scenes, shared by the Cast and Scenes pages ---------- */
+
+// For each role number, the scenes they are in and who they play in each one,
+// worked out from the characters listed under every scene in data/scenes.json.
+function scenesByRole(sceneData) {
+  const map = new Map();
+  (sceneData && sceneData.scenes || []).forEach(sc => {
+    (sc.characters || []).forEach(c => (c.roles || []).forEach(n => {
+      if (!map.has(n)) map.set(n, new Map());
+      const mine = map.get(n);
+      if (!mine.has(sc.n)) mine.set(sc.n, { scene: sc, as: [] });
+      if (!mine.get(sc.n).as.includes(c.name)) mine.get(sc.n).as.push(c.name);
+    }));
+  });
+  const out = new Map();
+  map.forEach((mine, n) => out.set(n, [...mine.values()].sort((a, b) => a.scene.n - b.scene.n)));
+  return out;
+}
+
+const sceneLabel = sc => (sc.n > 20 ? '' : 'Scene ' + sc.n + ' · ') + sc.name;
+
+// A song with its two practice tracks, or a note that none is posted yet.
+function songLine(song) {
+  const li = el('li', 'song');
+  li.appendChild(el('span', 'song-title', '🎵 ' + song.title));
+  const links = el('span', 'song-links');
+  if (song.vocals) links.appendChild(link(song.vocals, 'With vocals', 'song-link'));
+  if (song.track) links.appendChild(link(song.track, 'Accompaniment', 'song-link is-track'));
+  if (!song.vocals && !song.track) links.appendChild(el('span', 'song-none', 'Practice track coming'));
+  li.appendChild(links);
+  return li;
+}
+
+// One person's scenes as a list, each with the part they play and its songs.
+function sceneList(apps, opts) {
+  const list = el('ol', 'my-scenes');
+  apps.forEach(({ scene, as }) => {
+    const li = el('li');
+    const head = el('div', 'my-scene-head');
+    const title = opts && opts.link
+      ? link('scenes.html#scene-' + scene.n, sceneLabel(scene), 'my-scene-name')
+      : el('strong', 'my-scene-name', sceneLabel(scene));
+    head.appendChild(title);
+    head.appendChild(el('small', null, 'as ' + as.join(', ')));
+    li.appendChild(head);
+    if ((scene.songs || []).length) {
+      const songs = el('ul', 'songs');
+      scene.songs.forEach(s => songs.appendChild(songLine(s)));
+      li.appendChild(songs);
+    }
+    list.appendChild(li);
+  });
+  return list;
+}
+
+function renderCast(data, sceneData) {
   const host = slot('cast');
   if (!host) return;
   host.innerHTML = '';
@@ -1031,174 +981,398 @@ function renderCast(data) {
   head.appendChild(banner);
   host.appendChild(head);
 
-  const members = (data.members || []).filter(m => m.actor || (m.parts || []).length);
-  const listSection = el('section', 'cast-list');
-  listSection.id = 'cast-list';
-  listSection.appendChild(el('h2', null, data.listHeading || 'Cast list'));
+  const section = el('section', 'cast-list');
+  section.id = 'cast-list';
+  section.appendChild(el('h2', null, data.listHeading || 'Cast & scenes'));
+  renderCastTable(section, data, scenesByRole(sceneData));
+  host.appendChild(section);
 
-  if (!members.length) {
-    listSection.appendChild(el('p', 'note-box', data.notPosted || 'The cast list will be posted here after auditions.'));
-  } else {
-    renderCastTable(listSection, data, members);
-  }
-
-  host.appendChild(listSection);
   if (data.characters) host.appendChild(renderCharacters(data.characters));
-
-  if (data.closing && data.closing.length) {
-    const box = el('div', 'note-box');
-    data.closing.forEach(p => box.appendChild(el('p', null, p)));
-    host.appendChild(box);
-  }
 }
 
-function renderCastTable(host, data, list) {
-  // Track pills and filters only matter when roles are split between tracks.
-  const usesTracks = TRACKS.length > 1 &&
-    list.some(m => (m.parts || []).some(p => TRACKS.includes(p.track)));
-
-  if (usesTracks) {
-    const legend = el('div', 'legend');
-    Object.entries(data.tracks || {}).forEach(([name, text]) => {
-      const item = el('span', 'legend-item');
-      item.appendChild(el('span', 'track track-' + trackClass(name), name));
-      item.appendChild(el('span', 'legend-text', text));
-      legend.appendChild(item);
-    });
-    if (legend.children.length) host.appendChild(legend);
-  }
+// One row per role number: who plays it, what else they play, and their scenes,
+// which open into the songs in each one with links to the practice tracks.
+function renderCastTable(host, data, byRole) {
+  const members = (data.members || []).filter(m => m.role);
 
   const controls = el('div', 'search-row');
   const input = el('input');
   input.type = 'search';
-  input.placeholder = 'Search by actor or role…';
+  input.placeholder = 'Search by name, role or number…';
   input.setAttribute('aria-label', 'Search the cast list');
   controls.appendChild(input);
-
-  let activeTrack = 'All';
-  if (usesTracks) {
-    const filters = el('div', 'filters');
-    filters.setAttribute('role', 'group');
-    filters.setAttribute('aria-label', 'Filter by track');
-    const buttons = [];
-    [['All', 'All tracks']].concat(TRACKS.map(t => [t, t + ' Track'])).forEach(([value, label]) => {
-      const b = el('button',
-        'filter filter-' + (value === 'All' ? 'all is-on' : trackClass(value)), label);
-      b.type = 'button';
-      b.addEventListener('click', () => {
-        activeTrack = value;
-        buttons.forEach(x => x.classList.toggle('is-on', x === b));
-        apply();
-      });
-      buttons.push(b);
-      filters.appendChild(b);
-    });
-    controls.appendChild(filters);
-  }
+  const toggle = el('button', 'filter', 'Open every scene list');
+  toggle.type = 'button';
+  controls.appendChild(toggle);
   const count = el('div', 'count');
   controls.appendChild(count);
   host.appendChild(controls);
 
-  const note = el('p', 'filter-note');
-  host.appendChild(note);
-
-  const columns = usesTracks ? ['Actor', 'Role', 'Track', 'Description'] : ['Actor', 'Role', 'Description'];
   const scroll = el('div', 'table-scroll');
-  const table = el('table', 'cast' + (usesTracks ? '' : ' no-tracks'));
+  const table = el('table', 'cast roster');
   const thead = el('thead');
   const hr = el('tr');
-  columns.forEach(h => hr.appendChild(el('th', null, h)));
+  ['#', 'Student', 'Role', 'Scenes & songs'].forEach(h => hr.appendChild(el('th', null, h)));
   thead.appendChild(hr);
   table.appendChild(thead);
   scroll.appendChild(table);
   host.appendChild(scroll);
 
-  // One <tbody> per person, one <tr> per role, so each role sits on the same line as
-  // its own track and description. Rows are rebuilt when the filter changes, because
-  // the actor cell spans however many roles are currently on show.
-  const members = list.map(m => ({
-    actor: m.actor || 'TBD',
-    parts: m.parts && m.parts.length ? m.parts : [{ role: '', track: 'Both', description: '' }],
-    group: el('tbody', 'member'),
-    search: ((m.actor || '') + ' ' + (m.parts || []).map(p => p.role).join(' ')).toLowerCase()
-  }));
-  members.forEach(m => table.appendChild(m.group));
+  let group = null;
+  const rows = members.map(m => {
+    if (m.group && m.group !== group) {
+      group = m.group;
+      const gb = el('tbody', 'roster-group');
+      const gr = el('tr');
+      const gh = el('th', null, group);
+      gh.colSpan = 4;
+      gr.appendChild(gh);
+      gb.appendChild(gr);
+      table.appendChild(gb);
+    }
+    const body = el('tbody', 'member');
+    const tr = el('tr', 'first');
 
-  function fillGroup(m, parts) {
-    m.group.innerHTML = '';
-    parts.forEach((p, i) => {
-      const tr = el('tr', i === 0 ? 'first' : 'more');
-      if (i === 0) {
-        const actorCell = el('td', 'actor');
-        actorCell.rowSpan = parts.length;
-        actorCell.appendChild(el('span', 'actor-name', m.actor));
-        if (parts.length > 1) {
-          actorCell.appendChild(el('span', 'actor-count', parts.length + ' roles'));
-        }
-        tr.appendChild(actorCell);
-      }
+    tr.appendChild(el('td', 'num', '#' + m.role));
 
-      const roleCell = el('td', 'role');
-      roleCell.setAttribute('data-label', 'Role');
-      roleCell.textContent = p.role;
-      tr.appendChild(roleCell);
+    const who = el('td', 'actor');
+    const student = (m.student || '').trim();
+    const nameLink = link('scenes.html?role=' + m.role, student || 'To be cast', 'actor-name' + (student ? '' : ' is-tbc'));
+    nameLink.title = 'See every scene for #' + m.role;
+    who.appendChild(nameLink);
+    tr.appendChild(who);
 
-      if (usesTracks) {
-        const trackCell = el('td', 'track-col');
-        trackCell.setAttribute('data-label', 'Track');
-        trackCell.appendChild(el('span', 'track track-' + trackClass(p.track), p.track || 'Both'));
-        tr.appendChild(trackCell);
-      }
+    const role = el('td', 'role');
+    role.setAttribute('data-label', 'Role');
+    role.appendChild(el('span', 'role-name', m.name));
+    (m.also || []).forEach(a => role.appendChild(el('small', 'role-also', a)));
+    tr.appendChild(role);
 
-      const descCell = el('td', 'desc');
-      descCell.setAttribute('data-label', 'Description');
-      descCell.textContent = p.description || '';
-      tr.appendChild(descCell);
+    const apps = byRole.get(+m.role) || [];
+    const songCount = apps.reduce((n, a) => n + (a.scene.songs || []).length, 0);
+    const cell = el('td', 'desc scenes-cell');
+    if (apps.length) {
+      const box = el('details', 'my-scenes-box');
+      const sum = el('summary');
+      sum.appendChild(el('strong', null, apps.length + (apps.length === 1 ? ' scene' : ' scenes')));
+      sum.appendChild(document.createTextNode(' · ' + songCount + (songCount === 1 ? ' song' : ' songs')));
+      sum.appendChild(el('span', 'scene-nums', apps.map(a => a.scene.n > 20 ? 'Bows' : a.scene.n).join(', ')));
+      box.appendChild(sum);
+      box.appendChild(sceneList(apps, { link: true }));
+      cell.appendChild(box);
+    } else {
+      cell.textContent = 'No scenes listed yet';
+    }
+    tr.appendChild(cell);
+    body.appendChild(tr);
+    table.appendChild(body);
 
-      m.group.appendChild(tr);
-    });
-  }
+    const search = [m.role, '#' + m.role, student, m.name, (m.also || []).join(' '),
+      apps.map(a => a.scene.name + ' ' + a.as.join(' ')).join(' ')].join(' ').toLowerCase();
+    return { body, search, group: body.previousElementSibling };
+  });
 
-  const NOTES = data.trackNotes || {};
+  const boxes = () => [...table.querySelectorAll('details.my-scenes-box')];
+  toggle.addEventListener('click', () => {
+    const open = !boxes().every(b => b.open);
+    boxes().forEach(b => { if (!b.closest('tbody').hidden) b.open = open; });
+    toggle.textContent = open ? 'Close every scene list' : 'Open every scene list';
+  });
 
-  // A role belongs on screen unless it is the other track's version of a part.
-  const partVisible = p =>
-    activeTrack === 'All' || p.track === activeTrack || !TRACKS.includes(p.track);
-
-  let started = false;
   function apply() {
     const q = input.value.trim().toLowerCase();
     let shown = 0;
-    members.forEach(m => {
-      const parts = m.parts.filter(partVisible);
-      const match = parts.length > 0 && (!q || m.search.includes(q));
-      m.group.hidden = !match;
-      if (match) {
-        fillGroup(m, parts);
-        shown++;
-      } else {
-        m.group.innerHTML = '';
-      }
+    rows.forEach(r => {
+      const hit = !q || r.search.includes(q);
+      r.body.hidden = !hit;
+      if (hit) shown++;
     });
-    count.textContent = shown + (shown === 1 ? ' person' : ' people');
-    note.textContent = usesTracks ? (NOTES[activeTrack] || '') : '';
-    note.hidden = !note.textContent;
-
-    // Filtering can shorten the page under the reader's feet. Bring the controls
-    // back into view rather than leaving them stranded above the window.
-    if (started && controls.getBoundingClientRect().top < 0) {
-      controls.scrollIntoView({ block: 'start', behavior: 'smooth' });
-    }
+    // Hide a group heading when nobody under it matches.
+    table.querySelectorAll('tbody.roster-group').forEach(g => {
+      let n = g.nextElementSibling, any = false;
+      while (n && !n.classList.contains('roster-group')) { if (!n.hidden) any = true; n = n.nextElementSibling; }
+      g.hidden = !any;
+    });
+    count.textContent = shown + (shown === 1 ? ' role' : ' roles');
   }
   input.addEventListener('input', apply);
   apply();
-  started = true;
 }
 
-/* ---------- boosters ---------- */
+/* ---------- scenes page: who is on stage, scene by scene ---------- */
 
-function renderBoosters(data) {
-  const host = slot('boosters');
+function renderScenes(sceneData, castData) {
+  const host = slot('scenes');
+  if (!host) return;
+  host.innerHTML = '';
+  const scenes = (sceneData && sceneData.scenes) || [];
+  const members = (castData && castData.members || []).filter(m => m.role);
+  const byRole = scenesByRole(sceneData);
+  const whoOf = m => ((m.student || '').trim() || 'To be cast');
+  const tagOf = m => '#' + m.role + ' ' + m.name;
+
+  const head = el('div', 'scene-head');
+  head.appendChild(el('h2', null, 'Scene by scene'));
+  head.appendChild(el('p', 'section-intro',
+    'Every scene of The Little Mermaid JR., who is on stage in it, and its songs. ' +
+    'Pick a name or role number in Student view to see one student’s whole show, including when they are off stage. ' +
+    'Costumes will be added here once they are planned.'));
+  host.appendChild(head);
+
+  const tabs = el('div', 'filters scene-tabs');
+  tabs.setAttribute('role', 'group');
+  tabs.setAttribute('aria-label', 'How to look at the scenes');
+  const panels = {};
+  const buttons = [];
+  [['student', 'Student view'], ['grid', 'Grid view'], ['songs', 'Songs']].forEach(([key, label], i) => {
+    const b = el('button', 'filter' + (i === 0 ? ' is-on' : ''), label);
+    b.type = 'button';
+    b.dataset.view = key;
+    b.addEventListener('click', () => show(key));
+    buttons.push(b);
+    tabs.appendChild(b);
+  });
+  host.appendChild(tabs);
+  ['student', 'grid', 'songs'].forEach((k, i) => {
+    panels[k] = el('div', 'scene-panel');
+    panels[k].hidden = i > 0;
+    host.appendChild(panels[k]);
+  });
+  function show(key) {
+    buttons.forEach(x => x.classList.toggle('is-on', x.dataset.view === key));
+    Object.entries(panels).forEach(([k, p]) => { p.hidden = k !== key; });
+    try { localStorage.setItem('legacy-scenes-view', key); } catch (err) { /* private window */ }
+  }
+
+  /* ---- student view ---- */
+  const picker = el('div', 'search-row');
+  const label = el('label', 'sr-only', 'Pick a student');
+  label.htmlFor = 'scene-student';
+  const select = el('select', 'scene-picker');
+  select.id = 'scene-student';
+  select.appendChild(new Option('Pick a name or role number…', ''));
+  members.forEach(m => select.appendChild(new Option(
+    (m.student ? m.student + ' — ' : '') + tagOf(m), String(m.role))));
+  picker.appendChild(label);
+  picker.appendChild(select);
+  panels.student.appendChild(picker);
+  const out = el('div', 'student-out');
+  panels.student.appendChild(out);
+
+  function drawStudent(key) {
+    out.innerHTML = '';
+    const m = members.find(x => String(x.role) === key);
+    if (!m) {
+      out.appendChild(el('p', 'filter-note', 'Pick a name or role number to see every scene they are in.'));
+      return;
+    }
+    const apps = byRole.get(+m.role) || [];
+    const card = el('section', 'track-card');
+    card.appendChild(el('h3', null, (m.student || '').trim() || tagOf(m)));
+    const songs = apps.reduce((n, a) => n + (a.scene.songs || []).length, 0);
+    card.appendChild(el('p', 'track-sub', ((m.student || '').trim() ? tagOf(m) : 'Not cast yet') + (m.also && m.also.length ? ' · also ' + m.also.join('; ') : '') +
+      ' — ' + apps.length + (apps.length === 1 ? ' scene, ' : ' scenes, ') + songs + (songs === 1 ? ' song' : ' songs')));
+    if (!apps.length) {
+      card.appendChild(el('p', 'filter-note', 'No scenes listed for this role yet.'));
+      out.appendChild(card);
+      return;
+    }
+    // Every scene in order: on stage, or folded into an off-stage stretch that
+    // says which scene to be ready during.
+    const on = new Map(apps.map(a => [a.scene.n, a]));
+    const list = el('ol', 'scene-run');
+    let offFrom = null;
+    const flushOff = upTo => {
+      if (offFrom === null) return;
+      const from = offFrom, to = upTo;
+      offFrom = null;
+      const li = el('li');
+      const box = el('details', 'run-off');
+      const sum = el('summary');
+      const span = scenes.filter(s => s.n >= from && s.n <= to);
+      sum.appendChild(el('span', 'off-count', 'Off stage · ' + (span.length === 1
+        ? 'scene ' + from : span.length + ' scenes, ' + from + '–' + to)));
+      const last = span[span.length - 1];
+      const cue = el('span', 'off-cue');
+      cue.appendChild(document.createTextNode('Be ready during '));
+      cue.appendChild(el('strong', null, last.n + '. ' + last.name));
+      cue.appendChild(document.createTextNode(' — you are on next'));
+      sum.appendChild(cue);
+      box.appendChild(sum);
+      const inner = el('ol', 'off-list');
+      span.forEach(s => {
+        const item = el('li', s === last ? 'is-cue' : null);
+        item.appendChild(el('span', 'run-num', String(s.n)));
+        item.appendChild(el('span', null, s.name + (s === last ? ' · get ready' : '')));
+        inner.appendChild(item);
+      });
+      box.appendChild(inner);
+      li.appendChild(box);
+      list.appendChild(li);
+    };
+    scenes.forEach(s => {
+      const a = on.get(s.n);
+      if (!a) { if (offFrom === null) offFrom = s.n; return; }
+      flushOff(s.n - 1);
+      const li = el('li');
+      li.appendChild(el('span', 'run-num', s.n > 20 ? '★' : String(s.n)));
+      const d = el('div', 'run-on');
+      const left = el('div');
+      left.appendChild(el('strong', null, s.name));
+      left.appendChild(el('small', null, 'as ' + a.as.join(', ')));
+      d.appendChild(left);
+      if ((s.songs || []).length) {
+        const ul = el('ul', 'songs');
+        s.songs.forEach(x => ul.appendChild(songLine(x)));
+        d.appendChild(ul);
+      }
+      li.appendChild(d);
+      list.appendChild(li);
+    });
+    offFrom = null; // nothing after their last scene needs a cue
+    card.appendChild(list);
+    out.appendChild(card);
+  }
+
+  select.addEventListener('change', () => {
+    drawStudent(select.value);
+    try { localStorage.setItem('legacy-scenes-role', select.value); } catch (err) { /* private window */ }
+  });
+
+  /* ---- grid: roles down the side, scenes across ---- */
+  const gridWrap = el('div', 'grid-scroll');
+  const table = el('table', 'scene-grid');
+  const thead = el('thead');
+  const hr = el('tr');
+  hr.appendChild(el('th', 'corner', 'Role'));
+  scenes.forEach(s => {
+    const th = el('th', 'scene-col' + (s.n === 12 ? ' act-start' : ''));
+    th.scope = 'col';
+    th.appendChild(el('span', null, (s.n > 20 ? '' : s.n + '. ') + s.name));
+    hr.appendChild(th);
+  });
+  thead.appendChild(hr);
+  table.appendChild(thead);
+  const tbody = el('tbody');
+  let group = null;
+  members.forEach(m => {
+    if (m.group && m.group !== group) {
+      group = m.group;
+      const gr = el('tr', 'group-row');
+      const gh = el('th', null, group);
+      gh.colSpan = scenes.length + 1;
+      gh.scope = 'colgroup';
+      gr.appendChild(gh);
+      tbody.appendChild(gr);
+    }
+    const tr = el('tr');
+    const nameCell = el('th', 'who');
+    nameCell.scope = 'row';
+    const pick = el('button', 'who-link', tagOf(m));
+    pick.type = 'button';
+    pick.addEventListener('click', () => pickStudent(String(m.role)));
+    nameCell.appendChild(pick);
+    nameCell.appendChild(el('small', null, whoOf(m)));
+    tr.appendChild(nameCell);
+    const mine = new Map((byRole.get(+m.role) || []).map(a => [a.scene.n, a]));
+    scenes.forEach(s => {
+      const td = el('td', 'cell' + (s.n === 12 ? ' act-start' : ''));
+      const a = mine.get(s.n);
+      if (a) {
+        td.classList.add('on', 'cos-1');
+        td.title = tagOf(m) + ' · ' + s.n + '. ' + s.name + ' · as ' + a.as.join(', ');
+        td.appendChild(el('span', 'cell-dot', '●'));
+        td.appendChild(el('span', 'sr-only', 'on stage as ' + a.as.join(', ')));
+      } else {
+        td.title = tagOf(m) + ' · ' + s.n + '. ' + s.name + ' · off stage';
+      }
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  table.appendChild(tbody);
+  gridWrap.appendChild(table);
+  panels.grid.appendChild(gridWrap);
+  panels.grid.appendChild(el('p', 'filter-note grid-note',
+    'A dot means that role is on stage in that scene; hover over it to see who they play. Act II starts at scene 12. ' +
+    'Tap a role for their own scene list.'));
+
+  // On a phone the grid is unreadable, so the same information reads as a list
+  // of scenes: open one to see who is on stage in it.
+  const cards = el('div', 'scene-cards');
+  scenes.forEach(s => {
+    const card = el('details', 'scene-card');
+    card.id = 'scene-' + s.n;
+    const sum = el('summary');
+    sum.appendChild(el('span', 'scene-no', s.n > 20 ? '★' : String(s.n)));
+    const t = el('span', 'scene-title');
+    t.appendChild(el('strong', null, s.name));
+    const count = new Set((s.characters || []).flatMap(c => c.roles)).size;
+    t.appendChild(el('small', null, count + ' on stage' + ((s.songs || []).length ? ' · ' + s.songs.map(x => x.title).join(', ') : '')));
+    sum.appendChild(t);
+    card.appendChild(sum);
+    const list = el('ul', 'scene-card-list');
+    (s.characters || []).forEach(c => {
+      const li = el('li');
+      li.appendChild(el('strong', null, c.name));
+      const who = c.roles.map(n => members.find(m => +m.role === n)).filter(Boolean);
+      li.appendChild(el('small', null, who.map(m => m.student ? m.student : '#' + m.role).join(', ') + (c.note ? ' — ' + c.note : '')));
+      list.appendChild(li);
+    });
+    card.appendChild(list);
+    cards.appendChild(card);
+  });
+  panels.grid.appendChild(cards);
+
+  /* ---- songs: every song in running order, with both practice tracks ---- */
+  panels.songs.appendChild(el('p', 'filter-note',
+    'Every song in the show, scene by scene. “With vocals” is for learning the part; “Accompaniment” is the music alone, to sing along to.'));
+  const songList = el('div', 'song-scenes');
+  scenes.filter(s => (s.songs || []).length).forEach(s => {
+    const box = el('div', 'song-scene');
+    box.id = 'songs-' + s.n;
+    box.appendChild(el('h4', null, sceneLabel(s)));
+    const ul = el('ul', 'songs');
+    s.songs.forEach(x => ul.appendChild(songLine(x)));
+    box.appendChild(ul);
+    songList.appendChild(box);
+  });
+  panels.songs.appendChild(songList);
+
+  function pickStudent(key) {
+    select.value = key;
+    drawStudent(key);
+    show('student');
+    panels.student.scrollIntoView({ block: 'start', behavior: 'smooth' });
+  }
+
+  // Open on the role in the address (the Cast page links here with ?role=5), or
+  // where they left off. #songs opens the song list, and #scene-7 that scene.
+  const asked = new URLSearchParams(location.search).get('role') || '';
+  let start = asked;
+  if (!start) { try { start = localStorage.getItem('legacy-scenes-role') || ''; } catch (err) { start = ''; } }
+  if (members.some(m => String(m.role) === start)) select.value = start;
+  drawStudent(select.value);
+  let view = '';
+  try { view = localStorage.getItem('legacy-scenes-view') || ''; } catch (err) { view = ''; }
+  const hash = location.hash.slice(1);
+  if (hash === 'songs') view = 'songs';
+  if (/^scene-\d+$/.test(hash)) {
+    view = 'grid';
+    const card = document.getElementById(hash);
+    if (card) card.open = true;
+  }
+  if (!asked && (view === 'grid' || view === 'songs')) show(view);
+  if (hash) {
+    const target = document.getElementById(hash === 'songs' ? 'scenes' : hash);
+    if (target) setTimeout(() => target.scrollIntoView({ block: 'start' }), 60);
+  }
+}
+
+/* ---------- parent volunteers ---------- */
+
+function renderVolunteers(data) {
+  const host = slot('volunteers');
   if (!host) return;
   host.innerHTML = '';
 
@@ -1281,6 +1455,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   showSkeleton('calendars', 'calendar');
   showSkeleton('performances', 'shows');
   showSkeleton('cast', 'cast');
+  showSkeleton('scenes', 'cast');
   try {
     const site = await loadJSON('data/site.json');
     TRACKS = Array.isArray(site.tracks) ? site.tracks.filter(Boolean) : [];
@@ -1292,13 +1467,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     const calendarData = (slot('calendars') || slot('announcements') || slot('performances'))
       ? contentFor('calendar', loadJSON('data/calendar.json').then(calendarFromFile), ['Date', 'Title'], calendarFromSheet)
       : Promise.resolve(null);
-    const castData = (slot('calendars') || slot('cast'))
-      ? contentFor('cast', loadJSON('data/cast.json'), ['Actor', 'Role'], castFromSheet)
+    const castData = (slot('calendars') || slot('cast') || slot('scenes'))
+      ? contentFor('cast', loadJSON('data/cast.json'), ['Role #', 'Student'], castFromSheet)
       : null;
+    const sceneData = (slot('cast') || slot('scenes')) ? loadJSON('data/scenes.json') : null;
     const jobs = [];
 
     if (slot('links')) jobs.push(loadJSON('data/links.json').then(renderLinks));
-    if (slot('boosters')) jobs.push(loadJSON('data/boosters.json').then(renderBoosters));
+    if (slot('volunteers')) jobs.push(loadJSON('data/volunteers.json').then(renderVolunteers));
     if (slot('announcements')) {
       const announcements = contentFor('announcements', site.announcements,
         ['Title'], (rows, saved) => Object.assign({}, saved, { items: announcementsFromSheet(rows) }));
@@ -1319,7 +1495,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       jobs.push(calendarData.then(cal => { renderPerformances(cal, site); doneLoading('performances'); }));
     }
     if (slot('cast')) {
-      jobs.push(castData.then(cast => { renderCast(cast); doneLoading('cast'); }));
+      jobs.push(Promise.all([castData, sceneData]).then(([cast, sc]) => { renderCast(cast, sc); doneLoading('cast'); }));
+    }
+    if (slot('scenes')) {
+      jobs.push(Promise.all([sceneData, castData]).then(([sc, cast]) => { renderScenes(sc, cast); doneLoading('scenes'); }));
     }
     await Promise.all(jobs);
 

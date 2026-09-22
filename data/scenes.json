@@ -1,0 +1,1284 @@
+{
+  "_comment": "Every scene in running order, from the director's Scenes and Songs tabs. Each scene has its number, name, act, songs (title, vocals = practice track with vocals, track = accompaniment only) and characters (name and the role numbers who play them). The Cast and Scenes pages work out who is in each scene from this file.",
+  "scenes": [
+    {
+      "n": 1,
+      "name": "The Ocean Surface",
+      "songs": [
+        {
+          "title": "Fathoms Below",
+          "vocals": "https://youtu.be/JGRajGZjOWw?si=QCi-9ChXZMyxePA1",
+          "track": "https://youtu.be/2H8WqHJZ0kQ?si=TnqeeTUPxFdnhJUe"
+        }
+      ],
+      "characters": [
+        {
+          "name": "Sailors",
+          "roles": [
+            17,
+            21,
+            22,
+            23,
+            24,
+            25
+          ]
+        },
+        {
+          "name": "Sea Chorus",
+          "roles": [
+            31,
+            32,
+            33,
+            34,
+            35
+          ]
+        },
+        {
+          "name": "Pilot",
+          "roles": [
+            19
+          ]
+        },
+        {
+          "name": "Prince Eric",
+          "roles": [
+            2
+          ]
+        },
+        {
+          "name": "Grimsby",
+          "roles": [
+            8
+          ]
+        },
+        {
+          "name": "Ariel (voice, offstage)",
+          "roles": [
+            1
+          ]
+        }
+      ],
+      "act": 1
+    },
+    {
+      "n": 2,
+      "name": "King Triton's Court",
+      "songs": [
+        {
+          "title": "Daughters of Triton",
+          "vocals": "https://youtu.be/laFE4Ewv_xY?si=d9CFVj9ktZRyRrDw",
+          "track": "https://youtu.be/LYm2HPsHwOc?si=4QpPj8fHKhUM8VCY"
+        },
+        {
+          "title": "Where's Ariel",
+          "vocals": "",
+          "track": ""
+        }
+      ],
+      "characters": [
+        {
+          "name": "Sea Chorus",
+          "roles": [
+            31,
+            32,
+            33,
+            34,
+            35
+          ]
+        },
+        {
+          "name": "King Triton",
+          "roles": [
+            3
+          ]
+        },
+        {
+          "name": "Seahorse",
+          "roles": [
+            20
+          ]
+        },
+        {
+          "name": "Sebastian",
+          "roles": [
+            5
+          ]
+        },
+        {
+          "name": "Mersisters",
+          "roles": [
+            11,
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "note": "Aquata, Andrina, Arista, Atina, Adella, Allana"
+        },
+        {
+          "name": "Flotsam",
+          "roles": [
+            9
+          ]
+        },
+        {
+          "name": "Jetsam",
+          "roles": [
+            10
+          ]
+        },
+        {
+          "name": "Merpeople",
+          "roles": [
+            18
+          ]
+        }
+      ],
+      "act": 1
+    },
+    {
+      "n": 3,
+      "name": "The Beach",
+      "songs": [
+        {
+          "title": "Human Stuff",
+          "vocals": "https://youtu.be/o34t1gB5mYo?si=vkNgkEOV5fYySPSq",
+          "track": "https://youtu.be/WPjIZsTKdt4?si=yZEva1PqJxwwB9XA"
+        }
+      ],
+      "characters": [
+        {
+          "name": "Sea Chorus",
+          "roles": [
+            31,
+            32,
+            33,
+            34,
+            35
+          ]
+        },
+        {
+          "name": "Ariel",
+          "roles": [
+            1
+          ]
+        },
+        {
+          "name": "Flounder",
+          "roles": [
+            6
+          ]
+        },
+        {
+          "name": "Scuttle",
+          "roles": [
+            7
+          ]
+        },
+        {
+          "name": "Gulls",
+          "roles": [
+            26,
+            27,
+            28,
+            29,
+            30
+          ]
+        }
+      ],
+      "act": 1
+    },
+    {
+      "n": 4,
+      "name": "Ursula's Lair",
+      "songs": [],
+      "characters": [
+        {
+          "name": "Sea Chorus",
+          "roles": [
+            31,
+            32,
+            33,
+            34,
+            35
+          ]
+        },
+        {
+          "name": "Flotsam",
+          "roles": [
+            9
+          ]
+        },
+        {
+          "name": "Jetsam",
+          "roles": [
+            10
+          ]
+        },
+        {
+          "name": "Ursula",
+          "roles": [
+            4
+          ]
+        }
+      ],
+      "act": 1
+    },
+    {
+      "n": 5,
+      "name": "King Triton's Court",
+      "songs": [],
+      "characters": [
+        {
+          "name": "Sea Chorus",
+          "roles": [
+            31,
+            32,
+            33,
+            34,
+            35
+          ]
+        },
+        {
+          "name": "King Triton",
+          "roles": [
+            3
+          ]
+        },
+        {
+          "name": "Sebastian",
+          "roles": [
+            5
+          ]
+        },
+        {
+          "name": "Ariel",
+          "roles": [
+            1
+          ]
+        },
+        {
+          "name": "Flounder",
+          "roles": [
+            6
+          ]
+        }
+      ],
+      "act": 1
+    },
+    {
+      "n": 6,
+      "name": "Ariel's Grotto",
+      "songs": [
+        {
+          "title": "Part of Your World",
+          "vocals": "https://youtu.be/ratOIZ0k0xY?si=EO7gaDYmasVXRbGn",
+          "track": "https://youtu.be/yxVH2f5yZOo?si=FLfrUetMDph3hfg6"
+        },
+        {
+          "title": "Under the Sea",
+          "vocals": "https://youtu.be/M_YCMZFQjeE?si=NgAJcJt_mATawIBh",
+          "track": "https://youtu.be/tFP-NNvB7QI?si=XtuYgbUN7Hn8JvKP"
+        }
+      ],
+      "characters": [
+        {
+          "name": "Sea Chorus",
+          "roles": [
+            31,
+            32,
+            33,
+            34,
+            35
+          ]
+        },
+        {
+          "name": "Ariel",
+          "roles": [
+            1
+          ]
+        },
+        {
+          "name": "Flounder",
+          "roles": [
+            6
+          ]
+        },
+        {
+          "name": "Flotsam",
+          "roles": [
+            9
+          ]
+        },
+        {
+          "name": "Jetsam",
+          "roles": [
+            10
+          ]
+        },
+        {
+          "name": "Sebastian",
+          "roles": [
+            5
+          ]
+        },
+        {
+          "name": "Sea Creatures",
+          "roles": [
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            20
+          ],
+          "note": "Including Harp, Bass, Sax, Jellyfish 1, Jellyfish 2, Newt, Plaice, Carp, Chub, Fluke"
+        }
+      ],
+      "act": 1
+    },
+    {
+      "n": 7,
+      "name": "The Ocean Surface",
+      "songs": [
+        {
+          "title": "Prince Eric's Ship",
+          "vocals": "https://youtu.be/1FFaK8MXWaQ?si=r1DhlO1wzA5EY_SW",
+          "track": "https://youtu.be/s7UPixCvUyQ?si=K2AZBYIprbHvFJrq"
+        },
+        {
+          "title": "The Storm",
+          "vocals": "https://youtu.be/tLHbSMygO3I?si=D_9QPsVeNcnFkTa1",
+          "track": "https://youtu.be/Wwg3xLgn8Aw?si=FyQicLV4-EL7OJKT"
+        }
+      ],
+      "characters": [
+        {
+          "name": "Sea Chorus",
+          "roles": [
+            31,
+            32,
+            33,
+            34,
+            35
+          ]
+        },
+        {
+          "name": "Prince Eric",
+          "roles": [
+            2
+          ]
+        },
+        {
+          "name": "Grimsby",
+          "roles": [
+            8
+          ]
+        },
+        {
+          "name": "Pilot",
+          "roles": [
+            19
+          ]
+        },
+        {
+          "name": "Sailors",
+          "roles": [
+            17,
+            21,
+            22,
+            23,
+            24,
+            25
+          ]
+        },
+        {
+          "name": "Ariel",
+          "roles": [
+            1
+          ]
+        },
+        {
+          "name": "Flounder",
+          "roles": [
+            6
+          ]
+        },
+        {
+          "name": "Scuttle",
+          "roles": [
+            7
+          ]
+        },
+        {
+          "name": "Flotsam",
+          "roles": [
+            9
+          ]
+        },
+        {
+          "name": "Jetsam",
+          "roles": [
+            10
+          ]
+        }
+      ],
+      "act": 1
+    },
+    {
+      "n": 8,
+      "name": "The Beach",
+      "songs": [
+        {
+          "title": "Part of Your World (Reprise 1)",
+          "vocals": "https://youtu.be/LxcPUWLNveA?si=Oc9cyv_TJO4quKus",
+          "track": "https://youtu.be/7JCPqEqBhss?si=AHGb7zTgFCh66bB9"
+        },
+        {
+          "title": "Part of Your World (Reprise 2)",
+          "vocals": "https://youtu.be/DiaP0Ez_ygw?si=sXU2QkFBAcYx5XND",
+          "track": "https://youtu.be/mBh6u6o-dXI?si=SDxbhZpOrAPkkx7e"
+        }
+      ],
+      "characters": [
+        {
+          "name": "Ariel",
+          "roles": [
+            1
+          ]
+        },
+        {
+          "name": "Flounder",
+          "roles": [
+            6
+          ]
+        },
+        {
+          "name": "Sebastian",
+          "roles": [
+            5
+          ]
+        },
+        {
+          "name": "Flotsam",
+          "roles": [
+            9
+          ]
+        },
+        {
+          "name": "Jetsam",
+          "roles": [
+            10
+          ]
+        },
+        {
+          "name": "Scuttle",
+          "roles": [
+            7
+          ]
+        },
+        {
+          "name": "Prince Eric",
+          "roles": [
+            2
+          ]
+        },
+        {
+          "name": "Grimsby",
+          "roles": [
+            8
+          ]
+        },
+        {
+          "name": "Sea Chorus",
+          "roles": [
+            31,
+            32,
+            33,
+            34,
+            35
+          ]
+        },
+        {
+          "name": "Gulls",
+          "roles": [
+            26,
+            27,
+            28,
+            29,
+            30
+          ]
+        }
+      ],
+      "act": 1
+    },
+    {
+      "n": 9,
+      "name": "King Triton's Court",
+      "songs": [
+        {
+          "title": "She's in Love",
+          "vocals": "https://youtu.be/X55BLMeIVOs?si=rMkqshBPBOFn-34L",
+          "track": "https://youtu.be/gsMMTcYTs5k?si=zMHSJD0wi9zjb0vR"
+        }
+      ],
+      "characters": [
+        {
+          "name": "Sea Chorus",
+          "roles": [
+            31,
+            32,
+            33,
+            34,
+            35
+          ]
+        },
+        {
+          "name": "Mersisters",
+          "roles": [
+            11,
+            12,
+            13,
+            14,
+            15,
+            16
+          ],
+          "note": "Allana, Adella, Aquata, Atina, Andrina, Arista"
+        },
+        {
+          "name": "Ariel",
+          "roles": [
+            1
+          ]
+        },
+        {
+          "name": "Flounder",
+          "roles": [
+            6
+          ]
+        },
+        {
+          "name": "King Triton",
+          "roles": [
+            3
+          ]
+        },
+        {
+          "name": "Sebastian",
+          "roles": [
+            5
+          ]
+        }
+      ],
+      "act": 1
+    },
+    {
+      "n": 10,
+      "name": "Ariel's Grotto",
+      "songs": [],
+      "characters": [
+        {
+          "name": "Sea Chorus",
+          "roles": [
+            31,
+            32,
+            33,
+            34,
+            35
+          ]
+        },
+        {
+          "name": "Ariel",
+          "roles": [
+            1
+          ]
+        },
+        {
+          "name": "King Triton",
+          "roles": [
+            3
+          ]
+        },
+        {
+          "name": "Sebastian",
+          "roles": [
+            5
+          ]
+        },
+        {
+          "name": "Flotsam",
+          "roles": [
+            9
+          ]
+        },
+        {
+          "name": "Jetsam",
+          "roles": [
+            10
+          ]
+        },
+        {
+          "name": "Flounder",
+          "roles": [
+            6
+          ]
+        }
+      ],
+      "act": 1
+    },
+    {
+      "n": 11,
+      "name": "Ursula's Lair",
+      "songs": [
+        {
+          "title": "Poor Unfortunate Souls",
+          "vocals": "https://youtu.be/59tZdhubw8w?si=zEyG9dEvfAlbAo93",
+          "track": "https://youtu.be/GbEvrUZYWGk?si=2HNzYuy0FpHc6B6G"
+        },
+        {
+          "title": "Beluga Sevruga",
+          "vocals": "https://youtu.be/kNLyOWzVoyc?si=w-fHWyOpF3AUCLAK",
+          "track": "https://youtu.be/I_v7NbWQfQo?si=t9iFCIe8cGrx9MIa"
+        }
+      ],
+      "characters": [
+        {
+          "name": "Sea Chorus",
+          "roles": [
+            31,
+            32,
+            33,
+            34,
+            35
+          ]
+        },
+        {
+          "name": "Flotsam",
+          "roles": [
+            9
+          ]
+        },
+        {
+          "name": "Jetsam",
+          "roles": [
+            10
+          ]
+        },
+        {
+          "name": "Ariel",
+          "roles": [
+            1
+          ]
+        },
+        {
+          "name": "Ursula",
+          "roles": [
+            4
+          ]
+        },
+        {
+          "name": "Flounder",
+          "roles": [
+            6
+          ]
+        },
+        {
+          "name": "Sebastian",
+          "roles": [
+            5
+          ]
+        }
+      ],
+      "act": 1
+    },
+    {
+      "n": 12,
+      "name": "The Beach",
+      "songs": [],
+      "characters": [
+        {
+          "name": "Sebastian",
+          "roles": [
+            5
+          ]
+        },
+        {
+          "name": "Flounder",
+          "roles": [
+            6
+          ]
+        },
+        {
+          "name": "Ariel",
+          "roles": [
+            1
+          ]
+        },
+        {
+          "name": "Scuttle",
+          "roles": [
+            7
+          ]
+        },
+        {
+          "name": "Prince Eric",
+          "roles": [
+            2
+          ]
+        }
+      ],
+      "act": 2
+    },
+    {
+      "n": 13,
+      "name": "The Palace Kitchen",
+      "songs": [
+        {
+          "title": "Les Poissons",
+          "vocals": "https://youtu.be/Ka7dZRwtSqI?si=ZOU8X8vRWY7TGxAK",
+          "track": "https://youtu.be/bv1AZgX9WT4?si=Jdx49mLyYi-w0pud"
+        }
+      ],
+      "characters": [
+        {
+          "name": "Chef Louis",
+          "roles": [
+            17
+          ]
+        },
+        {
+          "name": "Chefs",
+          "roles": [
+            19,
+            21,
+            22,
+            23,
+            24,
+            25
+          ]
+        },
+        {
+          "name": "Sebastian",
+          "roles": [
+            5
+          ]
+        }
+      ],
+      "act": 2
+    },
+    {
+      "n": 14,
+      "name": "The Palace Hall",
+      "songs": [
+        {
+          "title": "One Step Closer",
+          "vocals": "https://youtu.be/jO8CY4CShpE?si=veyj_PZjCXmncP5G",
+          "track": "https://youtu.be/6ZzNjs42Ahg?si=xPP003k8P-oRzmmA"
+        }
+      ],
+      "characters": [
+        {
+          "name": "Carlotta",
+          "roles": [
+            18
+          ]
+        },
+        {
+          "name": "Ariel",
+          "roles": [
+            1
+          ]
+        },
+        {
+          "name": "Prince Eric",
+          "roles": [
+            2
+          ]
+        },
+        {
+          "name": "Grimsby",
+          "roles": [
+            8
+          ]
+        },
+        {
+          "name": "Sebastian",
+          "roles": [
+            5
+          ]
+        },
+        {
+          "name": "Chef Louis",
+          "roles": [
+            17
+          ]
+        }
+      ],
+      "act": 2
+    },
+    {
+      "n": 15,
+      "name": "The Lagoon",
+      "songs": [
+        {
+          "title": "Kiss the Girl",
+          "vocals": "https://youtu.be/j9G5UpjQi3Y?si=eAYbJcc5-PjcaSlU",
+          "track": "https://youtu.be/VHRORAM_5pc?si=0GSouSS0I4sk3UDN"
+        }
+      ],
+      "characters": [
+        {
+          "name": "Sea Chorus",
+          "roles": [
+            31,
+            32,
+            33,
+            34,
+            35
+          ]
+        },
+        {
+          "name": "Lagoon Animals",
+          "roles": [
+            20,
+            26,
+            27,
+            28,
+            29,
+            30
+          ]
+        },
+        {
+          "name": "Prince Eric",
+          "roles": [
+            2
+          ]
+        },
+        {
+          "name": "Ariel",
+          "roles": [
+            1
+          ]
+        },
+        {
+          "name": "Sebastian",
+          "roles": [
+            5
+          ]
+        },
+        {
+          "name": "Scuttle",
+          "roles": [
+            7
+          ]
+        },
+        {
+          "name": "Flounder",
+          "roles": [
+            6
+          ]
+        },
+        {
+          "name": "Flotsam",
+          "roles": [
+            9
+          ]
+        },
+        {
+          "name": "Jetsam",
+          "roles": [
+            10
+          ]
+        }
+      ],
+      "act": 2
+    },
+    {
+      "n": 16,
+      "name": "The Palace Hall",
+      "songs": [
+        {
+          "title": "The Contest",
+          "vocals": "https://youtu.be/fkraHshRnqc?si=n-RS6d0JRGn5xWNd",
+          "track": "https://youtu.be/NrrhPtkRHkU?si=vyNoCberOAOhv0Yx"
+        },
+        {
+          "title": "Time's Up",
+          "vocals": "https://youtu.be/skspKH4hHxw?si=FT4cvESnn0F8NehX",
+          "track": "https://youtu.be/obOqO0GLIbI?si=W6Sh2fgFPxK2I1mS"
+        }
+      ],
+      "characters": [
+        {
+          "name": "Ariel",
+          "roles": [
+            1
+          ]
+        },
+        {
+          "name": "Carlotta",
+          "roles": [
+            18
+          ]
+        },
+        {
+          "name": "Grimsby",
+          "roles": [
+            8
+          ]
+        },
+        {
+          "name": "Prince Eric",
+          "roles": [
+            2
+          ]
+        },
+        {
+          "name": "Princesses",
+          "roles": [
+            11,
+            12,
+            13,
+            14,
+            15,
+            16
+          ]
+        },
+        {
+          "name": "Sailors (escorts)",
+          "roles": [
+            21,
+            22,
+            23,
+            24,
+            25
+          ]
+        },
+        {
+          "name": "Ursula (voice, offstage)",
+          "roles": [
+            4
+          ]
+        },
+        {
+          "name": "Ursula",
+          "roles": [
+            4
+          ]
+        },
+        {
+          "name": "Sebastian",
+          "roles": [
+            5
+          ]
+        }
+      ],
+      "act": 2
+    },
+    {
+      "n": 17,
+      "name": "Ariel's Grotto",
+      "songs": [],
+      "characters": [
+        {
+          "name": "Sea Chorus",
+          "roles": [
+            31,
+            32,
+            33,
+            34,
+            35
+          ]
+        },
+        {
+          "name": "King Triton",
+          "roles": [
+            3
+          ]
+        },
+        {
+          "name": "Sebastian",
+          "roles": [
+            5
+          ]
+        },
+        {
+          "name": "Flounder",
+          "roles": [
+            6
+          ]
+        }
+      ],
+      "act": 2
+    },
+    {
+      "n": 18,
+      "name": "Ursula's Lair",
+      "songs": [
+        {
+          "title": "Poor Unfortunate Souls (Reprise)",
+          "vocals": "https://youtu.be/WLm2CJ-rFf8?si=bduEGLtxx5kLAFyj",
+          "track": "https://youtu.be/_uqDXLLe8lc?si=MV7rE7i1Kv7s26X_"
+        }
+      ],
+      "characters": [
+        {
+          "name": "Sea Chorus",
+          "roles": [
+            31,
+            32,
+            33,
+            34,
+            35
+          ]
+        },
+        {
+          "name": "Ursula",
+          "roles": [
+            4
+          ]
+        },
+        {
+          "name": "Tentacles",
+          "roles": [
+            31,
+            32,
+            33,
+            34,
+            35
+          ]
+        },
+        {
+          "name": "Flotsam",
+          "roles": [
+            9
+          ]
+        },
+        {
+          "name": "Jetsam",
+          "roles": [
+            10
+          ]
+        },
+        {
+          "name": "Ariel",
+          "roles": [
+            1
+          ]
+        },
+        {
+          "name": "King Triton",
+          "roles": [
+            3
+          ]
+        },
+        {
+          "name": "Sebastian",
+          "roles": [
+            5
+          ]
+        },
+        {
+          "name": "Flounder",
+          "roles": [
+            6
+          ]
+        }
+      ],
+      "act": 2
+    },
+    {
+      "n": 19,
+      "name": "The Ocean Surface",
+      "songs": [
+        {
+          "title": "Confrontation",
+          "vocals": "https://youtu.be/0uBBHVWXgEI?si=IurjN6-p2q-WqRHp",
+          "track": "https://youtu.be/dxPdJEREPww?si=gASpKn52896SGyFZ"
+        }
+      ],
+      "characters": [
+        {
+          "name": "Ursula",
+          "roles": [
+            4
+          ]
+        },
+        {
+          "name": "Flounder",
+          "roles": [
+            6
+          ]
+        },
+        {
+          "name": "Sebastian",
+          "roles": [
+            5
+          ]
+        },
+        {
+          "name": "Ariel",
+          "roles": [
+            1
+          ]
+        },
+        {
+          "name": "Flotsam",
+          "roles": [
+            9
+          ]
+        },
+        {
+          "name": "Jetsam",
+          "roles": [
+            10
+          ]
+        },
+        {
+          "name": "Sea Chorus",
+          "roles": [
+            31,
+            32,
+            33,
+            34,
+            35
+          ]
+        },
+        {
+          "name": "Prince Eric",
+          "roles": [
+            2
+          ]
+        },
+        {
+          "name": "Pilot",
+          "roles": [
+            19
+          ]
+        }
+      ],
+      "act": 2
+    },
+    {
+      "n": 20,
+      "name": "The Beach",
+      "songs": [
+        {
+          "title": "Part of Your World (Finale)",
+          "vocals": "https://youtu.be/xg9JXA7Dkm0?si=q1mSO_-A3qrYor6s",
+          "track": "https://youtu.be/gSeqF6gXRGg?si=ynAOuo000SE4wzQu"
+        },
+        {
+          "title": "Human Again",
+          "vocals": "",
+          "track": ""
+        }
+      ],
+      "characters": [
+        {
+          "name": "Sea Chorus",
+          "roles": [
+            31,
+            32,
+            33,
+            34,
+            35
+          ]
+        },
+        {
+          "name": "King Triton",
+          "roles": [
+            3
+          ]
+        },
+        {
+          "name": "Ariel",
+          "roles": [
+            1
+          ]
+        },
+        {
+          "name": "Sebastian",
+          "roles": [
+            5
+          ]
+        },
+        {
+          "name": "Flounder",
+          "roles": [
+            6
+          ]
+        },
+        {
+          "name": "Prince Eric",
+          "roles": [
+            2
+          ]
+        },
+        {
+          "name": "Grimsby",
+          "roles": [
+            8
+          ]
+        }
+      ],
+      "act": 2
+    },
+    {
+      "n": 21,
+      "name": "Bows",
+      "songs": [
+        {
+          "title": "Under the Sea (Bows)",
+          "vocals": "https://youtu.be/fuyHIOkXxvk?si=A8kfS1BaVt1oqiZV",
+          "track": "https://youtu.be/fuyHIOkXxvk?si=A8kfS1BaVt1oqiZV"
+        }
+      ],
+      "characters": [
+        {
+          "name": "Full cast",
+          "roles": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            32,
+            33,
+            34,
+            35
+          ]
+        }
+      ],
+      "act": 2
+    }
+  ]
+}

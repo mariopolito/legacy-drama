@@ -1,0 +1,52 @@
+{
+  "_comment": "The Parent Volunteers page. Leave a button's \"url\" empty and it shows as a grey 'coming soon' box instead of a link.",
+  "orgName": "Parent Volunteers",
+  "lead": "The Little Mermaid JR. takes a whole crew of grown-ups as well as a cast of 35. Pick anything below that suits you, and thank you!",
+  "buttons": [
+    {
+      "icon": "🙋",
+      "label": "Sign up to volunteer",
+      "note": "Sign-up link coming soon",
+      "url": ""
+    },
+    {
+      "icon": "💙",
+      "label": "Donate to the musical fund",
+      "note": "Donation link coming soon",
+      "url": ""
+    }
+  ],
+  "committees": {
+    "heading": "Ways to help",
+    "intro": "Every bit of help counts, from an hour at one rehearsal to a whole run of shows.",
+    "items": [
+      {
+        "name": "Costumes",
+        "what": "Helping to thrift, make and/or buy costumes."
+      },
+      {
+        "name": "Sets",
+        "what": "Helping to thrift, make or create our sets."
+      },
+      {
+        "name": "Props",
+        "what": "Helping to thrift, make and/or buy props."
+      },
+      {
+        "name": "Rehearsal help",
+        "what": "Helping to supervise students and small groups during rehearsals.",
+        "linkLabel": "Pick a rehearsal",
+        "url": "calendar.html"
+      },
+      {
+        "name": "Performance backstage help",
+        "what": "Supervising students backstage during performances."
+      },
+      {
+        "name": "Performance frontstage help",
+        "what": "Photographer or videographer during performances, concessions, programs and more."
+      }
+    ]
+  },
+  "closing": "Contact club-email@example.org with questions."
+}

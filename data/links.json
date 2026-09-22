@@ -3,47 +3,30 @@
   "heading": "Links & Folders",
   "groups": [
     {
-      "title": "Open to everyone",
+      "title": "For students and families",
       "links": [
         {
           "icon": "📑",
-          "title": "Audition Materials",
-          "note": "Songs, sides and the audition form.",
+          "title": "Script & Materials",
+          "note": "Script, sides and rehearsal materials.",
           "url": "#"
         },
         {
-          "icon": "🎭",
-          "title": "Cast & Crew Folder",
-          "note": "Student and guardian materials.",
-          "url": "#"
+          "icon": "🎵",
+          "title": "Practice tracks",
+          "note": "Every song, with vocals and accompaniment-only versions.",
+          "url": "scenes.html#songs"
         },
         {
-          "icon": "🙏",
-          "title": "Join the Boosters",
-          "note": "Membership, committees and donations.",
-          "url": "boosters.html"
+          "icon": "🙋",
+          "title": "Volunteer to help during rehearsals",
+          "note": "Pick a rehearsal to help supervise.",
+          "url": "#"
         },
         {
           "icon": "💙",
-          "title": "Donate to the Drama Club",
-          "note": "Every dollar goes to the club.",
-          "url": "#"
-        }
-      ]
-    },
-    {
-      "title": "Boosters members only",
-      "links": [
-        {
-          "icon": "📁",
-          "title": "Production Folders",
-          "note": "",
-          "url": "#"
-        },
-        {
-          "icon": "📁",
-          "title": "Boosters Folders",
-          "note": "",
+          "title": "Musical fees & donations",
+          "note": "Pay musical fees or donate to the musical fund.",
           "url": "#"
         }
       ]

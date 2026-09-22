@@ -6,7 +6,9 @@
   "showTitle": "The Little Mermaid JR.",
   "tracks": [],
   "_tracksComment": "Double casting? List the two track names here, for example [\"Coral\", \"Pearl\"], and use them in cast.json and calendar.json. Leave the list empty for a single cast.",
-  "studyHallSignupUrl": "",
+  "helpLabel": "Rehearsal helpers",
+  "helpSignupUrl": "#",
+  "_helpComment": "Rehearsals marked \"helpers\": {\"volunteer\": \"Needed\"} in calendar.json show a Sign up button to this address until a parent's name replaces Needed. Replace # with the real sign-up link.",
   "sheet": {
     "_comment": "Published tabs of the Legacy Drama Club Website Content Sheet (CSV links). The site reads the copies in data/sheet-cache/, which the publish workflow refreshes when the Publish tab's stamp changes. A tab with no rows yet leaves the matching data file in charge.",
     "calendar": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRBxhJE96e0_Pg_knIGCZqx20plHLeFCXCwogoacSaKEbyv7_ZGJQu7-2KALouOzPD-ez3voX3EGm_G/pub?gid=1793370492&single=true&output=csv",
@@ -23,42 +25,43 @@
       "url": "mailto:sponsor@example.org"
     },
     {
-      "icon": "🙏",
+      "icon": "🙋",
       "label": "Want to help?",
-      "name": "Join the Boosters!",
-      "detail": "Membership, committees and donations",
-      "url": "boosters.html"
+      "name": "Parent Volunteers",
+      "detail": "Costumes, sets, props, rehearsals and show nights",
+      "url": "volunteers.html"
     },
     {
       "icon": "❓",
       "label": "Questions?",
       "name": "club-email@example.org",
-      "detail": "Legacy Drama Boosters",
+      "detail": "Legacy Drama Club",
       "url": "mailto:club-email@example.org"
     }
   ],
   "announcements": {
     "heading": "Announcements",
-    "upcomingHeading": "Coming up",
+    "upcomingHeading": "Upcoming events",
     "upcomingCount": 3,
     "upcomingEmpty": "Nothing else on the calendar right now.",
     "items": [
       {
         "icon": "🧜‍♀️",
         "title": "We're doing The Little Mermaid JR.!",
-        "detail": "Meet the characters before auditions.",
+        "detail": "Meet the cast and see every scene and song.",
         "url": "cast.html"
       },
       {
-        "icon": "🎤",
-        "title": "Auditions are coming",
-        "detail": "See the Calendar for audition and callback dates.",
+        "date": "October 22",
+        "icon": "📜",
+        "title": "First rehearsal",
+        "detail": "Contracts and read-through. All cast. See the Calendar for the full schedule.",
         "url": "calendar.html"
       },
       {
         "icon": "🚧",
         "title": "This website is a draft",
-        "detail": "Dates, names and links are placeholders until the club confirms them."
+        "detail": "Names, times and links are placeholders until the club confirms them."
       }
     ]
   },
